@@ -19,3 +19,4 @@ TODO
 - [CKEditor5](https://ckeditor.com/ckeditor-5/)
 - [Disqus](https://disqus.com)
 - [Sass](https://sass-lang.com)
+- [Laravel-Debugbar](https://github.com/barryvdh/laravel-debugbar)
