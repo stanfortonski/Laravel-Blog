@@ -11,7 +11,7 @@
 </a>
 
 <a class="dropdown-item" href="{{ route('admin.posts.create') }}">
-    {{ __('Create Post') }} <i class="ml-2 fas fa-plus"></i>
+    {{ __('Add Post') }} <i class="ml-2 fas fa-plus"></i>
 </a>
 
 <div class="dropdown-divider"></div>

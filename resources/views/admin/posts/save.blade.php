@@ -25,7 +25,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="title">{{ __('Title') }}*</label>
+                        <label for="title">{{ __('title') }}*</label>
                         <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ $post->title ?? '' }}" required>
                         @error('title')
                             <span class="invalid-feedback" role="alert">
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="content">{{ __('Content') }}*</label>
+                        <label for="content">{{ __('content') }}*</label>
                         <textarea id="content" name="content" class="textarea-ckeditor form-control">{{ $post->content ?? '' }}</textarea>
                         @error('content')
                             <span class="form-text text-danger" role="alert">
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-8">
-                                <x-input-thumbnail label="Thumbnail"></x-input-thumbnail>
+                                <x-input-thumbnail label="thumbnail"></x-input-thumbnail>
                             </div>
                             <div class="col-4">
                                 @if(!empty($post) && !empty($post->thumbnail_path))
@@ -60,7 +60,7 @@
                     <div class="form-group">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="is_visible" name="is_visible">
-                            <label class="custom-control-label" for="is_visible">{{ __('Visible') }}</label>
+                            <label class="custom-control-label" for="is_visible">{{ __('visible') }}</label>
                         </div>
                     </div>
 

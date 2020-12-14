@@ -25,7 +25,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="name">{{ __('Name') }}*</label>
+                        <label for="name">{{ __('name') }}*</label>
                         <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name ?? '' }}" required>
                         @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email">{{ __('E-mail') }}*</label>
+                        <label for="email">{{ __('E-Mail Address') }}*</label>
                         <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email ?? '' }}" required>
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col">
-                                <label for="first_name">{{ __('First Name') }}*</label>
+                                <label for="first_name">{{ __('first name') }}*</label>
                                 <input type="text" id="first_name" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name ?? ''}}" required>
                                 @error('first_name')
                                     <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="col">
-                                <label for="last_name">{{ __('Last Name') }}*</label>
+                                <label for="last_name">{{ __('last name') }}*</label>
                                 <input type="text" id="last_name" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ $user->last_name ?? '' }}" required>
                                 @error('last_name')
                                     <span class="invalid-feedback" role="alert">
@@ -69,7 +69,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="description">{{ __('Description') }}</label>
+                        <label for="description">{{ __('description') }}</label>
                         <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror">{{ $user->description ?? '' }}</textarea>
                         @error('description')
                             <span class="invalid-feedback" role="alert">
@@ -108,7 +108,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-8">
-                                <x-input-thumbnail label="Avatar"></x-input-thumbnail>
+                                <x-input-thumbnail label="avatar"></x-input-thumbnail>
                             </div>
                             <div class="col-4">
                                 @if(!empty($user) && !empty($user->thumbnail_path))

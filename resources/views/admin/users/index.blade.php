@@ -27,8 +27,8 @@
                                 <th scope="col">{{ __('Avatar') }}</th>
                                 <th scope="col">{{ __('Name') }}</th>
                                 <th scope="col">{{ __('Full Name') }}</th>
-                                <th scope="col">{{ __('E-mail') }}</th>
-                                <th scope="col">{{ __('Description') }}</th>
+                                <th scope="col">{{ __('E-Mail Address') }}</th>
+                                <th scope="col">{{ __('description') }}</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>

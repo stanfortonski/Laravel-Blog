@@ -24,9 +24,9 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">{{ __('ID') }}</th>
-                                <th scope="col">{{ __('Thumbnail') }}</th>
-                                <th scope="col">{{ __('Title') }}</th>
-                                <th scope="col">{{ __('Description') }}</th>
+                                <th scope="col">{{ __('thumbnail') }}</th>
+                                <th scope="col">{{ __('title') }}</th>
+                                <th scope="col">{{ __('description') }}</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>

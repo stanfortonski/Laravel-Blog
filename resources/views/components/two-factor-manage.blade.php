@@ -9,7 +9,7 @@
     </form>
 
     @if(session('status') == 'two-factor-authentication-enabled')
-        <p>{{ __('Please copy the following QR code int your phones authenticatior application') }}</p>
+        <p>{{ __('Please copy the following QR code int your phones authenticatior application.') }}</p>
         {!! auth()->user()->twoFactorQrCodeSvg() !!}
     @endif
 @else

@@ -25,7 +25,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="title">{{ __('Title') }}*</label>
+                        <label for="title">{{ __('title') }}*</label>
                         <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ $category->title ?? '' }}" required>
                         @error('title')
                             <span class="invalid-feedback" role="alert">
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="description">{{ __('Description') }}*</label>
+                        <label for="description">{{ __('description') }}*</label>
                         <textarea id="description" name="description" class="textarea-ckeditor form-control">{{ $category->description ?? '' }}</textarea>
                         @error('description')
                             <span class="form-text text-danger" role="alert">
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-8">
-                                <x-input-thumbnail label="Thumbnail"></x-input-thumbnail>
+                                <x-input-thumbnail label="thumbnail"></x-input-thumbnail>
                             </div>
                             <div class="col-4">
                                 @if(!empty($category) && !empty($category->thumbnail_path))
