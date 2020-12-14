@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategorySaveRequest;
 use App\Models\Category;
 use App\Services\ImageSaver;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class CategoriesController extends Controller
@@ -44,13 +47,23 @@ class CategoriesController extends Controller
      */
     public function store(CategorySaveRequest $request)
     {
-        $data = $request->validated();
-        if ($request->hasFile('thumbnail'))
-            $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-        unset($data['thumbnail']);
+        DB::beginTransaction();
+        try {
+            $data = $request->validated();
+            if ($request->hasFile('thumbnail'))
+                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+            unset($data['thumbnail']);
 
-        Category::create($data);
-        return redirect()->back()->withSuccess('admin.categories.store');
+            Category::create($data);
+            DB::coommit();
+
+            return redirect()->back()->withSuccess('admin.categories.store');
+        }
+        catch (Exception $e){
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return redirect()->back()->withError('admin.error');
+        }
     }
 
     /**
@@ -73,16 +86,25 @@ class CategoriesController extends Controller
      */
     public function update(CategorySaveRequest $request, Category $category)
     {
-        $data = $request->validated();
-        if ($request->hasFile('thumbnail')){
-            if (!empty($category->thumbnail_path))
-                Storage::delete('/public/thumbnails/'.$category->thumbnail_path);
-            $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-        }
-        unset($data['thumbnail']);
+        DB::beginTransaction();
+        try {
+            $data = $request->validated();
+            if ($request->hasFile('thumbnail')){
+                if (!empty($category->thumbnail_path))
+                    Storage::delete('/public/thumbnails/'.$category->thumbnail_path);
+                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+            }
+            unset($data['thumbnail']);
 
-        $category->update($data);
-        return redirect()->back()->withSuccess('admin.categories.update');
+            $category->update($data);
+            DB::commit();
+            return redirect()->back()->withSuccess('admin.categories.update');
+        }
+        catch (Exception $e){
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return redirect()->back()->withError('admin.error');
+        }
     }
 
     /**

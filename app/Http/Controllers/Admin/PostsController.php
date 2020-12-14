@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostSaveRequest;
 use App\Models\Post;
 use App\Services\ImageSaver;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -45,13 +47,21 @@ class PostsController extends Controller
      */
     public function store(PostSaveRequest $request)
     {
-        $data = $this->getValidatedData($request);
-        if ($request->hasFile('thumbnail'))
-            $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-        unset($data['thumbnail']);
+        DB::beginTransaction();
+        try {
+            $data = $this->getValidatedData($request);
+            if ($request->hasFile('thumbnail'))
+                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+            unset($data['thumbnail']);
 
-        Post::create($data);
-        return redirect()->back()->withSuccess('admin.posts.store');
+            Post::create($data);
+            return redirect()->back()->withSuccess('admin.posts.store');
+        }
+        catch (Exception $e){
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return redirect()->back()->withError('admin.error');
+        }
     }
 
     /**
@@ -74,18 +84,24 @@ class PostsController extends Controller
      */
     public function update(PostSaveRequest $request, Post $post)
     {
-        $data = $this->getValidatedData($request);
-        if ($request->hasFile('thumbnail')){
-            if (!empty($post->thumbnail_path))
-                Storage::delete('/public/thumbnails/'.$post->thumbnail_path);
-            $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+        DB::beginTransaction();
+        try {
+            $data = $this->getValidatedData($request);
+            if ($request->hasFile('thumbnail')){
+                if (!empty($post->thumbnail_path))
+                    Storage::delete('/public/thumbnails/'.$post->thumbnail_path);
+                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+            }
+            unset($data['thumbnail']);
+
+            $post->update($data);
+            return redirect()->back()->withSuccess('admin.posts.update');
         }
-        Log::alert($data);
-
-        unset($data['thumbnail']);
-
-        $post->update($data);
-        return redirect()->back()->withSuccess('admin.posts.update');
+        catch (Exception $e){
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return redirect()->back()->withError('admin.error');
+        }
     }
 
     /**

@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserSaveRequest;
 use App\Models\User;
 use App\Services\ImageSaver;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -47,13 +50,21 @@ class UsersController extends Controller
     {
         $this->validate($request, ['email' => Rule::unique('users')]);
 
-        $data = $request->validated();
-        if ($request->hasFile('thumbnail'))
-            $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-        unset($data['thumbnail']);
+        DB::beginTransaction();
+        try {
+            $data = $request->validated();
+            if ($request->hasFile('thumbnail'))
+                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+            unset($data['thumbnail']);
 
-        User::create($data);
-        return redirect()->back()->withSuccess('admin.users.store');
+            User::create($data);
+            return redirect()->back()->withSuccess('admin.users.store');
+        }
+        catch (Exception $e){
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return redirect()->back()->withError('admin.error');
+        }
     }
 
     /**
@@ -78,16 +89,24 @@ class UsersController extends Controller
     {
         $this->validate($request, ['email' => Rule::unique('users')->ignore($user->id)]);
 
-        $data = $request->validated();
-        if ($request->hasFile('thumbnail')){
-            if (!empty($user->thumbnail_path))
-                Storage::delete('/public/thumbnails/'.$user->thumbnail_path);
-            $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-        }
-        unset($data['thumbnail']);
+        DB::beginTransaction();
+        try {
+            $data = $request->validated();
+            if ($request->hasFile('thumbnail')){
+                if (!empty($user->thumbnail_path))
+                    Storage::delete('/public/thumbnails/'.$user->thumbnail_path);
+                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+            }
+            unset($data['thumbnail']);
 
-        $user->update($data);
-        return redirect()->back()->withSuccess('admin.users.update');
+            $user->update($data);
+            return redirect()->back()->withSuccess('admin.users.update');
+        }
+        catch (Exception $e){
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return redirect()->back()->withError('admin.error');
+        }
     }
 
     /**

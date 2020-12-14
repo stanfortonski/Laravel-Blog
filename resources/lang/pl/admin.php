@@ -17,5 +17,7 @@ return [
         'store' => 'Utworzono wpis',
         'update' => 'Zaktualizowano wpis',
         'destroy' => 'Usunięto wpis'
-    ]
+    ],
+
+    'error' => 'Unexpected error has occurred'
 ];
