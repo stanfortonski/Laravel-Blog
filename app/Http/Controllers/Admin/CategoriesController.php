@@ -55,7 +55,7 @@ class CategoriesController extends Controller
             unset($data['thumbnail']);
 
             Category::create($data);
-            DB::coommit();
+            DB::commit();
 
             return redirect()->back()->withSuccess('admin.categories.store');
         }
