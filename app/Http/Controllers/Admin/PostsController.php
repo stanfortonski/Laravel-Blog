@@ -72,7 +72,9 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.save')->with('post', $post);
+        if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod']))
+            return view('admin.posts.save')->with('post', $post);
+        else abort(403);
     }
 
     /**
@@ -84,24 +86,27 @@ class PostsController extends Controller
      */
     public function update(PostSaveRequest $request, Post $post)
     {
-        DB::beginTransaction();
-        try {
-            $data = $this->getValidatedData($request);
-            if ($request->hasFile('thumbnail')){
-                if (!empty($post->thumbnail_path))
-                    Storage::delete('/public/thumbnails/'.$post->thumbnail_path);
-                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-            }
-            unset($data['thumbnail']);
+        if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){
+            DB::beginTransaction();
+            try {
+                $data = $this->getValidatedData($request);
+                if ($request->hasFile('thumbnail')){
+                    if (!empty($post->thumbnail_path))
+                        Storage::delete('/public/thumbnails/'.$post->thumbnail_path);
+                    $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+                }
+                unset($data['thumbnail']);
 
-            $post->update($data);
-            return redirect()->back()->withSuccess('admin.posts.update');
+                $post->update($data);
+                return redirect()->back()->withSuccess('admin.posts.update');
+            }
+            catch (Exception $e){
+                DB::rollBack();
+                Log::error($e->getMessage());
+                return redirect()->back()->withError('admin.error');
+            }
         }
-        catch (Exception $e){
-            DB::rollBack();
-            Log::error($e->getMessage());
-            return redirect()->back()->withError('admin.error');
-        }
+        else abort(403);
     }
 
     /**
@@ -112,8 +117,11 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-        return redirect()->back()->withSuccess('admin.posts.destroy');
+        if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){
+            $post->delete();
+            return redirect()->back()->withSuccess('admin.posts.destroy');
+        }
+        else abort(403);
     }
 
     /**

@@ -9,8 +9,7 @@ class RoleSeeder extends Seeder
 {
     private $roles = [
         ['name' => 'admin', 'description' => 'Admin'],
-        ['name' => 'mod', 'description' => 'Moderator'],
-        ['name' => 'writer', 'description' => 'Writer']
+        ['name' => 'mod', 'description' => 'Moderator']
     ];
 
     public function run()
