@@ -14,6 +14,6 @@
             {{ __('Author') }}: <span itemprop="author">{{ $post->author->full_name }}</span>
         </p>
         <span itemprop="articleBody">{!! Helper::stripTags(__($post->description)) !!}</span>
-        <p><a href="{{ route('posts.show', $post->id) }}">{{ __('Read More') }}</a></p>
+        <p><a href="{{ route('posts.show', $post->url) }}">{{ __('Read More') }}</a></p>
     </div>
 </article>

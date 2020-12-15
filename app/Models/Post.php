@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use App\Interfaces\Searchable;
+use App\Traits\FindByUrl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
-use Illuminate\Support\Str;
 
 class Post extends Model implements Searchable, Feedable
 {
-    use HasFactory;
+    use HasFactory, FindByUrl;
 
     protected $casts = [
         'is_visible' => 'boolean',
@@ -43,11 +43,6 @@ class Post extends Model implements Searchable, Feedable
         if (strlen($this->content) > $maxLength);
             return substr($this->content, 0, $maxLength).'...';
         return $this->content;
-    }
-
-    public function getUrlAttribute()
-    {
-       return Str::of($this->title)->slug('-');
     }
 
     public function getThumbnailAttribute()
@@ -97,17 +92,5 @@ class Post extends Model implements Searchable, Feedable
     public function scopeNotVisible($query)
     {
         return $query->where('is_visible', 0)->orWhereNotNull('publish_at');
-    }
-
-    static public function findByUrl($url)
-    {
-        $title = str_replace('-', '', $url);
-        return static::where('title', '=', $title)->first();
-    }
-
-    static public function findOrFailByUrl($url)
-    {
-        $title = str_replace('-', '', $url);
-        return static::where('title', '=', $title)->firstOrFail();
     }
 }

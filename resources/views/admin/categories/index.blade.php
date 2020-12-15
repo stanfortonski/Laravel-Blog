@@ -50,7 +50,7 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink-{{ $loop->iteration }}">
-                                                <a class="dropdown-item" href="{{ route('categories.show', $category->id) }}">{{ __('Show') }}</a>
+                                                <a class="dropdown-item" href="{{ route('categories.show', $category->url) }}">{{ __('Show') }}</a>
                                                 <a class="dropdown-item" href="{{ route('admin.categories.edit', $category->id) }}">{{ __('Edit') }}</a>
                                             </div>
                                         </div>

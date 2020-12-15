@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Interfaces\Searchable;
+use App\Traits\FindByUrl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model implements Searchable
 {
-    use HasFactory;
+    use HasFactory, FindByUrl;
 
     public $timestamps = false;
 

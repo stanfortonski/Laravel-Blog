@@ -5,7 +5,7 @@
         <x-no-image :obj="$category" />
     @endif
     <div class="media-body">
-        <h5 class="mt-0"><a href="{{ route('categories.show', $category->id) }}">{{ __($category->title) }}</a></h5>
+        <h5 class="mt-0"><a href="{{ route('categories.show', $category->url) }}">{{ __($category->title) }}</a></h5>
         {!! Helper::stripTags(__($category->description)) !!}
     </div>
 </div>

@@ -51,7 +51,7 @@
                                         </a>
 
                                         @foreach(App\Models\Category::all() as $category)
-                                            <a class="dropdown-item" href="{{ route('categories.show', $category->id) }}">
+                                            <a class="dropdown-item" href="{{ route('categories.show', $category->url) }}">
                                                 {{ __($category->title) }}
                                             </a>
                                         @endforeach

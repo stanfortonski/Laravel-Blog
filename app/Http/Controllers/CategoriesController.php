@@ -21,11 +21,12 @@ class CategoriesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  string  $url
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($url)
     {
+        $category = Category::findOrFailByUrl($url);
         return view('app.categories.show')->with([
             'category' => $category,
             'posts' => $category->posts()->visible()->paginate(config('blog.pagination'))
