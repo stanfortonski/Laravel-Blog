@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-lg-10">
         <div class="card">
             <div class="card-header">
@@ -25,7 +25,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="name">{{ __('name') }}*</label>
+                        <label for="name">{{ __('Name') }}*</label>
                         <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name ?? '' }}" required>
                         @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col">
-                                <label for="first_name">{{ __('first name') }}*</label>
+                                <label for="first_name">{{ __('First Name') }}*</label>
                                 <input type="text" id="first_name" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name ?? ''}}" required>
                                 @error('first_name')
                                     <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="col">
-                                <label for="last_name">{{ __('last name') }}*</label>
+                                <label for="last_name">{{ __('Last Name') }}*</label>
                                 <input type="text" id="last_name" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ $user->last_name ?? '' }}" required>
                                 @error('last_name')
                                     <span class="invalid-feedback" role="alert">

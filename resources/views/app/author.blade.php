@@ -15,5 +15,4 @@
         {{ __($user->description) }}
     </div>
 </div>
-@endsectio
-n
+@endsection

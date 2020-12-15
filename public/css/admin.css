@@ -21325,3 +21325,11 @@ body {
           user-select: none;
 }
 
+th[scope=col]::first-letter {
+  text-transform: uppercase;
+}
+
+label::first-letter {
+  text-transform: uppercase;
+}
+

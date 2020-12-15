@@ -88,7 +88,13 @@
     "No image": "brak zdjęcia",
     "Enable": "Włącz",
     "Disable": "Wyłącz",
+    "Roles": "Uprawnienia",
+    "Choose file": "Wybierz plik",
+    "About": "O aplikacji",
     "Two factor authentication is disabled.": "Autoryzacja dwuetapowa jest wyłączona.",
     "Two factor authentication has been enabled.": "Autoryzacja dwuetapowa jest włączona.",
-    "Please copy the following QR code int your phones authenticatior application.": "Proszę skopuj ten QR kod do swojej aplikacji autoryzacyjnej na telefonie."
+    "Please copy the following QR code int your phones authenticatior application.": "Proszę skopuj ten QR kod do swojej aplikacji autoryzacyjnej na telefonie.",
+    "This is Blog based on Laravel.": "To jest blog stworzony za pomocą Laravel.",
+    "Learn more": "Dowiedz się więcej",
+    "Your Policy.": "Twoja polityka."
 }

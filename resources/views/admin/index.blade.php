@@ -3,8 +3,8 @@
 @section('title', __('Admin Panel'))
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
             <x-two-factor-manage />
         </div>
     </div>

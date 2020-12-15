@@ -54,7 +54,7 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink-{{ $loop->iteration }}">
-                                                <a class="dropdown-item" href="{{ route('posts.show', $post->id) }}">{{ __('Show') }}</a>
+                                                <a class="dropdown-item" href="{{ route('posts.show', $post->url) }}">{{ __('Show') }}</a>
                                                 <a class="dropdown-item" href="{{ route('admin.posts.edit', $post->id) }}">{{ __('Edit') }}</a>
                                             </div>
                                         </div>
