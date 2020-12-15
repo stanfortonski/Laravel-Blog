@@ -24,11 +24,12 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  string  $url
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($url)
     {
+        $post = Post::findOrFailByUrl($url);
         if ($post->isVisible())
             return view('app.posts.show')->with('post', $post);
         else abort(404);
