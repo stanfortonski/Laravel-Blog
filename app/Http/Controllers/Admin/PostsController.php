@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostSaveRequest;
 use App\Models\Post;
 use App\Services\ImageSaver;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class PostsController extends Controller
 {

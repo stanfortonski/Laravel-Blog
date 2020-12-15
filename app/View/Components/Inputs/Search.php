@@ -14,7 +14,7 @@ class Search extends Component
      *
      * @return void
      */
-    public function __construct($placeholder = 'Wyszukaj', $q = '')
+    public function __construct($placeholder = 'Search', $q = '')
     {
         $this->q = $q;
         $this->placeholder = $placeholder;
