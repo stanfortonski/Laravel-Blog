@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\Searchable;
-use App\Traits\FindByUrl;
+use App\Traits\HasUrl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Feed\Feedable;
@@ -11,7 +11,7 @@ use Spatie\Feed\FeedItem;
 
 class Post extends Model implements Searchable, Feedable
 {
-    use HasFactory, FindByUrl;
+    use HasFactory, HasUrl;
 
     protected $casts = [
         'is_visible' => 'boolean',

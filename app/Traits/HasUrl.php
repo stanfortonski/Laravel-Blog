@@ -3,7 +3,7 @@
 namespace App\Traits;
 use Illuminate\Support\Str;
 
-trait FindByUrl
+trait HasUrl
 {
     static public function findByUrl($url)
     {
