@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Stanfortonski\Laravelroles\Traits\HasRole;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements Searchable
 {
@@ -78,5 +79,26 @@ class User extends Authenticatable implements Searchable
             }
         }
         return $query;
+    }
+
+    static public function findByUrl($url)
+    {
+        $first_last = explode('-', $url);
+        if (count($first_last) == 2)
+            return static::where('first_name', '=', $first_last[0])->where('last_name', '=', $first_last[1])->first();
+        else abort(404);
+    }
+
+    static public function findOrFailByUrl($url)
+    {
+        $first_last = explode('-', $url);
+        if (count($first_last) == 2)
+            return static::where('first_name', '=', $first_last[0])->where('last_name', '=', $first_last[1])->firstOrFail();
+        else abort(404);
+    }
+
+    public function getUrlAttribute()
+    {
+       return $this->first_name.'-'.$this->last_name;
     }
 }
