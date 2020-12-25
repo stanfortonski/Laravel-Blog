@@ -2,7 +2,7 @@
 Laravel Blog 8.x
 
 ## About
-Laravel Blog application.
+This is Laravel 8.x Multi-language Blog System. Your template for blogging.
 
 ## Installation
 1. Everyting like standard Laravel installation (more in https://laravel.com/docs/8.x#installation):
@@ -30,7 +30,7 @@ Have fun :)
 
 ## Languages
 - Two languages are available by default English and Polish.
-- If you want to add new language you will make new folder for example de in resources/lang and copy everyting form resources/lang/en to this folder and create de.json in resources/lang folder. And then translate and set 'locale' and 'fallback_locale' in config/app.php to your language for example de.
+- If you want to add new language you will make new folder for example de in resources/lang and copy everyting form resources/lang/en to this folder and create de.json in resources/lang folder. And then translate and add your lang to 'available_locales' array in config/app.php.
 
 ## Libraries
 - [Laravel 8.x](https://laravel.com/docs/8.x)
