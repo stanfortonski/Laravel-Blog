@@ -34,18 +34,19 @@
                         </thead>
                         <tbody>
                             @foreach ($posts as $post)
+                                @php $content = $post->content()->first(); @endphp
                                 <tr>
                                     <th scope="row">{{ $post->id }}</th>
                                     <td><small>{{ implode(', ', $post->categories->pluck('title')->toArray()) }}</small></td>
                                     <td>
                                         @if(!empty($post->thumbnail_path))
-                                            <img class="img-fluid" src="{{ $post->thumbnail }}" alt="{{ $post->title }}">
+                                            <img class="img-fluid" src="{{ $post->thumbnail }}" alt="{{ $content->title ?? '' }}">
                                         @else
                                         {{ __('No image') }}
                                         @endif
                                     </td>
-                                    <td>{{ $post->title }}</td>
-                                    <td>{{ $post->description }}</td>
+                                    <td>{{ $content->title ?? '' }}</td>
+                                    <td>{!! Helper::stripTags($content->description ?? '') !!}</td>
                                     <td>{{ $post->author->full_name }}</td>
                                     <td>
                                         <div class="dropdown">
@@ -54,7 +55,9 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink-{{ $loop->iteration }}">
-                                                <a class="dropdown-item" href="{{ route('posts.show', $post->url) }}">{{ __('Show') }}</a>
+                                                @isset($content->url)
+                                                    <a class="dropdown-item" href="{{ route('posts.show', [app()->getLocale(), $content->url]) }}" target="_blank">{{ __('Show') }}</a>
+                                                @endisset
                                                 <a class="dropdown-item" href="{{ route('admin.posts.edit', $post->id) }}">{{ __('Edit') }}</a>
                                             </div>
                                         </div>

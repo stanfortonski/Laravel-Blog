@@ -4,18 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class NoImage extends Component
+class ChooseLangAdmin extends Component
 {
-    public $content;
-
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($content)
+    public function __construct()
     {
-        $this->content = $content;
+        //
     }
 
     /**
@@ -25,6 +23,6 @@ class NoImage extends Component
      */
     public function render()
     {
-        return view('components.no-image');
+        return view('components.choose-lang-admin');
     }
 }

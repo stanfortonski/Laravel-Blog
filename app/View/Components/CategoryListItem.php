@@ -7,6 +7,7 @@ use Illuminate\View\Component;
 class CategoryListItem extends Component
 {
     public $category;
+    public $content;
 
     /**
      * Create a new component instance.
@@ -16,6 +17,7 @@ class CategoryListItem extends Component
     public function __construct($category)
     {
         $this->category = $category;
+        $this->content = $category->content()->first();
     }
 
     /**

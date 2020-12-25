@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\Title;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostSaveRequest extends FormRequest
+class PostStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,12 @@ class PostSaveRequest extends FormRequest
     public function attributes()
     {
         return [
-            'title' => __('title'),
             'content' => __('content'),
-            'is_visible' => __('visible'),
+            'content.title' => __('title'),
+            'content.content' => __('content'),
             'publish_at' => __('publish at'),
-            'thumbnail' => __('thumbnail')
+            'thumbnail' => __('thumbnail'),
+            'categories' => __('Categories')
         ];
     }
 
@@ -41,12 +42,14 @@ class PostSaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'max:255', new Title],
-            'content' => ['required', 'string', 'max:65535'],
-            'is_visible' => ['required', 'boolean'],
+            'content' => ['required', 'array'],
+            'content.title' => ['required', 'string', 'max:255', new Title],
+            'content.content' => ['required', 'string', 'max:65535'],
             'publish_at_date' => ['nullable', 'date'],
             'publish_at_time' => ['nullable', 'date_format:H:i'],
-            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
+            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'categories' => ['nullable', 'array'],
+            'categories.*' => ['nullable', 'integer', 'exists:categories,id']
         ];
     }
 }

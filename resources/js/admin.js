@@ -11,16 +11,3 @@ if (textareas){
         console.error(err);
     });
 }
-
-window.onload = function(){
-    let changePassword = document.getElementById('change_password');
-
-    if  (changePassword){
-        changePassword.addEventListener('click', function(){
-            var el = document.getElementById('password-group');
-            if (this.checked)
-                el.classList.remove('d-none');
-            else el.classList.add('d-none');
-        });
-    }
-}

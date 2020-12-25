@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $user->full_name)
-@section('description', __($user->description))
+@section('description', $content->description ?? '')
 
 @section('content')
 <div class="row">
@@ -12,7 +12,7 @@
     @endif
     <div class="@if(empty($user->thumbnail_path)) col-12 @else col-8 @endif">
         <h1>{{ $user->full_name }}</h1>
-        {{ __($user->description) }}
+        {{ $content->content ?? '' }}
     </div>
 </div>
 @endsection

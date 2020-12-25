@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::feeds();
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::domain(config('app.url'))->group(function(){
+Route::get('/', 'AppController@start');
+
+Route::group([
+    'prefix' => '{lang}',
+    'middleware' => 'setlang',
+    'where' => ['locale' => '[a-zA-Z]{2}'],
+    'domain' => config('app.url'),
+], function(){
     Route::get('/', 'AppController@index')->name('index');
     Route::get('/about', 'AppController@about')->name('about');
     Route::get('/privacy-policy', 'AppController@privacyPolicy')->name('privacy-policy');

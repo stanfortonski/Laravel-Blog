@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategorySaveRequest;
+use App\Http\Requests\CategoryStoreRequest;
 use App\Models\Category;
+use App\Models\Content;
 use App\Services\ImageSaver;
 use Exception;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::orderBy('title', 'asc')->search($request->q)->paginate(config('blog.pagination'));
+        $categories = Category::with('content')->search($request->q)->paginate(config('blog.pagination'));
         return view('admin.categories.index')->with([
             'categories' => $categories,
             'q' => $request->q ?? ''
@@ -42,22 +43,26 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Requests\CategorySaveRequest  $request
+     * @param  \App\Requests\CategoryStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategorySaveRequest $request)
+    public function store(CategoryStoreRequest $request)
     {
         DB::beginTransaction();
         try {
-            $data = $request->validated();
+            $data = $this->getValidatedData($request);
             if ($request->hasFile('thumbnail'))
                 $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-            unset($data['thumbnail']);
 
-            Category::create($data);
+            $contentData = $request->content;
+            $contentData['lang'] = app()->getLocale();
+
+            $category = Category::create($data);
+            $content = Content::create($contentData);
+            $category->contents()->saveMany([$content]);
             DB::commit();
 
-            return redirect()->back()->withSuccess('admin.categories.store');
+            return redirect()->route('admin.categories.edit', $category->id)->withSuccess('admin.categories.store');
         }
         catch (Exception $e){
             DB::rollBack();
@@ -74,30 +79,42 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.categories.save')->with('category', $category);
+        return view('admin.categories.save')->with([
+            'category' => $category,
+            'content' => $category->content()->first()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Requests\CategorySaveRequest  $request
+     * @param  \App\Requests\CategoryStoreRequest  $request
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(CategorySaveRequest $request, Category $category)
+    public function update(CategoryStoreRequest $request, Category $category)
     {
         DB::beginTransaction();
         try {
-            $data = $request->validated();
+            $data = $this->getValidatedData($request);
             if ($request->hasFile('thumbnail')){
                 if (!empty($category->thumbnail_path))
                     Storage::delete('/public/thumbnails/'.$category->thumbnail_path);
                 $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
             }
-            unset($data['thumbnail']);
+
+            $contentData = $request->content;
+            $contentData['lang'] = app()->getLocale();
 
             $category->update($data);
+            $content = $category->content()->first();
+            if (empty($content)){
+                $content = Content::create($contentData);
+                $category->contents()->saveMany([$content]);
+            }
+            else $content->update($contentData);
             DB::commit();
+
             return redirect()->back()->withSuccess('admin.categories.update');
         }
         catch (Exception $e){
@@ -116,6 +133,19 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->back()->withSuccess('admin.categories.destroy');
+        return redirect()->route('admin.categories.index')->withSuccess('admin.categories.destroy');
+    }
+
+    /**
+     * Get Validated Data.
+     *
+     * @param  \App\Requests\CategoryStoreRequest  $request
+     * @return array
+     */
+    private function getValidatedData(CategoryStoreRequest $request): array
+    {
+        $data = $request->all();
+        unset($data['content'], $data['thumbnail']);
+        return $data;
     }
 }

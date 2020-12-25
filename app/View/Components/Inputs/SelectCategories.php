@@ -16,8 +16,11 @@ class SelectCategories extends Select
         $categories = Category::all();
 
         $options = [];
-        foreach ($categories as $category)
-            $options[$category->id] = $category->title;
+        foreach ($categories as $category){
+            $content = $category->content()->first();
+            if (!empty($content))
+                $options[$category->id] = $content->title;
+        }
 
         parent::__construct($options, 'categories', 'Categories', $value);
     }

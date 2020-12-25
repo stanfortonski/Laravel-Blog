@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('description', config('blog.description_length'))->nullable();
             $table->string('website')->nullable();
             $table->string('thumbnail_path')->nullable();
             $table->rememberToken();

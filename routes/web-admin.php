@@ -16,13 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'domain' => 'admin.'.config('app.url'),
     'namespace' => 'Admin',
-    'as' => 'admin.'
+    'as' => 'admin.',
+    'middleware' => 'setlang.admin'
 ], function(){
+    Route::get('/set-lang/{lang}', 'AdminController@setLang')->name('set-lang');
     Route::get('/', 'AdminController@index')->name('index');
 
     Route::resource('posts', 'PostsController')->except('show');
 
     Route::middleware('role:admin')->group(function(){
+        Route::put('/users/{user}/password', 'UsersPasswordController')->name('users.password');
         Route::resource('users', 'UsersController')->except('show');
         Route::resource('categories', 'CategoriesController')->except('show');
     });

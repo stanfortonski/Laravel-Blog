@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('title', __($post->title))
-@section('description', __($post->description))
+@section('title', $content->title)
+@section('description', Helper::stripTags($content->description))
 
 @section('content')
 <div class="row"  itemscope itemtype="http://schema.org/BlogPosting">
     <article class="col-12">
-        <h1 itemprop="name">{{ __($post->title) }}</h1>
+        <h1 itemprop="name">{{ $content->title }}</h1>
         <p itemprop="sdDatePublished">
-            {{ __('Created At') }}: <time itemprop="dateCreated">{{ $post->created_at->format(config('blog.timestamp_format')) }}</time><br>
-            {{ __('Updated At') }}: <time itemprop="dateModified">{{ $post->updated_at->format(config('blog.timestamp_format')) }}</time>
+            {{ __('Created At') }}: <time itemprop="dateCreated">{{ $content->created_at->format(config('blog.timestamp_format')) }}</time><br>
+            {{ __('Updated At') }}: <time itemprop="dateModified">{{ $content->updated_at->format(config('blog.timestamp_format')) }}</time>
         </p>
-        <span itemprop="articleBody">{!! Helper::stripTags(__($post->content)) !!}</span>
+        <span itemprop="articleBody">{!! Helper::stripTags($content->content) !!}</span>
     </article>
 
     <div class="col-12 mt-5" itemprop="author">
@@ -24,4 +24,4 @@
 </div>
 @endsection
 
-@include('components.disqus', ['id' => $post->id])
+@include('components.disqus', ['id' => $content->id])

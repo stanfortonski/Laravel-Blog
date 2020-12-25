@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsOfCategoriesTable extends Migration
+class CreateContentsOfCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreatePostsOfCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts_of_categories', function (Blueprint $table) {
+        Schema::create('contents_of_categories', function (Blueprint $table) {
+            $table->foreignId('content_id');
             $table->foreignId('category_id');
-            $table->foreignId('post_id');
 
-            $table->primary(['category_id', 'post_id']);
+            $table->primary(['content_id', 'category_id']);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('content_id')->references('id')->on('contents')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreatePostsOfCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts_of_categories');
+        Schema::dropIfExists('contents_of_categories');
     }
 }

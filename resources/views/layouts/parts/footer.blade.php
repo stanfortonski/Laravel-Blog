@@ -2,11 +2,11 @@
     <div>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('about') }}">{{ __('About') }}</a>
+                <a class="nav-link" href="{{ route('about', app()->getLocale()) }}">{{ __('About') }}</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('privacy-policy') }}">{{ __('Privacy Policy') }}</a>
+                <a class="nav-link" href="{{ route('privacy-policy', app()->getLocale()) }}">{{ __('Privacy Policy') }}</a>
             </li>
         </ul>
     </div>
