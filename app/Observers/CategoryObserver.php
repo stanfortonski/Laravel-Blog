@@ -30,13 +30,15 @@ class CategoryObserver
     }
 
     /**
-     * Handle the Category "deleted" event.
+     * Handle the Category "deleting" event.
      *
      * @param  \App\Models\Category  $category
      * @return void
      */
-    public function deleted(Category $category)
+    public function deleting(Category $category)
     {
+        $category->contents()->delete();
+
         if (!empty($category->thumnail_path))
             Storage::delete('/public/thumbnails/'.$category->thumbnail_path);
     }

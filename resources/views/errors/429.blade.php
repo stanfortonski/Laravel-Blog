@@ -7,7 +7,7 @@
     <h1>{{ __('errors.429.title') }} | 429</h1>
     <p>{{ __('errors.429.description') }}</p>
     <p>
-        <a href="{{ route('index') }}" class="btn btn-primary">
+        <a href="{{ route('index', app()->getLocale()) }}" class="btn btn-primary">
             {{ __('Back to Main Page') }}
         </a>
     </p>

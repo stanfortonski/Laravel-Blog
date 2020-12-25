@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateAuthorContentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function(Blueprint $table){
+        Schema::create('author_contents', function (Blueprint $table) {
             $table->id();
-            $table->boolean('is_visible')->default(0);
-            $table->string('thumbnail_path')->nullable();
             $table->foreignId('author_id');
-            $table->dateTime('publish_at')->nullable();
+            $table->string('lang', 2);
+            $table->string('content', config('blog.author_content_length'));
 
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
         });
@@ -31,6 +30,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('author_contents');
     }
 }

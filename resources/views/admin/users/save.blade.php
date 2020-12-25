@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @php $prefix = empty($user) ? __('Create') : __('Edit'); @endphp
-@section('title', $prefix.__('Users'))
+@section('title', $prefix.__('User'))
 
 @section('breadcrumbs')
-    <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('Users') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('User') }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{ $prefix }}</li>
 @endsection
 
@@ -13,13 +13,17 @@
     <div class="col-lg-10">
         <div class="card">
             <div class="card-header">
-                <span class="card-title h5">{{ $prefix }} {{ __('Users') }}</span>
+                <span class="card-title h5">{{ $prefix }} {{ __('User') }}</span>
             </div>
             <div class="card-body">
+                <div class="mb-2 text-right">
+                    <x-choose-lang-admin />
+                </div>
+
                 @if(empty($user))
-                    <form action="{{ route('admin.users.store') }}" method="POST">
+                    <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
                 @else
-                    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+                    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
                 @endif
                     @csrf
@@ -69,39 +73,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="description">{{ __('description') }}</label>
-                        <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror">{{ $user->description ?? '' }}</textarea>
-                        @error('description')
+                        <label for="content">{{ __('content') }}</label>
+                        <textarea id="content" name="content" class="form-control @error('content') is-invalid @enderror">{{ $content->content ?? '' }}</textarea>
+                        @error('content')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
-
-                    <div class="form-group @if(!empty($user)) d-none @endif" id="password-group">
-                        <label for="password">{{ __('Password') }}</label>
-                        <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    @if(!empty($user))
-                        <div class="form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="change_password" name="change_password">
-                                <label class="custom-control-label" for="change_password">{{ __('Change Password') }}</label>
-                            </div>
-                        </div>
-                    @endif
 
                     <div class="form-group">
                         @if(empty($user))
                             <x-select-roles />
                         @else
-                            <x-select-roles :selected="Arr::flatten($user->roles()->pluck('id')->values()->toArray()) ?? null" />
+                            <x-select-roles :value="Arr::flatten($user->roles()->pluck('id')->values()->toArray()) ?? null" />
                         @endif
                     </div>
 
@@ -112,7 +97,7 @@
                             </div>
                             <div class="col-4">
                                 @if(!empty($user) && !empty($user->thumbnail_path))
-                                    <img class="img-fluid" src="{{ $user->avatar }}" alt="{{ $user->title }}">
+                                    <img class="img-fluid" src="{{ $user->avatar }}" alt="Avatar">
                                 @endif
                             </div>
                         </div>
@@ -126,5 +111,60 @@
         </div>
     </div>
 </div>
+
+@if(!empty($user))
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title h5">{{ __('Change Password') }}</span>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.users.password', $user->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="form-group">
+                            <label for="password">{{ __('Password') }}</label>
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary">{{ __('Change') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title h5">{{ __('Delete') }} {{ __('User') }}</span>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">{{ __('Be careful when using this operation.') }}</p>
+                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">{{ __('Delete') }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 @endsection
 

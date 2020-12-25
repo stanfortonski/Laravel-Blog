@@ -37,7 +37,7 @@
                         <div class="collapse navbar-collapse">
                             <ul class="navbar-nav mr-auto navbar-main">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('index') }}">Start</a>
+                                    <a class="nav-link" href="{{ route('index', app()->getLocale()) }}">Start</a>
                                 </li>
 
                                 <li class="nav-item dropdown">
@@ -46,25 +46,34 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="categoriesDropdown">
-                                        <a class="dropdown-item" href="{{ route('categories.index') }}">
+                                        <a class="dropdown-item" href="{{ route('categories.index', app()->getLocale()) }}">
                                             {{ __('All') }}
                                         </a>
 
-                                        @foreach(App\Models\Category::all() as $category)
-                                            <a class="dropdown-item" href="{{ route('categories.show', $category->url) }}">
-                                                {{ __($category->title) }}
-                                            </a>
+                                        @foreach(App\Models\Category::with('content')->get() as $category)
+                                            @php $content = $category->content()->first(); @endphp
+                                            @if(!empty($content))
+                                                <a class="dropdown-item" href="{{ route('categories.show', [app()->getLocale(), $content->url]) }}">
+                                                    {{ __($content->title) }}
+                                                </a>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('posts.index') }}">{{ __('Posts') }}</a>
+                                    <a class="nav-link" href="{{ route('posts.index', app()->getLocale()) }}">{{ __('Posts') }}</a>
                                 </li>
                             </ul>
 
                             <ul class="navbar-nav ml-auto">
-                                <form method="GET" action="{{ route('posts.index') }}" class="form-inline my-2 my-lg-0">
+                                @foreach (config('app.available_locales') as $locale)
+                                    <li class="nav-item">
+                                        <a class="nav-link mr-1 @if (app()->getLocale() == $locale) font-weight-bold @endif" href="{{ route('index', $locale) }}">{{ strtoupper($locale) }}</a>
+                                    </li>
+                                @endforeach
+
+                                <form method="GET" action="{{ route('posts.index', app()->getLocale()) }}" class="form-inline my-2 my-lg-0">
                                     <input type="search" name="q" class="form-control mr-sm-2" placeholder="{{ __('Search') }}" aria-label="{{ __('Search') }}" value="{{ $q ?? '' }}">
                                     <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
                                 </form>

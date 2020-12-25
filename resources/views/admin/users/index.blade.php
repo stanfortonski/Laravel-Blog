@@ -28,7 +28,6 @@
                                 <th scope="col">{{ __('Name') }}</th>
                                 <th scope="col">{{ __('Full Name') }}</th>
                                 <th scope="col">{{ __('E-Mail Address') }}</th>
-                                <th scope="col">{{ __('description') }}</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -46,7 +45,6 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->full_name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->description }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{ $loop->iteration }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,7 +52,7 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink-{{ $loop->iteration }}">
-                                                <a class="dropdown-item" href="{{ route('author', $user->id) }}">{{ __('Show') }}</a>
+                                                <a class="dropdown-item" href="{{ route('author', [app()->getLocale(), $user->url]) }}" target="_blank">{{ __('Show') }}</a>
                                                 <a class="dropdown-item" href="{{ route('admin.users.edit', $user->id) }}">{{ __('Edit') }}</a>
                                             </div>
                                         </div>

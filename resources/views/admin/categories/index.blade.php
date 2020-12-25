@@ -32,17 +32,18 @@
                         </thead>
                         <tbody>
                             @foreach ($categories as $category)
+                                @php $content = $category->content()->first(); @endphp
                                 <tr>
                                     <th scope="row">{{ $category->id }}</th>
                                     <td>
                                         @if(!empty($category->thumbnail_path))
-                                            <img class="img-fluid" src="{{ $category->thumbnail }}" alt="{{ $category->title }}">
+                                            <img class="img-fluid" src="{{ $category->thumbnail }}" alt="{{ $content->title ?? '' }}">
                                         @else
                                         {{ __('No image') }}
                                         @endif
                                     </td>
-                                    <td>{{ $category->title }}</td>
-                                    <td>{{ $category->description }}</td>
+                                    <td>{{ $content->title ?? '' }}</td>
+                                    <td>{!! Helper::stripTags($content->description ?? '') !!}</td>
                                     <td>
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{ $loop->iteration }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,7 +51,9 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink-{{ $loop->iteration }}">
-                                                <a class="dropdown-item" href="{{ route('categories.show', $category->url) }}">{{ __('Show') }}</a>
+                                                @isset($content->url)
+                                                    <a class="dropdown-item" href="{{ route('categories.show', [app()->getLocale(), $content->url]) }}" target="_blank">{{ __('Show') }}</a>
+                                                @endisset
                                                 <a class="dropdown-item" href="{{ route('admin.categories.edit', $category->id) }}">{{ __('Edit') }}</a>
                                             </div>
                                         </div>

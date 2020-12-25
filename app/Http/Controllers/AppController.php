@@ -8,20 +8,14 @@ use Illuminate\Http\Request;
 
 class AppController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function start(Request $request)
     {
         $max = config('blog.main_page_max_random_count');
         $postsCount = Post::count();
-        $posts = Post::with('author')->visible()->get()->random($postsCount > $max ? $max : $postsCount);
+        $posts = Post::with(['author', 'content'])->visible()->get()->random($postsCount > $max ? $max : $postsCount);
 
         $categoriesCount = Category::count();
-        $categories = Category::all()->random($categoriesCount > $max ? $max : $categoriesCount);
+        $categories = Category::with('content')->get()->random($categoriesCount > $max ? $max : $categoriesCount);
 
         return view('app.index')->with([
             'posts' => $posts,
@@ -29,12 +23,24 @@ class AppController extends Controller
         ]);
     }
 
-    public function about(Request $request)
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param string $lang
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request, $lang)
+    {
+        return $this->start($request);
+    }
+
+    public function about(Request $request, $lang)
     {
         return view('app.about');
     }
 
-    public function privacyPolicy(Request $request)
+    public function privacyPolicy(Request $request, $lang)
     {
         return view('app.privacy-policy');
     }

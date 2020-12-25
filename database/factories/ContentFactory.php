@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Post;
-use App\Models\User;
+use App\Models\Content;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostFactory extends Factory
+class ContentFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Post::class;
+    protected $model = Content::class;
 
     /**
      * Define the model's default state.
@@ -23,10 +22,8 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'is_visible' => rand(0, 1),
-            'thumbnail_path' => null,
-            'publish_at' => null,
-            'author_id' => User::all()->random()->id
+            'title' => $this->faker->words(rand(1, 4), true),
+            'content' => $this->faker->paragraphs(5, true)
         ];
     }
 }

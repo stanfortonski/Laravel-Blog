@@ -3,14 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Content;
 use App\Models\Post;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class PostSeeder extends Seeder
 {
-    const POSTS_COUNT = 30;
-
     /**
      * Run the database seeds.
      *
@@ -18,13 +17,24 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory()->count(static::POSTS_COUNT)->create();
-
-        for ($i = 1; $i <= static::POSTS_COUNT; ++$i){
+        Post::factory()->count(30)->create()->each(function($post){
             DB::table('posts_of_categories')->insert([
-                'post_id' => $i,
+                'post_id' => $post->id,
                 'category_id' => Category::all()->random()->id,
             ]);
-        }
+
+            $locales = config('app.available_locales');
+            $contentDefault = Content::factory()->create(['lang' => $locales[0]]);
+            DB::table('contents_of_posts')->insert([
+                'post_id' => $post->id,
+                'content_id' => $contentDefault->id,
+            ]);
+
+            $contentSecond = Content::factory()->create(['lang' => $locales[1]]);
+            DB::table('contents_of_posts')->insert([
+                'post_id' => $post->id,
+                'content_id' => $contentSecond->id,
+            ]);
+        });
     }
 }

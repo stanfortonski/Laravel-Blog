@@ -38,6 +38,8 @@ class UserObserver
      */
     public function deleting(User $user)
     {
+        $user->contents()->delete();
+
         $user->posts()->each(function($post){
             $post->delete();
         });

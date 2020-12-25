@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class AdminController extends Controller
 {
@@ -16,5 +17,11 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         return view('admin.index');
+    }
+
+    public function setLang($lang)
+    {
+        Cookie::queue('lang', $lang);
+        return redirect()->back();
     }
 }

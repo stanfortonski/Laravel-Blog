@@ -65,6 +65,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \Stanfortonski\Laravelroles\Middleware\Role::class,
         'roles' => \Stanfortonski\Laravelroles\Middleware\OneOfRoles::class,
-        'allofroles' => \Stanfortonski\Laravelroles\Middleware\AllOfRoles::class
+        'allofroles' => \Stanfortonski\Laravelroles\Middleware\AllOfRoles::class,
+        'setlang' => \App\Http\Middleware\SetLang::class,
+        'setlang.admin' => \App\Http\Middleware\SetLangInAdminPanel::class,
     ];
 }

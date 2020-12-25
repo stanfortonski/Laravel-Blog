@@ -22,8 +22,6 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->word,
-            'description' => substr($this->faker->paragraph(), 0, 255),
             'thumbnail_path' => null
         ];
     }

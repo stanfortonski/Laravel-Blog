@@ -7,6 +7,7 @@ use Illuminate\View\Component;
 class PostListItem extends Component
 {
     public $post;
+    public $content;
 
     /**
      * Create a new component instance.
@@ -16,6 +17,7 @@ class PostListItem extends Component
     public function __construct($post)
     {
         $this->post = $post;
+        $this->content = $post->content->first();
     }
 
     /**

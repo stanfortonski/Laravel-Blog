@@ -9,12 +9,16 @@ class AuthorsController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  string  $lang
      * @param  string  $url
      * @return \Illuminate\Http\Response
      */
-    public function __invoke($url)
+    public function __invoke($lang, $url)
     {
         $user = User::findOrFailByUrl($url);
-        return view('app.author')->with('user', $user);
+        return view('app.author')->with([
+            'user' => $user,
+            'content' => $user->content()->first()
+        ]);
     }
 }

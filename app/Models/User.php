@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Stanfortonski\Laravelroles\Traits\HasRole;
-use Illuminate\Support\Str;
 
 class User extends Authenticatable implements Searchable
 {
@@ -26,7 +25,6 @@ class User extends Authenticatable implements Searchable
         'last_name',
         'password',
         'email',
-        'description',
         'website',
         'thumbnail_path'
     ];
@@ -52,9 +50,9 @@ class User extends Authenticatable implements Searchable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts()
+    public function getAvatarAttribute()
     {
-        return $this->hasMany(Post::class, 'user_id', 'id');
+        return asset('storage/public/thumbnails/'.$this->thumbnail_path);
     }
 
     public function getFullNameAttribute()
@@ -62,9 +60,24 @@ class User extends Authenticatable implements Searchable
         return $this->first_name.' '.$this->last_name;
     }
 
-    public function getAvatarAttribute()
+    public function getUrlAttribute()
     {
-        return asset('storage/public/thumbnails/'.$this->thumbnail_path);
+       return $this->first_name.'-'.$this->last_name;
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id', 'id');
+    }
+
+    public function content()
+    {
+        return $this->hasOne(AuthorContent::class, 'author_id', 'id')->where('lang', '=', app()->getLocale());
+    }
+
+    public function contents()
+    {
+        return $this->hasOne(AuthorContent::class, 'author_id', 'id');
     }
 
     public function scopeSearch($query, $searchData)
@@ -72,6 +85,7 @@ class User extends Authenticatable implements Searchable
         if (!empty($searchData)){
             $searchData = trim($searchData);
             $queries = explode(' ', $searchData);
+
             foreach ($queries as $q){
                 $query->orWhere('first_name', 'like', '%'.$q.'%')
                 ->orWhere('last_name', 'like', '%'.$q.'%')
@@ -95,10 +109,5 @@ class User extends Authenticatable implements Searchable
         if (count($first_last) == 2)
             return static::where('first_name', '=', $first_last[0])->where('last_name', '=', $first_last[1])->firstOrFail();
         else abort(404);
-    }
-
-    public function getUrlAttribute()
-    {
-       return $this->first_name.'-'.$this->last_name;
     }
 }

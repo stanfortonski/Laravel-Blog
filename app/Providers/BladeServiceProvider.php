@@ -16,7 +16,8 @@ class BladeServiceProvider extends ServiceProvider
         'post-list-item' => \App\View\Components\PostListItem::class,
         'category-list-item' => \App\View\Components\CategoryListItem::class,
         'author-note' => \App\View\Components\AuthorNote::class,
-        'two-factor-manage' => \App\View\Components\TwoFactorManage::class
+        'two-factor-manage' => \App\View\Components\TwoFactorManage::class,
+        'choose-lang-admin' => \App\View\Components\ChooseLangAdmin::class
     ];
 
     /**
