@@ -17,7 +17,7 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::search($request->q)->paginate(config('blog.pagination'));
+        $categories = Category::with(['contents'])->search($request->q)->paginate(config('blog.pagination'));
         return CategoryResource::collection($categories);
     }
 
