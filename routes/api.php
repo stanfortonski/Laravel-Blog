@@ -22,7 +22,7 @@ Route::group([
     'namespace' => 'API',
     'as' => 'api.'
 ], function(){
-    Route::get('authors/{author}', 'AuthorsController');
+    Route::get('authors/{author}', 'AuthorsController')->name('author');
     Route::resource('posts', 'PostsController')->only(['index', 'show']);
     Route::resource('categories', 'CategoriesController')->only(['index', 'show']);
 });
