@@ -11,7 +11,7 @@ class PostsTest extends TestCase
     {
         $response = $this->get(route('posts.index', app()->getLocale()));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function testShow()
@@ -20,6 +20,6 @@ class PostsTest extends TestCase
 
         $response = $this->get(route('posts.show', [app()->getLocale(), $url]));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }

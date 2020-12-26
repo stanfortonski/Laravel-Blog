@@ -11,7 +11,7 @@ class CategoriesTest extends TestCase
     {
         $response = $this->getJson(route('api.categories.index'));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function testShow()
@@ -20,6 +20,6 @@ class CategoriesTest extends TestCase
 
         $response = $this->getJson(route('api.categories.show', $id));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }

@@ -10,6 +10,7 @@ use App\Services\ImageSaver;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -112,7 +113,7 @@ class UsersController extends Controller
             $user->update($data);
             $this->saveRoles($request, $user);
             $content = $user->content()->first();
-            if (!empty($content)){
+            if (empty($content)){
                 $content = new AuthorContent;
                 $content->content = $request->content;
                 $content->lang = app()->getLocale();
@@ -151,6 +152,8 @@ class UsersController extends Controller
     private function getValidatedData(UserStoreRequest $request): array
     {
         $data = $request->validated();
+        if (!empty($data['password']))
+            $data['password'] = Hash::make($data['password']);
         unset($data['content'], $data['thumbnail'], $data['roles']);
         return $data;
     }

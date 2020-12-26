@@ -11,7 +11,7 @@ class PostsTest extends TestCase
     {
         $response = $this->getJson(route('api.posts.index'));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function testShow()
@@ -20,6 +20,6 @@ class PostsTest extends TestCase
 
         $response = $this->getJson(route('api.posts.show', $id));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }

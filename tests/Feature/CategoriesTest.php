@@ -11,7 +11,7 @@ class CategoriesTest extends TestCase
     {
         $response = $this->get(route('categories.index', app()->getLocale()));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function testShow()
@@ -20,6 +20,6 @@ class CategoriesTest extends TestCase
 
         $response = $this->get(route('categories.show', [app()->getLocale(), $url]));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }

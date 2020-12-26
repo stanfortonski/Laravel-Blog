@@ -13,6 +13,6 @@ class AuthorTest extends TestCase
 
         $response = $this->get(route('author', [app()->getLocale(), $user->url]));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }

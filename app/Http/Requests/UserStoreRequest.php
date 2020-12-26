@@ -27,7 +27,8 @@ class UserStoreRequest extends FormRequest
             'content' => __('content'),
             'website' => __('website'),
             'thumbnail' => __('thumbnail'),
-            'roles' => __('Roles')
+            'roles' => __('Roles'),
+            'password' => __('Password')
         ];
     }
 
@@ -48,6 +49,7 @@ class UserStoreRequest extends FormRequest
             'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'roles' => ['nullable', 'array'],
             'roles.*' => ['nullable', 'integer', 'exists:roles,id'],
+            'password' => ['sometimes', 'string', new Password]
         ];
     }
 }

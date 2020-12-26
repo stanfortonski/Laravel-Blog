@@ -13,6 +13,6 @@ class AuthorTest extends TestCase
 
         $response = $this->getJson(route('api.author', $user->id));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }
