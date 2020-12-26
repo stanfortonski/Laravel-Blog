@@ -99,7 +99,6 @@ class PostsController extends Controller
      */
     public function update(PostStoreRequest $request, Post $post)
     {
-        Log::alert($request->all());
         if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){
             DB::beginTransaction();
             try {
@@ -158,7 +157,7 @@ class PostsController extends Controller
      */
     private function getValidatedData(PostStoreRequest $request): array
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['author_id'] = auth()->user()->id;
         $data['is_visible'] = $request->has('is_visible');
         if (!empty($data['publish_at_date'])){

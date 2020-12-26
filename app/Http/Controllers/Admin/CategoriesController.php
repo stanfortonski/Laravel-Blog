@@ -144,7 +144,7 @@ class CategoriesController extends Controller
      */
     private function getValidatedData(CategoryStoreRequest $request): array
     {
-        $data = $request->all();
+        $data = $request->validated();
         unset($data['content'], $data['thumbnail']);
         return $data;
     }
