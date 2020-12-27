@@ -39,16 +39,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email">{{ __('E-Mail Address') }}*</label>
-                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email ?? '' }}" required>
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
                         <div class="form-row">
                             <div class="col">
                                 <label for="first_name">{{ __('First Name') }}*</label>
@@ -72,9 +62,19 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="email">{{ __('E-Mail Address') }}*</label>
+                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email ?? '' }}" required>
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
                     @if(empty($user))
                         <div class="form-group">
-                            <label for="password">{{ __('Password') }}</label>
+                            <label for="password">{{ __('Password') }}*</label>
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -83,6 +83,16 @@
                             @enderror
                         </div>
                     @endif
+
+                    <div class="form-group">
+                        <label for="website">{{ __('website') }}</label>
+                        <input type="text" id="website" name="website" class="form-control @error('website') is-invalid @enderror" value="{{ $user->website ?? '' }}">
+                        @error('website')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
 
                     <div class="form-group">
                         <label for="content">{{ __('content') }}</label>

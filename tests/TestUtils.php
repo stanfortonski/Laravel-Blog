@@ -7,7 +7,7 @@ use App\Models\User;
 trait TestUtils
 {
     public function getRandomUser(){
-        return $this->getUserNotPrivileged('admin');
+        return User::all()->random();
     }
 
     public function getAdmin(){
