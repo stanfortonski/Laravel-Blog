@@ -28,13 +28,16 @@ class UserPanelController extends Controller
             'first_name' => ['required', 'string', 'max:255', new Name],
             'last_name' => ['required', 'string', 'max:255', new Name],
             'name' => ['required', 'string', 'max:255', new Name, Rule::unique('users', 'name')->ignore($user->id)],
-            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)]
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
+            'content' => ['nullable', 'string', 'max:255'],
+            'website' => ['nullable', 'url', 'max:255'],
         ], [], [
             'first_name' => __('First Name'),
             'last_name' => __('Last Name'),
             'name' => __('Name'),
             'email' => __('E-Mail Address'),
-            'content' => __('content')
+            'content' => __('content'),
+            'website' => __('website')
         ]);
 
         DB::beginTransaction();
@@ -43,7 +46,8 @@ class UserPanelController extends Controller
                 'email' => $request->email,
                 'name' => $request->name,
                 'first_name' => $request->first_name,
-                'last_name' => $request->last_name
+                'last_name' => $request->last_name,
+                'website' => $request->website
             ]);
 
             $content = $user->content()->first();

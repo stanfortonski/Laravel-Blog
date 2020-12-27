@@ -36,7 +36,7 @@ class UsersTest extends TestCase
 
     public function testEdit()
     {
-        $user = User::all()->random();
+        $user = $this->getRandomUser();
 
         $response = $this->actingAs($this->admin)->get(route('admin.users.edit', $user->id));
 
@@ -45,7 +45,7 @@ class UsersTest extends TestCase
 
     public function testDestroy()
     {
-        $user = User::all()->random();
+        $user = $this->getRandomUser();
 
         $response = $this->actingAs($this->admin)->delete(route('admin.users.destroy', $user->id));
 
@@ -58,7 +58,7 @@ class UsersTest extends TestCase
 
     public function testChangePassword()
     {
-        $user = User::all()->random();
+        $user = $this->getRandomUser();
         $password = Str::random(8);
 
         $response = $this->actingAs($this->admin)->put(route('admin.users.password', $user->id), [
