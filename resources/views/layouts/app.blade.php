@@ -75,7 +75,7 @@
 
                                 <form method="GET" action="{{ route('posts.index', app()->getLocale()) }}" class="form-inline my-2 my-lg-0">
                                     <input type="search" name="q" class="form-control mr-sm-2" placeholder="{{ __('Search') }}" aria-label="{{ __('Search') }}" value="{{ $q ?? '' }}">
-                                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">{{ __('Search') }}</button>
+                                    <button type="submit" class="btn btn-outline-secondary my-2 my-sm-0">{{ __('Search') }}</button>
                                 </form>
 
                                 @auth

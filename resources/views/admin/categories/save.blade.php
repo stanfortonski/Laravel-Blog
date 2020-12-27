@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button class="btn btn-primary">{{ $prefix }}</button>
+                        <button type="submit" class="btn btn-primary">{{ $prefix }}</button>
                     </div>
                 </form>
             </div>
@@ -82,7 +82,7 @@
                     <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger">{{ __('Delete') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
                     </form>
                 </div>
             </div>
