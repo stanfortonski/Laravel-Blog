@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class PostResource extends JsonResource
 {
@@ -14,6 +15,11 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'contents' => $this->contents()->get()->values()->toArray(),
+            'thumbnail' => $this->thumbnail,
+            'author' => new UserResource($this->author)
+        ];
     }
 }
