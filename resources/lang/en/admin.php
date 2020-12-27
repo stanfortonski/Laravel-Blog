@@ -20,5 +20,10 @@ return [
         'destroy' => 'Post was deleted.'
     ],
 
+    'userpanel' => [
+        'update' => 'Changed was saved.',
+        'password' => 'Changed was saved.'
+    ],
+
     'error' => 'Unexpected error has occurred.'
 ];

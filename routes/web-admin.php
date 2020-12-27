@@ -29,4 +29,13 @@ Route::group([
         Route::resource('users', 'UsersController')->except('show');
         Route::resource('categories', 'CategoriesController')->except('show');
     });
+
+    Route::group([
+        'as' => 'user-panel.',
+        'prefix' => 'user-panel'
+    ], function(){
+        Route::get('/', 'UserPanelController@index')->name('index');
+        Route::put('/', 'UserPanelController@update')->name('update');
+        Route::put('/password', 'UserPanelController@updatePassword')->name('password');
+    });
 });

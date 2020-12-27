@@ -20,5 +20,10 @@ return [
         'destroy' => 'Usunięto wpis.'
     ],
 
+    'userpanel' => [
+        'update' => 'Zmiany zostały zapisane.',
+        'password' => 'Zmiany zostały zapisane.'
+    ],
+
     'error' => 'Wystąpił niespodziewany błąd.'
 ];

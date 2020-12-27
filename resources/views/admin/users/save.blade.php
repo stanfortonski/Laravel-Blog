@@ -4,7 +4,7 @@
 @section('title', $prefix.__('User'))
 
 @section('breadcrumbs')
-    <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('User') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">{{ __('Users') }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{ $prefix }}</li>
 @endsection
 
@@ -52,7 +52,7 @@
                         <div class="form-row">
                             <div class="col">
                                 <label for="first_name">{{ __('First Name') }}*</label>
-                                <input type="text" id="first_name" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name ?? ''}}" required>
+                                <input type="text" id="first_name" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name ?? '' }}" required>
                                 @error('first_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

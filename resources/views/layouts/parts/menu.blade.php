@@ -6,7 +6,7 @@
     {{ __('Admin Panel') }} <i class="ml-2 fas fa-desktop"></i>
 </a>
 
-<a class="dropdown-item" href="{{ route('index', app()->getLocale()) }}">
+<a class="dropdown-item" href="{{ route('admin.user-panel.index') }}">
     {{ __('User Panel') }} <i class="ml-2 fas fa-user-cog"></i>
 </a>
 
