@@ -1,5 +1,5 @@
 # Laravel-Blog
-Laravel Blog 8.x
+Laravel Blog 8.x  ![Laravel](https://github.com/stanfortonski/Laravel-Blog/workflows/Laravel/badge.svg)
 
 ## About
 This is Laravel 8.x Multi-language Blog System. Your template for blogging.
