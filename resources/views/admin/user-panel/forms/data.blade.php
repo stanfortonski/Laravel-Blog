@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col">
+    <div class="col-lg-10">
         <div class="card">
             <div class="card-header">
                 <span class="card-title h5">{{ __('Change Account Data') }}</span>
