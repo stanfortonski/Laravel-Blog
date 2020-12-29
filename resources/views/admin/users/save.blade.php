@@ -20,7 +20,7 @@
                     <x-choose-lang-admin />
                 </div>
 
-                @empty($user))
+                @empty($user)
                     <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
                 @else
                     <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
@@ -72,7 +72,7 @@
                         @enderror
                     </div>
 
-                    @empty($user))
+                    @empty($user)
                         <div class="form-group">
                             <label for="password">{{ __('Password') }}*</label>
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -105,7 +105,7 @@
                     </div>
 
                     <div class="form-group">
-                        @empty($user))
+                        @empty($user)
                             <x-select-roles />
                         @else
                             <x-select-roles :value="Arr::flatten($user->roles()->pluck('id')->values()->toArray()) ?? null" />

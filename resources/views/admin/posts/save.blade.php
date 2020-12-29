@@ -20,7 +20,7 @@
                     <x-choose-lang-admin />
                 </div>
 
-                @empty($post))
+                @empty($post)
                     <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
                 @else
                     <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
@@ -92,7 +92,7 @@
                     </div>
 
                     <div class="form-group">
-                        @empty($post))
+                        @empty($post)
                             <x-select-categories />
                         @else
                             <x-select-categories :value="Arr::flatten($post->categories()->pluck('id')->values()->toArray()) ?? null" />
