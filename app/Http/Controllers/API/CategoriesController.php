@@ -17,7 +17,7 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::with(['contents'])->search($request->q)->paginate(config('blog.pagination'));
+        $categories = Category::with(['contents'])->has('contents')->search($request->q)->paginate(config('blog.pagination'));
         return CategoryResource::collection($categories);
     }
 
@@ -29,6 +29,8 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
-        return new CategoryResource($category);
+        if (!empty($category->contents))
+            return new CategoryResource($category);
+        else abort(404);
     }
 }

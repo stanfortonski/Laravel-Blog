@@ -18,6 +18,7 @@ class PostsTest extends TestCase
         parent::setUp();
 
         $this->admin = $this->getAdmin();
+        $this->post = Post::all()->random();
     }
 
     public function testIndex()
@@ -36,68 +37,58 @@ class PostsTest extends TestCase
 
     public function testEdit()
     {
-        $post = Post::all()->random();
-
-        $response = $this->actingAs($this->admin)->get(route('admin.posts.edit', $post->id));
+        $response = $this->actingAs($this->admin)->get(route('admin.posts.edit', $this->post->id));
 
         $response->assertOk();
     }
 
     public function testEditByAuthor()
     {
-        $post = Post::all()->random();
-
-        $response = $this->actingAs($post->author)->get(route('admin.posts.edit', $post->id));
+        $response = $this->actingAs($this->post->author)->get(route('admin.posts.edit', $this->post->id));
 
         $response->assertOk();
     }
 
     public function testEditByNotPrivileged()
     {
-        $post = Post::all()->random();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('admin.posts.edit', $post->id));
+        $response = $this->actingAs($user)->get(route('admin.posts.edit', $this->post->id));
 
         $response->assertStatus(403);
     }
 
     public function testDestroy()
     {
-        $post = Post::all()->random();
-
-        $response = $this->actingAs($this->admin)->delete(route('admin.posts.destroy', $post->id));
+        $response = $this->actingAs($this->admin)->delete(route('admin.posts.destroy', $this->post->id));
 
         $response->assertSessionHas('success');
         $response->assertStatus(302);
 
-        $emptyPost = Post::find($post->id);
+        $emptyPost = Post::find($this->post->id);
         $this->assertEmpty($emptyPost);
     }
 
     public function testDestroyByAuthor()
     {
-        $post = Post::all()->random();
-
-        $response = $this->actingAs($post->author)->delete(route('admin.posts.destroy', $post->id));
+        $response = $this->actingAs($this->post->author)->delete(route('admin.posts.destroy', $this->post->id));
 
         $response->assertSessionHas('success');
         $response->assertStatus(302);
 
-        $emptyPost = Post::find($post->id);
+        $emptyPost = Post::find($this->post->id);
         $this->assertEmpty($emptyPost);
     }
 
     public function testDestroyByNotPrivileged()
     {
-        $post = Post::all()->random();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('admin.posts.destroy', $post->id));
+        $response = $this->actingAs($user)->delete(route('admin.posts.destroy', $this->post->id));
 
         $response->assertStatus(403);
 
-        $notEmptyPost = Post::find($post->id);
+        $notEmptyPost = Post::find($this->post->id);
         $this->assertNotEmpty($notEmptyPost);
     }
 
@@ -132,7 +123,6 @@ class PostsTest extends TestCase
 
     public function testUpdate()
     {
-        $post = Post::all()->random();
         $data = Post::factory()->make()->toArray();
         $data['_token'] = csrf_token();
         $data['content'] = [
@@ -144,18 +134,18 @@ class PostsTest extends TestCase
         if ($data['is_visible'] == 0)
             unset($data['is_visible']);
 
-        $response = $this->actingAs($this->admin)->put(route('admin.posts.update', $post->id), $data);
+        $response = $this->actingAs($this->admin)->put(route('admin.posts.update', $this->post->id), $data);
 
         $response->assertStatus(302);
         $response->assertSessionHas('success');
 
-        $post->refresh();
-        $this->assertEquals($data['publish_at'], $post->publish_at, 'Publish At');
+        $this->post->refresh();
+        $this->assertEquals($data['publish_at'], $this->post->publish_at, 'Publish At');
         if (empty($data['is_visible']))
-            $this->assertEquals(0, $post->is_visible, 'Visible');
-        else $this->assertEquals($data['is_visible'], $post->is_visible, 'Visible');
-        $this->assertEquals($data['content']['title'], $post->content()->first()->title, 'Title');
-        $this->assertEquals($data['content']['content'], $post->content()->first()->content, 'Content');
-        $this->assertEquals($data['categories'], Arr::flatten($post->categories()->pluck('id')->values()->toArray()), 'Categories');
+            $this->assertEquals(0, $this->post->is_visible, 'Visible');
+        else $this->assertEquals($data['is_visible'], $this->post->is_visible, 'Visible');
+        $this->assertEquals($data['content']['title'], $this->post->content()->first()->title, 'Title');
+        $this->assertEquals($data['content']['content'], $this->post->content()->first()->content, 'Content');
+        $this->assertEquals($data['categories'], Arr::flatten($this->post->categories()->pluck('id')->values()->toArray()), 'Categories');
     }
 }

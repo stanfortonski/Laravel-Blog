@@ -13,7 +13,7 @@ class CategoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->category = Category::all()->random();
+        $this->category = Category::has('content')->get()->random();
     }
 
     public function testContent()

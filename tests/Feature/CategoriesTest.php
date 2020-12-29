@@ -16,7 +16,7 @@ class CategoriesTest extends TestCase
 
     public function testShow()
     {
-        $url = Category::all()->random()->content()->firstOrFail()->url;
+        $url = Category::has('content')->get()->random()->content()->firstOrFail()->url;
 
         $response = $this->get(route('categories.show', [app()->getLocale(), $url]));
 

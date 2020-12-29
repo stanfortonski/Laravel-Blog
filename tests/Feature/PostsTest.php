@@ -16,7 +16,7 @@ class PostsTest extends TestCase
 
     public function testShow()
     {
-        $url = Post::visible()->get()->random()->content()->firstOrFail()->url;
+        $url = Post::has('content')->visible()->get()->random()->content()->firstOrFail()->url;
 
         $response = $this->get(route('posts.show', [app()->getLocale(), $url]));
 
