@@ -40,7 +40,7 @@ class PostObserver
         $post->contents()->delete();
 
         if (!empty($post->thumnail_path))
-            Storage::delete('/public/thumbnails/'.$post->thumbnail_path);
+            Storage::delete('public/thumbnails/'.$post->thumbnail_path);
     }
 
     /**

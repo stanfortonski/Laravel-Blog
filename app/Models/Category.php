@@ -18,7 +18,7 @@ class Category extends Model implements Searchable
 
     public function getThumbnailAttribute()
     {
-        return asset('storage/public/thumbnails/'.$this->thumbnail_path);
+        return asset('storage/thumbnails/'.$this->thumbnail_path);
     }
 
     public function posts()

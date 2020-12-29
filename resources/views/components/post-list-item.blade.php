@@ -1,6 +1,6 @@
 <article class="media my-2" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
     @if(!empty($post->thumbnail_path))
-        <img src="{{ $post->thumbnail }}" class="mr-3" alt="{{ $content->title }}" itemprop="image">
+        <img src="{{ $post->thumbnail }}" class="img-fluid mr-3" alt="{{ $content->title }}" itemprop="image" width="128" height="128">
     @else
         <x-no-image :content="$content" />
     @endif

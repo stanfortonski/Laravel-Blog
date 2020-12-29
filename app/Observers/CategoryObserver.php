@@ -40,7 +40,7 @@ class CategoryObserver
         $category->contents()->delete();
 
         if (!empty($category->thumnail_path))
-            Storage::delete('/public/thumbnails/'.$category->thumbnail_path);
+            Storage::delete('public/thumbnails/'.$category->thumbnail_path);
     }
 
     /**

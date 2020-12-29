@@ -28,7 +28,7 @@ class Post extends Model implements Searchable, Feedable
 
     public function getThumbnailAttribute()
     {
-        return asset('storage/public/thumbnails/'.$this->thumbnail_path);
+        return asset('storage/thumbnails/'.$this->thumbnail_path);
     }
 
     public function isVisible()

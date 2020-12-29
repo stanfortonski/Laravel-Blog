@@ -119,7 +119,8 @@
                             </div>
                             <div class="col-4">
                                 @if(!empty($user) && !empty($user->thumbnail_path))
-                                    <img class="img-fluid" src="{{ $user->avatar }}" alt="Avatar">
+                                    <span>{{ __('Current') }}</span>
+                                    <img class="img-fluid mt-1" src="{{ $user->avatar }}" alt="Avatar">
                                 @endif
                             </div>
                         </div>

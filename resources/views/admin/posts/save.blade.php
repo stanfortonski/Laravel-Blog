@@ -55,7 +55,8 @@
                             </div>
                             <div class="col-4">
                                 @if(!empty($post) && !empty($post->thumbnail_path))
-                                    <img class="img-fluid" src="{{ $post->thumbnail }}" alt="{{ $content->title }}">
+                                    <span>{{ __('Current') }}</span>
+                                    <img class="img-fluid mt-1" src="{{ $post->thumbnail }}" alt="{{ $content->title }}">
                                 @endif
                             </div>
                         </div>

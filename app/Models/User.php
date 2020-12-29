@@ -52,7 +52,7 @@ class User extends Authenticatable implements Searchable
 
     public function getAvatarAttribute()
     {
-        return asset('storage/public/thumbnails/'.$this->thumbnail_path);
+        return asset('storage/thumbnails/'.$this->thumbnail_path);
     }
 
     public function getFullNameAttribute()
