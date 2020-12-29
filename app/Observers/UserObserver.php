@@ -43,6 +43,9 @@ class UserObserver
         $user->posts()->each(function($post){
             $post->delete();
         });
+
+        if (!empty($user->thumbnail_path))
+            Storage::delete('public/thumbnails/'.$user->thumbnail_path);
     }
 
     /**
@@ -53,8 +56,7 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        if (!empty($user->thumnail_path))
-            Storage::delete('public/thumbnails/'.$user->thumbnail_path);
+        //
     }
 
     /**

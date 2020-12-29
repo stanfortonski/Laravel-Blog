@@ -67,7 +67,7 @@ class User extends Authenticatable implements Searchable
 
     public function posts()
     {
-        return $this->hasMany(Post::class, 'user_id', 'id');
+        return $this->hasMany(Post::class, 'author_id', 'id');
     }
 
     public function content()

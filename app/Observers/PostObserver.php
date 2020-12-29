@@ -35,12 +35,23 @@ class PostObserver
      * @param  \App\Models\Post  $post
      * @return void
      */
-    public function deleted(Post $post)
+    public function deleting(Post $post)
     {
         $post->contents()->delete();
 
-        if (!empty($post->thumnail_path))
+        if (!empty($post->thumbnail_path))
             Storage::delete('public/thumbnails/'.$post->thumbnail_path);
+    }
+
+    /**
+     * Handle the Post "deleted" event.
+     *
+     * @param  \App\Models\Post  $post
+     * @return void
+     */
+    public function deleted(Post $post)
+    {
+        //
     }
 
     /**

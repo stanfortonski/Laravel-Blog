@@ -39,8 +39,19 @@ class CategoryObserver
     {
         $category->contents()->delete();
 
-        if (!empty($category->thumnail_path))
+        if (!empty($category->thumbnail_path))
             Storage::delete('public/thumbnails/'.$category->thumbnail_path);
+    }
+
+    /**
+     * Handle the Category "deleted" event.
+     *
+     * @param  \App\Models\Category  $category
+     * @return void
+     */
+    public function deleted(Category $category)
+    {
+       //
     }
 
     /**
