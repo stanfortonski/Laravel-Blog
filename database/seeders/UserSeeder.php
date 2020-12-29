@@ -12,8 +12,8 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'root',
-            'first_name' => 'Stan',
-            'last_name' => 'Fortoński',
+            'first_name' => 'Super',
+            'last_name' => 'User',
             'email' => 'admin@laravel-blog.test',
             'website' => 'https://stanfortonski.dev',
             'password' => Hash::make('rootroot'),

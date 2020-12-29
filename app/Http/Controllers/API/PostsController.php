@@ -17,7 +17,7 @@ class PostsController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::with(['author', 'categories', 'contents'])->visible()->search($request->q)->orderBy('id', 'desc')->paginate(config('blog.pagination'));
+        $posts = Post::with(['author', 'categories', 'contents'])->has('contents')->visible()->search($request->q)->orderBy('id', 'desc')->paginate(config('blog.pagination'));
         return PostResource::collection($posts);
     }
 
@@ -29,7 +29,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        if ($post->isVisible())
+        if ($post->isVisible() && !empty($post->contents))
             return new PostResource($post);
         else abort(404);
     }

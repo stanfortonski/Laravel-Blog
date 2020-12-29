@@ -16,7 +16,7 @@ class CategoriesController extends Controller
      */
     public function index(Request $request, $lang)
     {
-        $categories = Category::with('content')->search($request->q)->paginate(config('blog.pagination'));
+        $categories = Category::with('content')->has('content')->search($request->q)->paginate(config('blog.pagination'));
         return view('app.categories.index')->with('categories', $categories);
     }
 
@@ -33,8 +33,8 @@ class CategoriesController extends Controller
 
         return view('app.categories.show')->with([
             'category' => $category,
-            'content' => $category->content()->firstOrFail(),
-            'posts' => $category->posts()->visible()->paginate(config('blog.pagination'))
+            'content' => $category->content()->first(),
+            'posts' => $category->posts()->has('content')->visible()->paginate(config('blog.pagination'))
         ]);
     }
 }

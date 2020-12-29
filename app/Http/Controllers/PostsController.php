@@ -16,7 +16,7 @@ class PostsController extends Controller
      */
     public function index(Request $request, $lang)
     {
-        $posts = Post::with(['author', 'content'])->visible()->search($request->q)->orderBy('id', 'desc')->paginate(config('blog.pagination'));
+        $posts = Post::with(['author', 'content'])->has('content')->visible()->search($request->q)->orderBy('id', 'desc')->paginate(config('blog.pagination'));
         return view('app.posts.index')->with([
             'q' => $request->q ?? '',
             'posts' => $posts

@@ -13,7 +13,7 @@ class PostTest extends TestCase
     {
         parent::setUp();
 
-        $this->post = Post::visible()->get()->random();
+        $this->post = Post::has('content')->visible()->get()->random();
     }
 
     public function testContent()

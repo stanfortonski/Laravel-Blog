@@ -16,7 +16,7 @@ class PostsTest extends TestCase
 
     public function testShow()
     {
-        $id = Post::visible()->get()->random()->id;
+        $id = Post::has('content')->visible()->get()->random()->id;
 
         $response = $this->getJson(route('api.posts.show', $id));
 
