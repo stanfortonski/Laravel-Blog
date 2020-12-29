@@ -20,12 +20,12 @@
                     <x-choose-lang-admin />
                 </div>
 
-                @if(empty($category))
+                @empty($category))
                     <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
                 @else
                     <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
-                @endif
+                @endempty
                     @csrf
 
                     <div class="form-group">

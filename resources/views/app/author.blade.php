@@ -10,7 +10,7 @@
             <img class="img-fluid" src="{{ $user->avatar }}" alt="{{ $user->full_name }}">
         </div>
     @endif
-    <div class="@if(empty($user->thumbnail_path)) col-12 @else col-8 @endif">
+    <div class="@empty($user->thumbnail_path)) col-12 @else col-8 @endempty">
         <h1>{{ $user->full_name }}</h1>
         {{ $content->content ?? '' }}
     </div>

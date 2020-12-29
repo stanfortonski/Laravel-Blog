@@ -8,7 +8,7 @@
                 <img src="{{ $author->thumbnail }}" alt="{{ $author->full_name }} - {{ config('app.name') }}" itemprop="image">
             </div>
         @endif
-        <div class="@if(empty($author->thumbnail_path)) col-12 @else col-8 @endif">
+        <div class="@empty($author->thumbnail_path)) col-12 @else col-8 @endempty">
             <h5 itemprop="name">{{ $author->full_name }}</h5>
             <span itemprop="description">{{ $author->content()->first()->description ?? '' }}</span>
         </div>
