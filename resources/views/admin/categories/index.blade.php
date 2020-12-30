@@ -37,9 +37,9 @@
                                     <th scope="row">{{ $category->id }}</th>
                                     <td>
                                         @if(!empty($category->thumbnail_path))
-                                            <img class="img-fluid" src="{{ $category->thumbnail }}" alt="{{ $content->title ?? '' }}">
+                                            <img class="img-fluid" src="{{ $category->thumbnail }}" alt="{{ $content->title ?? '' }}" width="144" height="144">
                                         @else
-                                        {{ __('No image') }}
+                                            {{ __('No image') }}
                                         @endif
                                     </td>
                                     <td>{{ $content->title ?? '' }}</td>

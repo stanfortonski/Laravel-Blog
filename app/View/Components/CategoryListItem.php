@@ -8,16 +8,18 @@ class CategoryListItem extends Component
 {
     public $category;
     public $content;
+    public $index;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($category)
+    public function __construct($category, $index)
     {
         $this->category = $category;
         $this->content = $category->content()->first();
+        $this->index = $index;
     }
 
     /**

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('Posts'))
+@section('description', __('Posts').' '.__('in').' '.config('app.name'))
 
 @section('content')
 <div class="row">

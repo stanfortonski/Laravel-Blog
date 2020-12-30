@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('Categories'))
+@section('description', __('Categories').' '.__('in').' '.config('app.name'))
 
 @section('content')
 <div class="row">
@@ -9,9 +10,11 @@
     </div>
 </div>
 <div class="row">
-    <div class="col">
+    <div class="col" itemscope itemtype="https://schema.org/ItemList">
+        <meta itemprop="numberOfItems" content="{{$categories->total()}}">
+        <meta itemprop="itemListOrder" content="Unordered">
         @foreach($categories as $category)
-            <x-category-list-item :category="$category" />
+            <x-category-list-item :category="$category" :index="$loop->index" />
         @endforeach
     </div>
 </div>

@@ -24,10 +24,10 @@
 <body itemscope itemtype="http://schema.org/WebPage">
     <div id="app" class="c-app">
         <div class="c-wrapper">
-            <header class="c-header c-header-dark">
-                <nav class="w-100 navbar navbar-expand-md navbar-dark" v-pre>
+            <header class="c-header c-header-dark" itemscope itemtype="http://schema.org/WPHeader">
+                <nav class="w-100 navbar navbar-expand-md navbar-dark">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="{{ url('/') }}">
+                        <a class="navbar-brand" href="{{ url('/') }}" itemprop="name">
                             {{ config('app.name') }}
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -35,18 +35,18 @@
                         </button>
 
                         <div class="collapse navbar-collapse">
-                            <ul class="navbar-nav mr-auto navbar-main">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('index', app()->getLocale()) }}">Start</a>
+                            <ul class="navbar-nav mr-auto navbar-main" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
+                                <li class="nav-item" itemprop="hasPart">
+                                    <a class="nav-link" itemprop="url" href="{{ route('index', app()->getLocale()) }}">Start</a>
                                 </li>
 
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown" itemprop="hasPart">
                                     <a id="categoriesDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         {{ __('Categories') }}
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="categoriesDropdown">
-                                        <a class="dropdown-item" href="{{ route('categories.index', app()->getLocale()) }}">
+                                        <a itemprop="url" class="dropdown-item" href="{{ route('categories.index', app()->getLocale()) }}">
                                             {{ __('All') }}
                                         </a>
 
@@ -61,15 +61,15 @@
                                     </div>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('posts.index', app()->getLocale()) }}">{{ __('Posts') }}</a>
+                                <li class="nav-item" itemprop="hasPart">
+                                    <a itemprop="url" class="nav-link" href="{{ route('posts.index', app()->getLocale()) }}">{{ __('Posts') }}</a>
                                 </li>
                             </ul>
 
                             <ul class="navbar-nav ml-auto">
                                 @foreach (config('app.available_locales') as $locale)
                                     <li class="nav-item">
-                                        <a class="nav-link mr-1 @if (app()->getLocale() == $locale) font-weight-bold @endif" href="{{ route('index', $locale) }}">{{ strtoupper($locale) }}</a>
+                                        <a class="nav-link mr-1 @if(app()->getLocale() == $locale) font-weight-bold @endif" href="{{ route('index', $locale) }}">{{ strtoupper($locale) }}</a>
                                     </li>
                                 @endforeach
 

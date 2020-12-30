@@ -7,6 +7,7 @@
     <meta name="description" content="@yield('description', '')">
     <meta name="keywords" content="@yield('keywords', 'Laravel, Blog, Better than WordPress')">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="robots" content="noindex,nofollow">
 
     <title>{{ config('app.name') }}</title>
 
@@ -24,7 +25,7 @@
     <div id="app" class="c-app">
         <div class="c-wrapper">
             <header class="c-header c-header-dark">
-                <nav class="w-100 navbar navbar-expand-md navbar-dark" v-pre>
+                <nav class="w-100 navbar navbar-expand-md navbar-dark">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="{{ url('/') }}">
                             {{ config('app.name') }}

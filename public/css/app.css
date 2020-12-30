@@ -14388,14 +14388,19 @@ button.bg-primary:focus {
   background-color: #2819ae !important;
 }
 
-.bg-secondary {
+.bg-secondary,
+.article .article-header {
   background-color: #ced2d8 !important;
 }
 
 a.bg-secondary:hover,
+.article a.article-header:hover,
 a.bg-secondary:focus,
+.article a.article-header:focus,
 button.bg-secondary:hover,
-button.bg-secondary:focus {
+.article button.article-header:hover,
+button.bg-secondary:focus,
+.article button.article-header:focus {
   background-color: #b2b8c1 !important;
 }
 
@@ -14513,7 +14518,8 @@ button.bg-dark:focus {
   border-color: #212333 !important;
 }
 
-.bg-white {
+.bg-white,
+.article .article-body {
   background-color: #fff !important;
 }
 
@@ -14903,7 +14909,9 @@ button.bg-gray-900:focus {
   border-color: #fff !important;
 }
 
-.rounded-sm {
+.rounded-sm,
+.article .article-body,
+.article .article-header {
   border-radius: 0.2rem !important;
 }
 
@@ -21326,5 +21334,24 @@ th[scope=col]::first-letter {
 
 label::first-letter {
   text-transform: uppercase;
+}
+
+.card {
+  border: none !important;
+}
+
+.card .card-header {
+  border-bottom: none !important;
+  background: #ced2d8;
+}
+
+.card .card-footer {
+  border-top: none !important;
+  background: #f6f7f8;
+}
+
+.article .article-header {
+  display: flex;
+  justify-items: start;
 }
 

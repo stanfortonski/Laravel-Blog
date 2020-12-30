@@ -1,0 +1,13 @@
+.card{
+    border: none !important;
+
+    .card-header{
+        border-bottom: none !important;
+        background: $bgCardHeader;
+    }
+
+    .card-footer{
+        border-top: none !important;
+        background: $bgCardFooter;
+    }
+}

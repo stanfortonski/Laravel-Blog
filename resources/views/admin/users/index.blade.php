@@ -37,9 +37,9 @@
                                     <th scope="row">{{ $user->id }}</th>
                                     <td>
                                         @if(!empty($user->thumbnail_path))
-                                            <img class="img-fluid" src="{{ $user->avatar }}" alt="{{ $user->name }}">
+                                            <img class="img-fluid" src="{{ $user->avatar }}" alt="{{ $user->name }}" width="144" height="144">
                                         @else
-                                        {{ __('No image') }}
+                                            {{ __('No image') }}
                                         @endif
                                     </td>
                                     <td>{{ $user->name }}</td>

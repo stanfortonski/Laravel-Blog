@@ -7,6 +7,7 @@ use Illuminate\View\Component;
 class AuthorNote extends Component
 {
     public $author;
+    public $content;
 
     /**
      * Create a new component instance.
@@ -16,6 +17,7 @@ class AuthorNote extends Component
     public function __construct($author)
     {
         $this->author = $author;
+        $this->content = $author->content()->first();
     }
 
     /**

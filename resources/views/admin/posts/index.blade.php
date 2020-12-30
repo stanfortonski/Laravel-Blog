@@ -40,9 +40,9 @@
                                     <td><small>{{ implode(', ', $post->categories->pluck('title')->toArray()) }}</small></td>
                                     <td>
                                         @if(!empty($post->thumbnail_path))
-                                            <img class="img-fluid" src="{{ $post->thumbnail }}" alt="{{ $content->title ?? '' }}">
+                                            <img class="img-fluid" src="{{ $post->thumbnail }}" alt="{{ $content->title ?? '' }}" width="144" height="144">
                                         @else
-                                        {{ __('No image') }}
+                                            {{ __('No image') }}
                                         @endif
                                     </td>
                                     <td>{{ $content->title ?? '' }}</td>

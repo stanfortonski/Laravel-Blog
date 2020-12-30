@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('About'))
-@section('description', __('About').' Laravel-Blog')
+@section('description', __('About').' '.config('app.name'))
 
 @section('content')
 <div class="row">

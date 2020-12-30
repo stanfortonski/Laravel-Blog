@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', config('app.name'))
-@section('description', 'Laravel-Blog App')
+@section('description', __('This is a Laravel-Blog App.'))
 
 @section('content')
 <div class="row">
@@ -26,10 +26,12 @@
 @endif
 @if($categories->count() > 0)
     <div class="row mt-5">
-        <div class="col">
+        <div class="col" itemscope itemtype="https://schema.org/ItemList">
             <h3 class="text-center">{{ __('Random') }} {{ __('Categories') }}</h3>
             @foreach($categories as $category)
-                <x-category-list-item :category="$category" />
+                <meta itemprop="numberOfItems" content="{{$categories->total()}}">
+                <meta itemprop="itemListOrder" content="Unordered">
+                <x-category-list-item :category="$category" :index="$loop->index" />
             @endforeach
         </div>
     </div>

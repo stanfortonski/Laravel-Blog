@@ -1,0 +1,11 @@
+.article{
+    .article-header{
+        @extend .bg-secondary, .rounded-sm;
+        display: flex;
+        justify-items: start;
+    }
+
+    .article-body{
+        @extend .bg-white, .rounded-sm;
+    }
+}
