@@ -5,6 +5,14 @@
 
 @section('content')
 <div class="row" itemscope itemtype="http://schema.org/BlogPosting">
+    @auth
+        @if (auth()->user()->hasRole('admin') || auth()->user()->id == $post->author_id)
+            <div class="col-12 mb-3 text-right">
+                <a href="{{ route('admin.posts.edit', $post->id) }} " class="btn btn-secondary">Edytuj</a>
+            </div>
+        @endif
+    @endauth
+
     <article class="article col-12">
         <div class="article-header">
             @if(!empty($post->thumbnail_path))

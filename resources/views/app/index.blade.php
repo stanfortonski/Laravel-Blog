@@ -29,7 +29,7 @@
         <div class="col" itemscope itemtype="https://schema.org/ItemList">
             <h3 class="text-center">{{ __('Random') }} {{ __('Categories') }}</h3>
             @foreach($categories as $category)
-                <meta itemprop="numberOfItems" content="{{$categories->total()}}">
+                <meta itemprop="numberOfItems" content="{{$categories->count()}}">
                 <meta itemprop="itemListOrder" content="Unordered">
                 <x-category-list-item :category="$category" :index="$loop->index" />
             @endforeach
