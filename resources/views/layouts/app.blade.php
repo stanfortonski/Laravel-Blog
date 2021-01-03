@@ -53,9 +53,11 @@
                                         @foreach(App\Models\Category::with('content')->get() as $category)
                                             @php $content = $category->content()->first(); @endphp
                                             @if(!empty($content))
-                                                <a class="dropdown-item" href="{{ route('categories.show', [app()->getLocale(), $content->url]) }}">
-                                                    {{ __($content->title) }}
-                                                </a>
+                                                <span itemprop="hasPart">
+                                                    <a itemprop="url" class="dropdown-item" href="{{ route('categories.show', [app()->getLocale(), $content->url]) }}">
+                                                        {{ __($content->title) }}
+                                                    </a>
+                                                </span>
                                             @endif
                                         @endforeach
                                     </div>
