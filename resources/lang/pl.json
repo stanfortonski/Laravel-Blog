@@ -58,7 +58,8 @@
     "Your's web browser do not support JavaScript.": "Twoja przeglądarka nie obsługuje JavaScriptu",
     "Two Factor Authentication": "Weryfikacja dwuetapowa",
     "access to panel": "dostęp do panelu",
-    "You will receive an e-mail containing the verification code.": "Otrzymasz wiadomość email zawierającą kod weryfikacyjny.",
+    "Please enter your 2FA code.": "Wprowadź swój kod 2FA.",
+    "Code": "Kod",
     "Main Page": "Strona główna",
     "Privacy Policy": "Polityka prywatności",
     "Verify": "Weryfikuj",
@@ -101,7 +102,7 @@
     "About": "O aplikacji",
     "Two factor authentication is disabled.": "Autoryzacja dwuetapowa jest wyłączona.",
     "Two factor authentication has been enabled.": "Autoryzacja dwuetapowa jest włączona.",
-    "Please copy the following QR code int your phones authenticatior application.": "Proszę skopuj ten QR kod do swojej aplikacji autoryzacyjnej na telefonie.",
+    "Please copy the following QR code into your phones authenticatior application.": "Proszę skopuj ten QR kod do swojej aplikacji autoryzacyjnej na telefonie.",
     "This is Blog based on Laravel.": "To jest blog stworzony za pomocą Laravel.",
     "Learn more": "Dowiedz się więcej",
     "Your Policy.": "Twoja polityka.",
@@ -110,5 +111,7 @@
     "Be careful when using this operation.": "Bądź ostrożny wykonując tą operację.",
     "Change Account Data": "Zmień dane konta",
     "Current": "Obecne",
-    "in": "w"
+    "in": "w",
+    "Recovery Codes": "Kody odzyskiwania",
+    "Please save your recovery codes.": "Proszę zapisz swoje kody odzyskiwania"
 }

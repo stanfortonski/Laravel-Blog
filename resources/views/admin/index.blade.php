@@ -5,7 +5,12 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <x-two-factor-manage />
+            <div class="card">
+                <div class="card-header">{{ __('Two Factor Authentication') }}</div>
+                <div class="card-body">
+                    <x-two-factor-manage />
+                </div>
+            </div>
         </div>
     </div>
 @endsection

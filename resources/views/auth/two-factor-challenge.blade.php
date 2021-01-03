@@ -16,16 +16,16 @@
                         @csrf
 
                         <p class="text-muted">
-                            {{ __('You will receive an e-mail containing the verification code.') }}
+                            {{ __('Please enter your 2FA code.') }}
                         </p>
 
                         <div class="form-group">
-                            <input name="two_factor_code" type="number" class="form-control{{ $errors->has('two_factor_code') ? ' is-invalid' : '' }}" required autofocus placeholder="Kod weryfikacyjny">
-                            @if($errors->has('two_factor_code'))
+                            <input name="code" type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" required autofocus placeholder="{{ __('Code') }}">
+                            @error('code')
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('two_factor_code') }}
+                                    {{ $errors->first('code') }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
 
                         <div class="row">
