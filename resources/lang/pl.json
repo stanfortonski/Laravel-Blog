@@ -59,6 +59,7 @@
     "Two Factor Authentication": "Weryfikacja dwuetapowa",
     "access to panel": "dostęp do panelu",
     "Please enter your 2FA code.": "Wprowadź swój kod 2FA.",
+    "Please enter your recovery code.": "Wprowadź swój kod odzyskiwania.",
     "Code": "Kod",
     "Main Page": "Strona główna",
     "Privacy Policy": "Polityka prywatności",
@@ -113,5 +114,6 @@
     "Current": "Obecne",
     "in": "w",
     "Recovery Codes": "Kody odzyskiwania",
-    "Please save your recovery codes.": "Proszę zapisz swoje kody odzyskiwania"
+    "Please save your recovery codes.": "Proszę zapisz swoje kody odzyskiwania",
+    "Two Factor Recovery": "Odzyskiwanie"
 }
