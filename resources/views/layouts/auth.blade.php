@@ -24,12 +24,31 @@
 <body>
     <div id="app" class="c-app">
         <div class="c-wrapper">
-            <header class="c-header c-header-dark">
+            <header class="c-header c-header-dark" itemscope itemtype="http://schema.org/WPHeader">
                 <nav class="w-100 navbar navbar-expand-md navbar-dark">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="{{ url('/') }}">
+                        <a class="navbar-brand" href="{{ url('/') }}" itemprop="name">
                             {{ config('app.name') }}
                         </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse">
+                            <ul class="navbar-nav mr-auto navbar-main">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('index', app()->getLocale()) }}">{{ __('Back to main page') }}</a>
+                                </li>
+                            </ul>
+
+                            <ul class="navbar-nav ml-auto">
+                                @foreach (config('app.available_locales') as $locale)
+                                    <li class="nav-item">
+                                        <a class="nav-link p-1 @if (app()->getLocale() == $locale) font-weight-bold @endif" href="{{ route('admin.set-lang', $locale) }}">{{ strtoupper($locale) }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </nav>
             </header>

@@ -16,26 +16,28 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'domain' => 'admin.'.config('app.url'),
     'namespace' => 'Admin',
-    'as' => 'admin.',
-    'middleware' => 'setlang.admin'
+    'as' => 'admin.'
 ], function(){
     Route::get('/set-lang/{lang}', 'AdminController@setLang')->name('set-lang');
-    Route::get('/', 'AdminController@index')->name('index');
 
-    Route::resource('posts', 'PostsController')->except('show');
+    Route::middleware('auth')->group(function(){
+        Route::get('/', 'AdminController@index')->name('index');
 
-    Route::middleware('role:admin')->group(function(){
-        Route::put('/users/{user}/password', 'UsersPasswordController')->name('users.password');
-        Route::resource('users', 'UsersController')->except('show');
-        Route::resource('categories', 'CategoriesController')->except('show');
-    });
+        Route::resource('posts', 'PostsController')->except('show');
 
-    Route::group([
-        'as' => 'user-panel.',
-        'prefix' => 'user-panel'
-    ], function(){
-        Route::get('/', 'UserPanelController@index')->name('index');
-        Route::put('/', 'UserPanelController@update')->name('update');
-        Route::put('/password', 'UserPanelController@updatePassword')->name('password');
+        Route::middleware('role:admin')->group(function(){
+            Route::put('/users/{user}/password', 'UsersPasswordController')->name('users.password');
+            Route::resource('users', 'UsersController')->except('show');
+            Route::resource('categories', 'CategoriesController')->except('show');
+        });
+
+        Route::group([
+            'as' => 'user-panel.',
+            'prefix' => 'user-panel'
+        ], function(){
+            Route::get('/', 'UserPanelController@index')->name('index');
+            Route::put('/', 'UserPanelController@update')->name('update');
+            Route::put('/password', 'UserPanelController@updatePassword')->name('password');
+        });
     });
 });
