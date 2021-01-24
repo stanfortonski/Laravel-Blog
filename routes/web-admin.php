@@ -23,11 +23,18 @@ Route::group([
     Route::middleware('auth')->group(function(){
         Route::get('/', 'AdminController@index')->name('index');
 
+        Route::put('/posts/{post}/image', 'PostsController@updateImage')->name('posts.image.update');
+        Route::delete('/posts/{post}/image', 'PostsController@destroyImage')->name('posts.image.destroy');
         Route::resource('posts', 'PostsController')->except('show');
 
         Route::middleware('role:admin')->group(function(){
+            Route::put('/users/{user}/image', 'UsersController@updateImage')->name('users.image.update');
+            Route::delete('/users/{user}/image', 'UsersController@destroyImage')->name('users.image.destroy');
             Route::put('/users/{user}/password', 'UsersPasswordController')->name('users.password');
             Route::resource('users', 'UsersController')->except('show');
+
+            Route::put('/categories/{category}/image', 'CategoriesController@updateImage')->name('categories.image.update');
+            Route::delete('/categories/{category}/image', 'CategoriesController@destroyImage')->name('categories.image.destroy');
             Route::resource('categories', 'CategoriesController')->except('show');
         });
 
@@ -38,6 +45,8 @@ Route::group([
             Route::get('/', 'UserPanelController@index')->name('index');
             Route::put('/', 'UserPanelController@update')->name('update');
             Route::put('/password', 'UserPanelController@updatePassword')->name('password');
+            Route::put('/image', 'UserPanelController@updateImage')->name('image.update');
+            Route::delete('/image', 'UserPanelController@destroyImage')->name('image.destroy');
         });
     });
 });

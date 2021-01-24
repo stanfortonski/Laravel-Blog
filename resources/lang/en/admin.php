@@ -25,5 +25,10 @@ return [
         'password' => 'Changed was saved.'
     ],
 
-    'error' => 'Unexpected error has occurred.'
+    'thumbnail' => [
+        'update' => 'Thumbnail was changed.',
+        'destroy' => 'Thumbnail was deleted.'
+    ],
+
+    'error' => 'Unexpected error has occurred.',
 ];

@@ -8,6 +8,9 @@
 @endsection
 
 @section('content')
+<div class="row justify-content-center">
     @include('admin.user-panel.forms.data')
     @include('admin.user-panel.forms.password')
+    @include('admin.user-panel.forms.avatar')
+</div>
 @endsection

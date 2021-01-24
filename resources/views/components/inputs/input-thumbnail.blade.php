@@ -4,7 +4,5 @@
     <label for="thumbnail" class="custom-file-label">{{ __('Choose file') }}</label>
 </div>
 @error('thumbnail')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
+    <small class="text-danger">{{ $message }}</small>
 @enderror

@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImageRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\Post;
-use App\Services\ImageSaver;
+use App\Services\ThumbnailManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
 class PostsController extends Controller
 {
+    use ThumbnailManager;
+
     /**
      * Display a listing of the resource.
      *
@@ -53,8 +55,7 @@ class PostsController extends Controller
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
-            if ($request->hasFile('thumbnail'))
-                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+            $data['thumbnail_path'] = $this->storeThumbnail($request);
 
             $contentData = $request->content;
             $contentData['lang'] = app()->getLocale();
@@ -104,11 +105,6 @@ class PostsController extends Controller
             DB::beginTransaction();
             try {
                 $data = $this->getValidatedData($request);
-                if ($request->hasFile('thumbnail')){
-                    if (!empty($post->thumbnail_path))
-                        Storage::delete('/public/thumbnails/'.$post->thumbnail_path);
-                    $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-                }
 
                 $contentData = $request->content;
                 $contentData['lang'] = app()->getLocale();
@@ -148,6 +144,37 @@ class PostsController extends Controller
             return redirect()->route('admin.posts.index')->withSuccess('admin.posts.destroy');
         }
         else abort(403);
+    }
+
+    /**
+     * Changes the thumbnail in storage.
+     *
+     * @param  \App\Http\Requests\ImageRequest   $request
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function updateImage(ImageRequest $request, Post $post)
+    {
+        $this->deleteThumbnail($post);
+        $post->thumbnail_path = $this->storeThumbnail($request);
+        $post->update();
+
+        return redirect()->back()->withSuccess('admin.thumbnail.update');
+    }
+
+    /**
+     * Remove the thumbnail from storage.
+     *
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyImage(Post $post)
+    {
+        $this->deleteThumbnail($post);
+        $post->thumbnail_path = null;
+        $post->update();
+
+        return redirect()->back()->withSuccess('admin.thumbnail.destroy');
     }
 
     /**

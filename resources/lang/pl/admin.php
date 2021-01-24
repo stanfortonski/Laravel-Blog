@@ -25,5 +25,10 @@ return [
         'password' => 'Zmiany zostały zapisane.'
     ],
 
+    'thumbnail' => [
+        'update' => 'Zmieniono minaturę.',
+        'destroy' => 'Usunięto mianturę.'
+    ],
+
     'error' => 'Wystąpił niespodziewany błąd.'
 ];

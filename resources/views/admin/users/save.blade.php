@@ -23,7 +23,7 @@
                 @empty($user)
                     <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
                 @else
-                    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                     @method('PUT')
                 @endempty
                     @csrf
@@ -112,19 +112,11 @@
                         @endempty
                     </div>
 
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-8">
-                                <x-input-thumbnail label="avatar"></x-input-thumbnail>
-                            </div>
-                            <div class="col-4">
-                                @if(!empty($user) && !empty($user->thumbnail_path))
-                                    <span>{{ __('Current') }}</span>
-                                    <img class="img-fluid mt-1" src="{{ $user->avatar }}" alt="Avatar">
-                                @endif
-                            </div>
+                    @empty($user)
+                        <div class="form-group">
+                            <x-input-thumbnail label="avatar"></x-input-thumbnail>
                         </div>
-                    </div>
+                    @endempty
 
                     <div class="form-group">
                         <button class="btn btn-primary">{{ $prefix }}</button>
@@ -133,10 +125,8 @@
             </div>
         </div>
     </div>
-</div>
 
-@if(!empty($user))
-    <div class="row justify-content-center">
+    @if(!empty($user))
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-header">
@@ -169,9 +159,45 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title h5">{{ __('Avatar') }} {{ __('User') }}</span>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.users.image.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-8">
+                                    <x-input-thumbnail label="Avatar"></x-input-thumbnail>
+                                </div>
+                                @if(!empty($user->thumbnail_path))
+                                    <div class="col-4">
+                                        <span>{{ __('Current') }}</span>
+                                        <img class="img-fluid my-1" src="{{ $user->thumbnail }}" alt="{{ __('Avatar') }}">
+                                        <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-thumbnail-form').submit();">{{ __('Delete exists thumbnail') }}</button>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">{{ __('Upload new thumbnail') }}</button>
+                    </form>
+
+                    @if(!empty($user->thumbnail_path))
+                        <form action="{{ route('admin.users.image.destroy', $user->id) }}" method="POST" id="delete-thumbnail-form">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-header">
@@ -187,7 +213,7 @@
                 </div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
+</div>
 @endsection
 

@@ -65,6 +65,9 @@
     "Privacy Policy": "Polityka prywatności",
     "Verify": "Weryfikuj",
     "thumbnail": "miniatura",
+    "Thumbnail": "Miniatura",
+    "Delete exists thumbnail": "Usuń istniejącą miniaturę",
+    "Upload new thumbnail": "Wgraj nową miniaturę",
     "publish at": "opublikuj o",
     "content": "treść",
     "title": "tytuł",
@@ -78,7 +81,7 @@
     "Post": "Post",
     "User": "Użytkownik",
     "Change Password": "Zmień hasło",
-    "avatar": "avatar",
+    "Avatar": "Avatar",
     "Create": "Utwórz",
     "Publish At Time": "Czas publikacji",
     "Publish At Date": "Data publikacji",
@@ -115,5 +118,8 @@
     "in": "w",
     "Recovery Codes": "Kody odzyskiwania",
     "Please save your recovery codes.": "Proszę zapisz swoje kody odzyskiwania",
-    "Two Factor Recovery": "Odzyskiwanie"
+    "Two Factor Recovery": "Odzyskiwanie",
+    "No categories.": "Brak kategorii.",
+    "No posts.": "Brak postów.",
+    "No users.": "Brak użytkowników."
 }

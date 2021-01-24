@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserPasswordRequest;
 use App\Models\AuthorContent;
 use App\Rules\Name;
+use App\Http\Requests\ImageRequest;
+use App\Services\ThumbnailManager;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,11 +17,19 @@ use Illuminate\Validation\Rule;
 
 class UserPanelController extends Controller
 {
+    use ThumbnailManager;
+
     public function index()
     {
         return view('admin.user-panel.index')->with('user', auth()->user());
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request)
     {
         $user = auth()->user();
@@ -69,6 +79,12 @@ class UserPanelController extends Controller
         }
     }
 
+    /**
+     * Update the password resource in storage.
+     *
+     * @param  \App\Http\Requests\UserPasswordRequest  $request
+     * @return \Illuminate\Http\Response
+     */
     public function updatePassword(UserPasswordRequest $request)
     {
         $user = auth()->user();
@@ -76,5 +92,36 @@ class UserPanelController extends Controller
         $user->update();
 
         return redirect()->back()->withSuccess('admin.userpanel.password');
+    }
+
+    /**
+     * Changes the thumbnail in storage.
+     *
+     * @param  \App\Http\Requests\ImageRequest   $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateImage(ImageRequest $request)
+    {
+        $user = auth()->user();
+        $this->deleteThumbnail($user);
+        $user->thumbnail_path = $this->storeThumbnail($request);
+        $user->update();
+
+        return redirect()->back()->withSuccess('admin.thumbnail.update');
+    }
+
+    /**
+     * Remove the thumbnail from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyImage()
+    {
+        $user = auth()->user();
+        $this->deleteThumbnail($user);
+        $user->thumbnail_path = null;
+        $user->update();
+
+        return redirect()->back()->withSuccess('admin.thumbnail.destroy');
     }
 }

@@ -10,6 +10,12 @@
 
 @section('content')
 <div class="row justify-content-center">
+    @if(!empty($content->url))
+        <div class="col-lg-10 mb-3 text-right">
+            <a href="{{ route('categories.show', [app()->getLocale(), $content->url]) }} " class="btn btn-secondary" target="_blank">{{ __('Show') }}</a>
+        </div>
+    @endif
+
     <div class="col-lg-10">
         <div class="card">
             <div class="card-header">
@@ -23,7 +29,7 @@
                 @empty($category)
                     <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
                 @else
-                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
                     @method('PUT')
                 @endempty
                     @csrf
@@ -48,19 +54,11 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-8">
-                                <x-input-thumbnail label="thumbnail"></x-input-thumbnail>
-                            </div>
-                            <div class="col-4">
-                                @if(!empty($category) && !empty($category->thumbnail_path))
-                                    <span>{{ __('Current') }}</span>
-                                    <img class="img-fluid mt-1" src="{{ $category->thumbnail }}" alt="{{ $content->title }}">
-                                @endif
-                            </div>
+                    @empty($category)
+                        <div class="form-group">
+                            <x-input-thumbnail label="thumbnail"></x-input-thumbnail>
                         </div>
-                    </div>
+                    @endempty
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">{{ $prefix }}</button>
@@ -69,10 +67,46 @@
             </div>
         </div>
     </div>
-</div>
 
-@if(!empty($category))
-    <div class="row justify-content-center">
+    @if(!empty($category))
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title h5">{{ __('Thumbnail') }} {{ __('Category') }}</span>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.categories.image.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-8">
+                                    <x-input-thumbnail label="Thumbnail"></x-input-thumbnail>
+                                </div>
+                                @if(!empty($category->thumbnail_path))
+                                    <div class="col-4">
+                                        <span>{{ __('Current') }}</span>
+                                        <img class="img-fluid my-1" src="{{ $category->thumbnail }}" alt="{{ $content->title }}">
+                                        <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-thumbnail-form').submit();">{{ __('Delete exists thumbnail') }}</button>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">{{ __('Upload new thumbnail') }}</button>
+                    </form>
+
+                    @if(!empty($category->thumbnail_path))
+                        <form action="{{ route('admin.categories.image.destroy', $category->id) }}" method="POST" id="delete-thumbnail-form">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-header">
@@ -88,6 +122,6 @@
                 </div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
+</div>
 @endsection

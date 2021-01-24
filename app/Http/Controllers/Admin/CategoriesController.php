@@ -4,17 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryStoreRequest;
+use App\Http\Requests\ImageRequest;
 use App\Models\Category;
 use App\Models\Content;
-use App\Services\ImageSaver;
+use App\Services\ThumbnailManager;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class CategoriesController extends Controller
 {
+    use ThumbnailManager;
+
     /**
      * Display a listing of the resource.
      *
@@ -52,8 +54,7 @@ class CategoriesController extends Controller
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
-            if ($request->hasFile('thumbnail'))
-                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+            $data['thumbnail_path'] = $this->storeThumbnail($request);
 
             $contentData = $request->content;
             $contentData['lang'] = app()->getLocale();
@@ -98,11 +99,6 @@ class CategoriesController extends Controller
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
-            if ($request->hasFile('thumbnail')){
-                if (!empty($category->thumbnail_path))
-                    Storage::delete('/public/thumbnails/'.$category->thumbnail_path);
-                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-            }
 
             $contentData = $request->content;
             $contentData['lang'] = app()->getLocale();
@@ -135,6 +131,37 @@ class CategoriesController extends Controller
     {
         $category->delete();
         return redirect()->route('admin.categories.index')->withSuccess('admin.categories.destroy');
+    }
+
+    /**
+     * Changes the thumbnail in storage.
+     *
+     * @param  \App\Http\Requests\ImageRequest   $request
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function updateImage(ImageRequest $request, Category $category)
+    {
+        $this->deleteThumbnail($category);
+        $category->thumbnail_path = $this->storeThumbnail($request);
+        $category->update();
+
+        return redirect()->back()->withSuccess('admin.thumbnail.update');
+    }
+
+    /**
+     * Remove the thumbnail from storage.
+     *
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyImage(Category $category)
+    {
+        $this->deleteThumbnail($category);
+        $category->thumbnail_path = null;
+        $category->update();
+
+        return redirect()->back()->withSuccess('admin.thumbnail.destroy');
     }
 
     /**

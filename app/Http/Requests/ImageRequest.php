@@ -2,11 +2,20 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\Title;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryStoreRequest extends FormRequest
+class ImageRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
     /**
      * Get the validation attributes
      *
@@ -15,8 +24,6 @@ class CategoryStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'content.title' => __('title'),
-            'content.content' => __('content'),
             'thumbnail' => __('thumbnail')
         ];
     }
@@ -29,9 +36,7 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'content.title' => ['required', 'string', 'max:255', new Title],
-            'content.content' => ['required', 'string', 'max:65535'],
-            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
+            'thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
     }
 }

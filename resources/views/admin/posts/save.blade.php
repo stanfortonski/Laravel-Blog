@@ -10,6 +10,12 @@
 
 @section('content')
 <div class="row justify-content-center">
+    @if(!empty($content->url))
+        <div class="col-lg-10 mb-3 text-right">
+            <a href="{{ route('posts.show', [app()->getLocale(), $content->url]) }} " class="btn btn-secondary" target="_blank">{{ __('Show') }}</a>
+        </div>
+    @endif
+
     <div class="col-lg-10">
         <div class="card">
             <div class="card-header">
@@ -23,7 +29,7 @@
                 @empty($post)
                     <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
                 @else
-                    <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.posts.update', $post->id) }}" method="POST">
                     @method('PUT')
                 @endempty
                     @csrf
@@ -48,25 +54,25 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-8">
-                                <x-input-thumbnail label="thumbnail"></x-input-thumbnail>
-                            </div>
-                            <div class="col-4">
-                                @if(!empty($post) && !empty($post->thumbnail_path))
-                                    <span>{{ __('Current') }}</span>
-                                    <img class="img-fluid mt-1" src="{{ $post->thumbnail }}" alt="{{ $content->title }}">
-                                @endif
-                            </div>
+                    @empty($post)
+                        <div class="form-group">
+                            <x-input-thumbnail label="thumbnail"></x-input-thumbnail>
                         </div>
-                    </div>
+                    @endempty
 
                     <div class="form-group">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="is_visible" name="is_visible" @if(!empty($post->is_visible) && $post->is_visible) checked @endif>
                             <label class="custom-control-label" for="is_visible">{{ __('visible') }}</label>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        @empty($post)
+                            <x-select-categories />
+                        @else
+                            <x-select-categories :value="Arr::flatten($post->categories()->pluck('id')->values()->toArray()) ?? null" />
+                        @endempty
                     </div>
 
                     <div class="form-group">
@@ -93,24 +99,52 @@
                     </div>
 
                     <div class="form-group">
-                        @empty($post)
-                            <x-select-categories />
-                        @else
-                            <x-select-categories :value="Arr::flatten($post->categories()->pluck('id')->values()->toArray()) ?? null" />
-                        @endempty
-                    </div>
-
-                    <div class="form-group">
                         <button type="submit" class="btn btn-primary">{{ $prefix }}</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
 
-@if(!empty($post))
-    <div class="row justify-content-center">
+    @if(!empty($post))
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title h5">{{ __('Thumbnail') }} {{ __('Post') }}</span>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.posts.image.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-8">
+                                    <x-input-thumbnail label="Thumbnail"></x-input-thumbnail>
+                                </div>
+                                @if(!empty($post->thumbnail_path))
+                                    <div class="col-4">
+                                        <span>{{ __('Current') }}</span>
+                                        <img class="img-fluid my-1" src="{{ $post->thumbnail }}" alt="{{ $content->title }}">
+                                        <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-thumbnail-form').submit();">{{ __('Delete exists thumbnail') }}</button>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">{{ __('Upload new thumbnail') }}</button>
+                    </form>
+
+                    @if(!empty($post->thumbnail_path))
+                        <form action="{{ route('admin.posts.image.destroy', $post->id) }}" method="POST" id="delete-thumbnail-form">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-header">
@@ -126,6 +160,6 @@
                 </div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
+</div>
 @endsection

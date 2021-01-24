@@ -6,18 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\AuthorContent;
 use App\Models\User;
-use App\Services\ImageSaver;
+use App\Http\Requests\ImageRequest;
+use App\Services\ThumbnailManager;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Stanfortonski\Laravelroles\Models\Role;
 
 class UsersController extends Controller
 {
+    use ThumbnailManager;
+
     /**
      * Display a listing of the resource.
      *
@@ -57,8 +59,7 @@ class UsersController extends Controller
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
-            if ($request->hasFile('thumbnail'))
-                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
+            $data['thumbnail_path'] = $this->storeThumbnail($request);
 
             $user = User::create($data);
             $this->saveRoles($request, $user);
@@ -105,11 +106,6 @@ class UsersController extends Controller
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
-            if ($request->hasFile('thumbnail')){
-                if (!empty($user->thumbnail_path))
-                    Storage::delete('/public/thumbnails/'.$user->thumbnail_path);
-                $data['thumbnail_path'] = (new ImageSaver($request))->getFileName();
-            }
 
             $user->update($data);
             $this->saveRoles($request, $user);
@@ -142,6 +138,38 @@ class UsersController extends Controller
     {
         $user->delete();
         return redirect()->route('admin.users.index')->withSuccess('admin.users.destroy');
+    }
+
+    /**
+     * Changes the thumbnail in storage.
+     *
+     * @param  \App\Http\Requests\ImageRequest   $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updateImage(ImageRequest $request, User $user)
+    {
+        $this->deleteThumbnail($user);
+        $user->thumbnail_path = $this->storeThumbnail($request);
+        $user->update();
+
+        return redirect()->back()->withSuccess('admin.thumbnail.update');
+    }
+
+    /**
+     * Remove the thumbnail from storage.
+     *
+     * @param  \App\Http\Requests\ImageRequest   $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyImage(User $user)
+    {
+        $this->deleteThumbnail($user);
+        $user->thumbnail_path = null;
+        $user->update();
+
+        return redirect()->back()->withSuccess('admin.thumbnail.destroy');
     }
 
     /**
