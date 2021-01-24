@@ -30,7 +30,7 @@
 
                     <div class="form-group">
                         <label for="name">{{ __('Name') }}*</label>
-                        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name ?? '' }}" required>
+                        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name ?? old('name') }}" required>
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                         <div class="form-row">
                             <div class="col">
                                 <label for="first_name">{{ __('First Name') }}*</label>
-                                <input type="text" id="first_name" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name ?? '' }}" required>
+                                <input type="text" id="first_name" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name ?? old('first_name') }}" required>
                                 @error('first_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -52,7 +52,7 @@
 
                             <div class="col">
                                 <label for="last_name">{{ __('Last Name') }}*</label>
-                                <input type="text" id="last_name" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ $user->last_name ?? '' }}" required>
+                                <input type="text" id="last_name" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ $user->last_name ?? old('last_name') }}" required>
                                 @error('last_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -64,7 +64,7 @@
 
                     <div class="form-group">
                         <label for="email">{{ __('E-Mail Address') }}*</label>
-                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email ?? '' }}" required>
+                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email ?? old('email') }}" required>
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -86,7 +86,7 @@
 
                     <div class="form-group">
                         <label for="website">{{ __('website') }}</label>
-                        <input type="text" id="website" name="website" class="form-control @error('website') is-invalid @enderror" value="{{ $user->website ?? '' }}">
+                        <input type="text" id="website" name="website" class="form-control @error('website') is-invalid @enderror" value="{{ $user->website ?? old('website') }}">
                         @error('website')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -96,7 +96,7 @@
 
                     <div class="form-group">
                         <label for="content">{{ __('content') }}</label>
-                        <textarea id="content" name="content" class="form-control @error('content') is-invalid @enderror">{{ $content->content ?? '' }}</textarea>
+                        <textarea id="content" name="content" class="form-control @error('content') is-invalid @enderror">{{ $content->content ?? old('content') }}</textarea>
                         @error('content')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
