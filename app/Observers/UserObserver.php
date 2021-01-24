@@ -3,10 +3,12 @@
 namespace App\Observers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
+use App\Services\ThumbnailManager;
 
 class UserObserver
 {
+    use ThumbnailManager;
+
     /**
      * Handle the User "created" event.
      *
@@ -44,8 +46,7 @@ class UserObserver
             $post->delete();
         });
 
-        if (!empty($user->thumbnail_path))
-            Storage::delete('public/thumbnails/'.$user->thumbnail_path);
+        $this->deleteThumbnail($user);
     }
 
     /**

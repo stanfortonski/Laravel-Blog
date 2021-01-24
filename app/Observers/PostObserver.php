@@ -3,10 +3,12 @@
 namespace App\Observers;
 
 use App\Models\Post;
-use Illuminate\Support\Facades\Storage;
+use App\Services\ThumbnailManager;
 
 class PostObserver
 {
+    use ThumbnailManager;
+
     /**
      * Handle the Post "created" event.
      *
@@ -38,9 +40,7 @@ class PostObserver
     public function deleting(Post $post)
     {
         $post->contents()->delete();
-
-        if (!empty($post->thumbnail_path))
-            Storage::delete('public/thumbnails/'.$post->thumbnail_path);
+        $this->deleteThumbnail($post);
     }
 
     /**

@@ -3,10 +3,12 @@
 namespace App\Observers;
 
 use App\Models\Category;
-use Illuminate\Support\Facades\Storage;
+use App\Services\ThumbnailManager;
 
 class CategoryObserver
 {
+    use ThumbnailManager;
+
     /**
      * Handle the Category "created" event.
      *
@@ -38,9 +40,7 @@ class CategoryObserver
     public function deleting(Category $category)
     {
         $category->contents()->delete();
-
-        if (!empty($category->thumbnail_path))
-            Storage::delete('public/thumbnails/'.$category->thumbnail_path);
+        $this->deleteThumbnail($category);
     }
 
     /**
