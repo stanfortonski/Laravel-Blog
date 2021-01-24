@@ -13,6 +13,8 @@
             <x-post-list-item :post="$post" />
         @endforeach
     </div>
-    {{ $posts->links() }}
+    <div class="col-12">
+        {{ $posts->appends($searchData)->links() }}
+    </div>
 </div>
 @endsection

@@ -26,7 +26,8 @@ class CategoriesController extends Controller
         $categories = Category::with('content')->search($request->q)->paginate(config('blog.pagination'));
         return view('admin.categories.index')->with([
             'categories' => $categories,
-            'q' => $request->q ?? ''
+            'q' => $request->q,
+            'searchData' => $request->only('q')
         ]);
     }
 

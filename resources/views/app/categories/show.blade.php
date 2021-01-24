@@ -19,7 +19,9 @@
             <x-post-list-item :post="$post" />
         @endforeach
     </div>
+    <div class="col-12">
+        {{ $posts->links() }}
+    </div>
 </div>
-{{ $posts->links() }}
 @endsection
 

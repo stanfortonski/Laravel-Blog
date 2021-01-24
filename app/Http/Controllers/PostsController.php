@@ -18,8 +18,9 @@ class PostsController extends Controller
     {
         $posts = Post::with(['author', 'content'])->has('content')->visible()->search($request->q)->orderBy('id', 'desc')->paginate(config('blog.pagination'));
         return view('app.posts.index')->with([
-            'q' => $request->q ?? '',
-            'posts' => $posts
+            'posts' => $posts,
+            'q' => $request->q,
+            'searchData' => $request->only('q')
         ]);
     }
 

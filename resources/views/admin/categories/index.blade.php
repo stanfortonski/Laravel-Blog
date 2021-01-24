@@ -66,8 +66,8 @@
                     <h5 class="db-empty">{{ __('No categories.') }}</h5>
                 @endif
             </div>
-            <div class="card-footer text-center">
-                {{ $categories->links() }}
+            <div class="card-footer">
+                {{ $categories->appends($searchData)->links() }}
             </div>
         </div>
     </div>

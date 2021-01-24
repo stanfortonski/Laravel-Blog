@@ -65,8 +65,8 @@
                     <h5 class="db-empty">{{ __('No users.') }}</h5>
                 @endif
             </div>
-            <div class="card-footer text-center">
-                {{ $users->links() }}
+            <div class="card-footer">
+                {{ $users->appends($searchData)->links() }}
             </div>
         </div>
     </div>

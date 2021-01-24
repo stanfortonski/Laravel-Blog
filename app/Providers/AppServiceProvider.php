@@ -11,6 +11,7 @@ use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
+
         User::observe(UserObserver::class);
         Category::observe(CategoryObserver::class);
         Post::observe(PostObserver::class);

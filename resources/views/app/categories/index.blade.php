@@ -10,13 +10,15 @@
     </div>
 </div>
 <div class="row">
-    <div class="col" itemscope itemtype="https://schema.org/ItemList">
+    <div class="col-12" itemscope itemtype="https://schema.org/ItemList">
         <meta itemprop="numberOfItems" content="{{$categories->total()}}">
         <meta itemprop="itemListOrder" content="Unordered">
         @foreach($categories as $category)
             <x-category-list-item :category="$category" :index="$loop->index" />
         @endforeach
     </div>
+    <div class="col-12">
+        {{ $categories->appends($searchData)->links() }}
+    </div>
 </div>
-{{ $categories->links() }}
 @endsection

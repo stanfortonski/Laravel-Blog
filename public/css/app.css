@@ -21355,3 +21355,7 @@ label::first-letter {
   justify-items: start;
 }
 
+.pagination {
+  justify-content: center;
+}
+

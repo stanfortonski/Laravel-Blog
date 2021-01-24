@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class PostsController extends Controller
 {
@@ -26,7 +27,8 @@ class PostsController extends Controller
         $posts = Post::with(['author', 'categories', 'content'])->orderBy('id', 'desc')->search($request->q)->paginate(config('blog.pagination'));
         return view('admin.posts.index')->with([
             'posts' => $posts,
-            'q' => $request->q ?? ''
+            'q' => $request->q,
+            'searchData' => $request->only('q')
         ]);
     }
 

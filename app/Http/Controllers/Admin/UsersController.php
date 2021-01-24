@@ -29,7 +29,8 @@ class UsersController extends Controller
         $users = User::with('roles')->search($request->q)->paginate(config('blog.pagination'));
         return view('admin.users.index')->with([
             'users' => $users,
-            'q' => $request->q ?? ''
+            'q' => $request->q,
+            'searchData' => $request->only('q')
         ]);
     }
 

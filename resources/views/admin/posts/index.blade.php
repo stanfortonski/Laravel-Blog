@@ -70,8 +70,8 @@
                     <h5 class="db-empty">{{ __('No posts.') }}</h5>
                 @endif
             </div>
-            <div class="card-footer text-center">
-                {{ $posts->links() }}
+            <div class="card-footer">
+                {{ $posts->appends($searchData)->links() }}
             </div>
         </div>
     </div>
