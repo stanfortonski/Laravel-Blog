@@ -26,7 +26,8 @@ class PostFactory extends Factory
             'is_visible' => rand(0, 1),
             'thumbnail_path' => null,
             'publish_at' => null,
-            'author_id' => User::all()->random()->id
+            'author_id' => User::all()->random()->id,
+            'tags' => str_replace(' ', ', ', $this->faker->words(rand(1, 4), true)),
         ];
     }
 }

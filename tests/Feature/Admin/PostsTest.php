@@ -113,6 +113,7 @@ class PostsTest extends TestCase
         $post = Post::orderBy('id', 'desc')->first();
         $this->assertEquals($data['author_id'], $this->admin->id, 'Author');
         $this->assertEquals($data['publish_at'], $post->publish_at, 'Publish At');
+        $this->assertEquals($data['tags'], $post->tags, 'Tags');
         if (empty($data['is_visible']))
             $this->assertEquals(0, $post->is_visible, 'Visible');
         else $this->assertEquals($data['is_visible'], $post->is_visible, 'Visible');
@@ -141,6 +142,7 @@ class PostsTest extends TestCase
 
         $this->post->refresh();
         $this->assertEquals($data['publish_at'], $this->post->publish_at, 'Publish At');
+        $this->assertEquals($data['tags'], $this->post->tags, 'Tags');
         if (empty($data['is_visible']))
             $this->assertEquals(0, $this->post->is_visible, 'Visible');
         else $this->assertEquals($data['is_visible'], $this->post->is_visible, 'Visible');

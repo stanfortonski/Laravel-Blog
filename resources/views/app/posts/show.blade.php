@@ -2,6 +2,7 @@
 
 @section('title', $content->title)
 @section('description', strip_tags($content->description))
+@section('keywords', $post->tags)
 
 @section('content')
 <div class="row" itemscope itemtype="http://schema.org/BlogPosting">
@@ -37,6 +38,9 @@
         </div>
         <div class="article-body mt-4 p-4" itemprop="articleBody">
             {!! Helper::stripTags($content->content) !!}
+        </div>
+        <div class="mt-4">
+            {{ __('Tags') }}: {{ $post->tags }}
         </div>
     </article>
 

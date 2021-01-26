@@ -22,7 +22,7 @@ class ContentFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->words(rand(1, 4), true),
+            'title' => trim(substr(str_replace('.', '', $this->faker->paragraph(1, true)), 0, 255)),
             'content' => $this->faker->paragraphs(5, true)
         ];
     }

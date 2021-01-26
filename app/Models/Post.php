@@ -18,7 +18,8 @@ class Post extends Model implements Searchable, Feedable
         'is_visible',
         'thumbnail_path',
         'publish_at',
-        'author_id'
+        'author_id',
+        'tags'
     ];
 
     protected $casts = [

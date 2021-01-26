@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('thumbnail_path')->nullable();
             $table->foreignId('author_id');
             $table->dateTime('publish_at')->nullable();
+            $table->string('tags')->nullable();
 
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
         });

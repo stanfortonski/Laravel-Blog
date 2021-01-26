@@ -30,7 +30,8 @@ class PostStoreRequest extends FormRequest
             'content.content' => __('content'),
             'publish_at' => __('publish at'),
             'thumbnail' => __('thumbnail'),
-            'categories' => __('Categories')
+            'categories' => __('Categories'),
+            'tags' => __('Tags')
         ];
     }
 
@@ -49,7 +50,8 @@ class PostStoreRequest extends FormRequest
             'publish_at_time' => ['nullable', 'date_format:H:i'],
             'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'categories' => ['nullable', 'array'],
-            'categories.*' => ['nullable', 'integer', 'exists:categories,id']
+            'categories.*' => ['nullable', 'integer', 'exists:categories,id'],
+            'tags' => ['nullable', 'string', 'max:255']
         ];
     }
 }
