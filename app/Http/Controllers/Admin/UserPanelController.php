@@ -7,6 +7,7 @@ use App\Http\Requests\UserPasswordRequest;
 use App\Models\AuthorContent;
 use App\Rules\Name;
 use App\Http\Requests\ImageRequest;
+use App\Rules\RealName;
 use App\Services\ThumbnailManager;
 use Exception;
 use Illuminate\Http\Request;
@@ -35,9 +36,9 @@ class UserPanelController extends Controller
         $user = auth()->user();
 
         $this->validate($request, [
-            'first_name' => ['required', 'string', 'max:255', new Name],
-            'last_name' => ['required', 'string', 'max:255', new Name],
             'name' => ['required', 'string', 'max:255', new Name, Rule::unique('users', 'name')->ignore($user->id)],
+            'first_name' => ['required', 'string', 'max:255', new RealName],
+            'last_name' => ['required', 'string', 'max:255', new RealName],
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             'content' => ['nullable', 'string', 'max:255'],
             'website' => ['nullable', 'url', 'max:255'],

@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Rules\Name;
+use App\Rules\RealName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -21,8 +22,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255', new Name],
-            'first_name' => ['required', 'string', 'max:255', new Name],
-            'last_name' => ['required', 'string', 'max:255', new Name],
+            'first_name' => ['required', 'string', 'max:255', new RealName],
+            'last_name' => ['required', 'string', 'max:255', new RealName],
             'description' => ['nullable', 'string', 'max:255'],
             'website' => ['nullable', 'url', 'max:255'],
             'email' => [

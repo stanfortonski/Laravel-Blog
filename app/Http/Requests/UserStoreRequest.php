@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\Name;
+use App\Rules\RealName;
 use Illuminate\Foundation\Http\FormRequest;
 use Laravel\Fortify\Rules\Password;
 
@@ -41,8 +42,8 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255', new Name],
-            'first_name' => ['required', 'string', 'max:255', new Name],
-            'last_name' => ['required', 'string', 'max:255', new Name],
+            'first_name' => ['required', 'string', 'max:255', new RealName],
+            'last_name' => ['required', 'string', 'max:255', new RealName],
             'email' => ['required', 'email'],
             'content' => ['nullable', 'string', 'max:255'],
             'website' => ['nullable', 'url', 'max:255'],

@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\User;
 use App\Rules\Name;
+use App\Rules\RealName;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -23,8 +24,8 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255', new Name],
-            'first_name' => ['required', 'string', 'max:255', new Name],
-            'last_name' => ['required', 'string', 'max:255', new Name],
+            'first_name' => ['required', 'string', 'max:255', new RealName],
+            'last_name' => ['required', 'string', 'max:255', new RealName],
             'email' => [
                 'required',
                 'string',
