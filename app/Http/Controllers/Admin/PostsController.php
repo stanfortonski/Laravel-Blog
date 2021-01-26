@@ -8,6 +8,7 @@ use App\Http\Requests\PostStoreRequest;
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\Post;
+use App\Services\ContentUrlValidator;
 use App\Services\ThumbnailManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 
 class PostsController extends Controller
 {
-    use ThumbnailManager;
+    use ThumbnailManager, ContentUrlValidator;
 
     /**
      * Display a listing of the resource.
@@ -52,16 +53,18 @@ class PostsController extends Controller
      */
     public function store(PostStoreRequest $request)
     {
+        $this->validateContentUrl($request);
+
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
             $data['thumbnail_path'] = $this->storeThumbnail($request);
+            $post = Post::create($data);
+
+            $this->saveCategories($request, $post);
 
             $contentData = $request->content;
             $contentData['lang'] = app()->getLocale();
-
-            $post = Post::create($data);
-            $this->saveCategories($request, $post);
             $content = Content::create($contentData);
             $post->contents()->saveMany([$content]);
             DB::commit();
@@ -101,18 +104,23 @@ class PostsController extends Controller
      */
     public function update(PostStoreRequest $request, Post $post)
     {
+        $content = $post->content()->first();
+        if (!empty($content)){
+            $this->validateContentUrlWithoutOne($request, $content);
+        }
+        else {
+            $this->validateContentUrl($request);
+        }
+
         if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){
             DB::beginTransaction();
             try {
                 $data = $this->getValidatedData($request);
-
-                $contentData = $request->content;
-                $contentData['lang'] = app()->getLocale();
-
                 $post->update($data);
                 $this->saveCategories($request, $post);
 
-                $content = $post->content()->first();
+                $contentData = $request->content;
+                $contentData['lang'] = app()->getLocale();
                 if (empty($content)){
                     $content = Content::create($contentData);
                     $post->contents()->saveMany([$content]);

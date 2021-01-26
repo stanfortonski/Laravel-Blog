@@ -45,6 +45,21 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="url">{{ __('url') }}*</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ url('/') }}</span>
+                            </div>
+                            <input type="text" id="url" name="content[url]" class="form-control @error('content.url') is-invalid @enderror" value="{{ $content->url ?? old('content.url') }}" required>
+                            @error('content.url')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="content">{{ __('content') }}*</label>
                         <textarea id="content" name="content[content]" class="textarea-ckeditor form-control @error('content.content') is-invalid @enderror">{{ $content->content ?? old('content.content') }}</textarea>
                         @error('content.content')

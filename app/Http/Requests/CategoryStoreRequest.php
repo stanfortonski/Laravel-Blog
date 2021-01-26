@@ -17,6 +17,7 @@ class CategoryStoreRequest extends FormRequest
         return [
             'content.title' => __('title'),
             'content.content' => __('content'),
+            'content.url' => __('url'),
             'thumbnail' => __('thumbnail')
         ];
     }
@@ -30,6 +31,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'content.title' => ['required', 'string', 'max:255', new Title],
+            'content.url' => ['required', 'string', 'max:255'],
             'content.content' => ['required', 'string', 'max:65535'],
             'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
         ];

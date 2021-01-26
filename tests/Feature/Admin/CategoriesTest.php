@@ -3,8 +3,8 @@
 namespace Tests\Feature\Admin;
 
 use App\Models\Category;
+use App\Models\Content;
 use Tests\TestCase;
-use Illuminate\Support\Str;
 
 class CategoriesTest extends TestCase
 {
@@ -55,10 +55,7 @@ class CategoriesTest extends TestCase
     {
         $data = Category::factory()->make()->toArray();
         $data['_token'] = csrf_token();
-        $data['content'] = [
-            'title' => Str::random(10),
-            'content' => Str::random(255)
-        ];
+        $data['content'] = Content::factory()->make()->toArray();
 
         $response = $this->actingAs($this->admin)->post(route('admin.categories.store'), $data);
 
@@ -68,16 +65,14 @@ class CategoriesTest extends TestCase
         $category = Category::orderBy('id', 'desc')->first();
         $this->assertEquals($data['content']['title'], $category->content()->first()->title, 'Title');
         $this->assertEquals($data['content']['content'], $category->content()->first()->content, 'Content');
+        $this->assertEquals($data['content']['url'], $category->content()->first()->url, 'Url');
     }
 
     public function testUpdate()
     {
         $data = Category::factory()->make()->toArray();
         $data['_token'] = csrf_token();
-        $data['content'] = [
-            'title' => Str::random(10),
-            'content' => Str::random(255)
-        ];
+        $data['content'] = Content::factory()->make()->toArray();
 
         $response = $this->actingAs($this->admin)->put(route('admin.categories.update', $this->category->id), $data);
 
@@ -87,5 +82,6 @@ class CategoriesTest extends TestCase
         $this->category->refresh();
         $this->assertEquals($data['content']['title'], $this->category->content()->first()->title, 'Title');
         $this->assertEquals($data['content']['content'], $this->category->content()->first()->content, 'Content');
+        $this->assertEquals($data['content']['url'], $this->category->content()->first()->url, 'Url');
     }
 }

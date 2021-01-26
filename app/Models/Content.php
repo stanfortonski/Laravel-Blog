@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Content extends Model
 {
@@ -13,7 +12,8 @@ class Content extends Model
     protected $fillable = [
         'lang',
         'title',
-        'content'
+        'content',
+        'url'
     ];
 
     public function getDescriptionAttribute()
@@ -22,10 +22,5 @@ class Content extends Model
         if (strlen($this->content) > $maxLength);
             return substr($this->content, 0, $maxLength);
         return $this->content;
-    }
-
-    public function getUrlAttribute()
-    {
-       return Str::of($this->title)->slug('-');
     }
 }

@@ -64,11 +64,10 @@ class Category extends Model implements Searchable
 
     static private function selectByUrl($url)
     {
-        $title = str_replace('-', ' ', $url);
         return static::select(['categories.*', 'categories.id as id'])->distinct()
         ->join('contents_of_categories', 'categories.id', '=', 'contents_of_categories.category_id')
         ->join('contents', 'contents.id', '=', 'contents_of_categories.content_id')
         ->where('contents.lang', '=', app()->getLocale())
-        ->where('contents.title', '=', $title);
+        ->where('contents.url', '=', $url);
     }
 }

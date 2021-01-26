@@ -19,7 +19,8 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'contents' => $this->contents()->get()->values()->toArray(),
             'thumbnail' => $this->thumbnail,
-            'author' => new UserResource($this->author)
+            'author' => new UserResource($this->author),
+            'tags' => $this->tags
         ];
     }
 }

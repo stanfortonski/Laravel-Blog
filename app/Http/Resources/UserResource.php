@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'avatar' => $this->avatar,
-            'webiste' => $this->website,
+            'website' => $this->website,
             'contents' => $this->contents()->get()->values()->toArray(),
         ];
     }

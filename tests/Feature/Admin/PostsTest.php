@@ -3,11 +3,12 @@
 namespace Tests\Feature\Admin;
 
 use App\Models\Category;
+use App\Models\Content;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
-use Illuminate\Support\Str;
 
 class PostsTest extends TestCase
 {
@@ -96,10 +97,7 @@ class PostsTest extends TestCase
     {
         $data = Post::factory()->make()->toArray();
         $data['_token'] = csrf_token();
-        $data['content'] = [
-            'title' => Str::random(10),
-            'content' => Str::random(255)
-        ];
+        $data['content'] = Content::factory()->make()->toArray();
         $data['categories'] = [Category::all()->random()->id];
 
         if ($data['is_visible'] == 0)
@@ -119,6 +117,7 @@ class PostsTest extends TestCase
         else $this->assertEquals($data['is_visible'], $post->is_visible, 'Visible');
         $this->assertEquals($data['content']['title'], $post->content()->first()->title, 'Title');
         $this->assertEquals($data['content']['content'], $post->content()->first()->content, 'Content');
+        $this->assertEquals($data['content']['url'], $post->content()->first()->url, 'Url');
         $this->assertEquals($data['categories'], Arr::flatten($post->categories()->pluck('id')->values()->toArray()), 'Categories');
     }
 
@@ -126,10 +125,7 @@ class PostsTest extends TestCase
     {
         $data = Post::factory()->make()->toArray();
         $data['_token'] = csrf_token();
-        $data['content'] = [
-            'title' => Str::random(10),
-            'content' => Str::random(255)
-        ];
+        $data['content'] = Content::factory()->make()->toArray();
         $data['categories'] = [Category::all()->random()->id];
 
         if ($data['is_visible'] == 0)
@@ -148,6 +144,7 @@ class PostsTest extends TestCase
         else $this->assertEquals($data['is_visible'], $this->post->is_visible, 'Visible');
         $this->assertEquals($data['content']['title'], $this->post->content()->first()->title, 'Title');
         $this->assertEquals($data['content']['content'], $this->post->content()->first()->content, 'Content');
+        $this->assertEquals($data['content']['url'], $this->post->content()->first()->url, 'Url');
         $this->assertEquals($data['categories'], Arr::flatten($this->post->categories()->pluck('id')->values()->toArray()), 'Categories');
     }
 }

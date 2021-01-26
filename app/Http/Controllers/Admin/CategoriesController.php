@@ -7,6 +7,7 @@ use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\ImageRequest;
 use App\Models\Category;
 use App\Models\Content;
+use App\Services\ContentUrlValidator;
 use App\Services\ThumbnailManager;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
 {
-    use ThumbnailManager;
+    use ThumbnailManager, ContentUrlValidator;
 
     /**
      * Display a listing of the resource.
@@ -51,15 +52,16 @@ class CategoriesController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
+        $this->validateContentUrl($request);
+
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
             $data['thumbnail_path'] = $this->storeThumbnail($request);
+            $category = Category::create($data);
 
             $contentData = $request->content;
             $contentData['lang'] = app()->getLocale();
-
-            $category = Category::create($data);
             $content = Content::create($contentData);
             $category->contents()->saveMany([$content]);
             DB::commit();
@@ -96,15 +98,22 @@ class CategoriesController extends Controller
      */
     public function update(CategoryStoreRequest $request, Category $category)
     {
+        $content = $category->content()->first();
+        if (!empty($content)){
+            $this->validateContentUrlWithoutOne($request, $content);
+        }
+        else {
+            $this->validateContentUrl($request);
+        }
+
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
+            $category->update($data);
 
             $contentData = $request->content;
             $contentData['lang'] = app()->getLocale();
 
-            $category->update($data);
-            $content = $category->content()->first();
             if (empty($content)){
                 $content = Content::create($contentData);
                 $category->contents()->saveMany([$content]);

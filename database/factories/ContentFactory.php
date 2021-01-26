@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Content;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ContentFactory extends Factory
 {
@@ -21,9 +22,12 @@ class ContentFactory extends Factory
      */
     public function definition()
     {
+        $title = trim(substr(str_replace('.', '', $this->faker->paragraph(1, true)), 0, 255));
+
         return [
-            'title' => trim(substr(str_replace('.', '', $this->faker->paragraph(1, true)), 0, 255)),
-            'content' => $this->faker->paragraphs(5, true)
+            'title' => $title,
+            'content' => $this->faker->paragraphs(5, true),
+            'url' => (string) Str::of($title)->slug('-')
         ];
     }
 }
