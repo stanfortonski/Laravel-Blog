@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Helpers\Helper;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -61,5 +62,6 @@ class UserPanelTest extends TestCase
         $this->assertEquals($data['email'], $this->user->email, 'Email');
         $this->assertEquals($data['website'], $this->user->website, 'Website');
         $this->assertEquals($data['content'], $this->user->content()->first()->content, 'Content');
+        $this->assertEquals($data['url'], Helper::properUrl($this->user->first_name.' '.$this->user->last_name), 'Url');
     }
 }

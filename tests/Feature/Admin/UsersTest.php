@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Helpers\Helper;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -95,6 +96,7 @@ class UsersTest extends TestCase
         $this->assertEquals($data['website'], $user->website, 'Website');
         $this->assertEquals($data['content'], $user->content()->first()->content, 'Content');
         $this->assertEquals($data['roles'], Arr::flatten($user->roles()->pluck('id')->values()->toArray()), 'Roles');
+        $this->assertEquals($data['url'], Helper::properUrl($user->first_name.' '.$user->last_name), 'Url');
         $this->assertTrue(Hash::check($data['password'], $user->password), 'Password');
     }
 
@@ -119,5 +121,6 @@ class UsersTest extends TestCase
         $this->assertEquals($data['website'], $user->website, 'Website');
         $this->assertEquals($data['content'], $user->content()->first()->content, 'Content');
         $this->assertEquals($data['roles'], Arr::flatten($user->roles()->pluck('id')->values()->toArray()), 'Roles');
+        $this->assertEquals($data['url'], Helper::properUrl($user->first_name.' '.$user->last_name), 'Url');
     }
 }

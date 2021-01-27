@@ -21,26 +21,4 @@ class AdminTest extends TestCase
 
         $response->assertOk();
     }
-
-    /*
-     * TODO | Works but tests show errors.
-
-    public function testSetFirstLocale()
-    {
-        $response = $this->actingAs($this->admin)->get(route('admin.index'));
-        $response = $this->actingAs($this->admin)->get(route('admin.set-lang', 'en'));
-
-        $response->assertStatus(302);
-        $this->assertEquals('en', app()->getLocale());
-    }
-
-    public function testSetSecondLocale()
-    {
-        $response = $this->actingAs($this->admin)->get(route('admin.index'));
-        $response = $this->actingAs($this->admin)->get(route('admin.set-lang', 'pl'));
-
-        $response->assertStatus(302);
-        $this->assertEquals('pl', app()->getLocale());
-    }
-    */
 }
