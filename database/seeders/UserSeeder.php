@@ -17,7 +17,10 @@ class UserSeeder extends Seeder
             'email' => 'admin@laravel-blog.test',
             'website' => 'https://stanfortonski.dev',
             'password' => Hash::make('rootroot'),
+            'url' => 'super-user',
             'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
             'remember_token' => ''
         ]);
 

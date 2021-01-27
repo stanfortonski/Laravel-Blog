@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\AuthorContent;
@@ -181,6 +182,7 @@ class UsersController extends Controller
     private function getValidatedData(UserStoreRequest $request): array
     {
         $data = $request->validated();
+        $data['url'] = Helper::properUrl($data['first_name'].' '.$data['last_name']);
         if (!empty($data['password']))
             $data['password'] = Hash::make($data['password']);
         unset($data['content'], $data['thumbnail'], $data['roles']);

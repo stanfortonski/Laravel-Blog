@@ -23,6 +23,7 @@ class UserResource extends JsonResource
             'avatar' => $this->avatar,
             'website' => $this->website,
             'contents' => $this->contents()->get()->values()->toArray(),
+            'url' => $this->url
         ];
     }
 }

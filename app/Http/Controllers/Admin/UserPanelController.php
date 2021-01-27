@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserPasswordRequest;
 use App\Models\AuthorContent;
@@ -53,12 +54,14 @@ class UserPanelController extends Controller
 
         DB::beginTransaction();
         try {
+
             $user->update([
                 'email' => $request->email,
                 'name' => $request->name,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'website' => $request->website
+                'website' => $request->website,
+                'url' => Helper::properUrl("$request->first_name $request->last_name")
             ]);
 
             $content = $user->content()->first();

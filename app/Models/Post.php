@@ -117,7 +117,6 @@ class Post extends Model implements Searchable, Feedable
         return static::select(['posts.*', 'posts.id as id'])->distinct()
         ->join('contents_of_posts', 'posts.id', '=', 'contents_of_posts.post_id')
         ->join('contents', 'contents.id', '=', 'contents_of_posts.content_id')
-        ->where('contents.lang', '=', app()->getLocale())
         ->where('contents.url', '=', $url);
     }
 }

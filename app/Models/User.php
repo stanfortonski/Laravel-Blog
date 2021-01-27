@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Interfaces\Searchable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,7 +25,8 @@ class User extends Authenticatable implements Searchable
         'password',
         'email',
         'website',
-        'thumbnail_path'
+        'thumbnail_path',
+        'url'
     ];
 
     /**
@@ -58,11 +58,6 @@ class User extends Authenticatable implements Searchable
     public function getFullNameAttribute()
     {
         return $this->first_name.' '.$this->last_name;
-    }
-
-    public function getUrlAttribute()
-    {
-       return $this->first_name.'-'.$this->last_name;
     }
 
     public function posts()
@@ -97,17 +92,11 @@ class User extends Authenticatable implements Searchable
 
     static public function findByUrl($url)
     {
-        $first_last = explode('-', $url);
-        if (count($first_last) == 2)
-            return static::where('first_name', '=', $first_last[0])->where('last_name', '=', $first_last[1])->first();
-        else abort(404);
+        return static::where('url', '=', $url)->first();
     }
 
     static public function findOrFailByUrl($url)
     {
-        $first_last = explode('-', $url);
-        if (count($first_last) == 2)
-            return static::where('first_name', '=', $first_last[0])->where('last_name', '=', $first_last[1])->firstOrFail();
-        else abort(404);
+        return static::where('url', '=', $url)->firstOrFail();
     }
 }
