@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\PartOfUrl;
 use App\Rules\Title;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -31,7 +32,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'content.title' => ['required', 'string', 'max:255', new Title],
-            'content.url' => ['required', 'string', 'max:255'],
+            'content.url' => ['required', 'string', 'max:255', new PartOfUrl],
             'content.content' => ['required', 'string', 'max:65535'],
             'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
         ];
