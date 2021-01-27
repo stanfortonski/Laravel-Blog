@@ -25,7 +25,7 @@ class PartOfUrl implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^[a-z0-9\-_\/]+$/i', $value);
+        return preg_match('/^[a-z0-9\-_]+$/i', $value);
     }
 
     /**

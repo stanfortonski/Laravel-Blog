@@ -10,7 +10,7 @@ class Helper
     }
 
     static public function properUrl(string $str){
-        $validChars = preg_replace('/[^a-z0-9\-_\/]/', '-', mb_strtolower($str));
+        $validChars = preg_replace('/[^a-z0-9\-_]/', '-', mb_strtolower($str));
         return preg_replace(['/(-)+/', '/^-/', '/-$/'], ['-', '', ''], $validChars);
     }
 }
