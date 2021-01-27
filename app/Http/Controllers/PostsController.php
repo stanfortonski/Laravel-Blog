@@ -34,7 +34,7 @@ class PostsController extends Controller
     public function show($lang, $url)
     {
         $post = Post::findOrFailByUrl($url);
-        if ($post->isVisible())
+        if ($post->isVisible() || (auth()->check() && (auth()->user()->id == $post->user_id || auth()->user()->hasRole('admin'))))
             return view('app.posts.show')->with([
                 'post' => $post,
                 'content' => $post->content()->firstOrFail()
