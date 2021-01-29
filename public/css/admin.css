@@ -21364,3 +21364,11 @@ label::first-letter {
   justify-content: center;
 }
 
+.figure-author figcaption {
+  display: inline-block;
+}
+
+.figure-author img {
+  vertical-align: top;
+}
+

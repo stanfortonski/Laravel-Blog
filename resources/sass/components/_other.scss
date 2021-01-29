@@ -1,3 +1,13 @@
 .pagination{
     justify-content: center;
 }
+
+.figure-author{
+    figcaption{
+        display: inline-block;
+    }
+
+    img{
+        vertical-align: top;
+    }
+}
