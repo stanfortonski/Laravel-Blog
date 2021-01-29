@@ -37,7 +37,18 @@
                                 @php $content = $post->content()->first(); @endphp
                                 <tr>
                                     <th scope="row">{{ $post->id }}</th>
-                                    <td><small>{{ implode(', ', $post->categories->pluck('title')->toArray()) }}</small></td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @foreach($post->categories as $category)
+                                                <li>
+                                                    <small>
+                                                        {{ $category->content->first()->title ?? '' }}
+                                                        @if(!$loop->last), @endif
+                                                    </small>
+                                                </li>
+                                            @endforeach
+                                        <ul>
+                                    </td>
                                     <td>
                                         @if(!empty($post->thumbnail_path))
                                             <img class="img-fluid" src="{{ $post->thumbnail }}" alt="{{ $content->title ?? '' }}" width="144" height="144">
@@ -46,7 +57,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $content->title ?? '' }}</td>
-                                    <td>{!! Helper::stripTags($content->description ?? '') !!}</td>
+                                    <td>{!! strip_tags($content->description ?? '') !!}</td>
                                     <td>{{ $post->author->full_name }}</td>
                                     <td>
                                         <div class="dropdown">

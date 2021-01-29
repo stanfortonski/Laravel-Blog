@@ -178,8 +178,8 @@
                                 @if(!empty($user->thumbnail_path))
                                     <div class="col-4">
                                         <span>{{ __('Current') }}</span>
-                                        <img class="img-fluid my-1" src="{{ $user->thumbnail }}" alt="{{ __('Avatar') }}">
-                                        <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-thumbnail-form').submit();">{{ __('Delete exists thumbnail') }}</button>
+                                        <img class="img-fluid my-1" src="{{ $user->avatar }}" alt="{{ __('Avatar') }}">
+                                        <button type="button" class="d-block btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-thumbnail-form').submit();">{{ __('Delete exists thumbnail') }}</button>
                                     </div>
                                 @endif
                             </div>

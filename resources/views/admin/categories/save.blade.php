@@ -103,7 +103,7 @@
                                     <div class="col-4">
                                         <span>{{ __('Current') }}</span>
                                         <img class="img-fluid my-1" src="{{ $category->thumbnail }}" alt="{{ $content->title }}">
-                                        <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-thumbnail-form').submit();">{{ __('Delete exists thumbnail') }}</button>
+                                        <button type="button" class="d-block btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-thumbnail-form').submit();">{{ __('Delete exists thumbnail') }}</button>
                                     </div>
                                 @endif
                             </div>

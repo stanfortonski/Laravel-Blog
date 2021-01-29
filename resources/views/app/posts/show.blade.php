@@ -39,16 +39,21 @@
         <div class="article-body mt-4 p-4" itemprop="articleBody">
             {!! Helper::stripTags($content->content) !!}
         </div>
-        <div class="mt-4">
-            {{ __('Tags') }}: {{ $post->tags }}
-        </div>
     </article>
 
     <div class="col-12 mt-4">
+        <div class="card">
+            <div class="card-body p-2">
+                {{ __('Tags') }}: {{ $post->tags }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mt-2">
         <x-author-note :author="$post->author" />
     </div>
 
-    <div class="col mt-5">
+    <div class="col-12 mt-5">
         <div id="disqus_thread"></div>
     </div>
 </div>
