@@ -11,15 +11,15 @@ return [
              * You can also pass an argument to that method:
              * ['App\Model@getAllFeedItems', 'argument']
              */
-            'items' => '',
+            'items' => 'App\Models\Post@getFeedItems',
 
             /*
              * The feed will be available on this url.
              */
-            'url' => '',
+            'url' => '/feeds',
 
-            'title' => 'My feed',
-            'description' => 'The description of the feed.',
+            'title' => 'Laravel-Blog',
+            'description' => 'Laravel-Blog Multi-language blog post.',
             'language' => 'en-US',
 
             /*

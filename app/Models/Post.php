@@ -88,11 +88,13 @@ class Post extends Model implements Searchable, Feedable
     public function toFeedItem()
     {
         $content = $this->content->first();
+        if (empty($content))
+            return null;
         return FeedItem::create()
             ->id($this->id)
             ->title($content->title)
             ->summary($content->description)
-            ->updated($this->post->updated_at)
+            ->updated($content->updated_at)
             ->link(route('posts.show', [app()->getLocale(), $content->url]))
             ->author($this->author->full_name);
     }
