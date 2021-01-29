@@ -70,7 +70,7 @@ class UsersController extends Controller
             $user->contents()->saveMany([$content]);
             DB::commit();
 
-            return redirect()->route('admin.categories.edit', $user->id)->withSuccess('admin.users.store');
+            return redirect()->route('admin.users.edit', $user->id)->withSuccess('admin.users.store');
         }
         catch (Exception $e){
             DB::rollBack();
