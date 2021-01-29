@@ -45,7 +45,7 @@
                                         {{ __('Categories') }}
                                     </a>
 
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="categoriesDropdown">
+                                    <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
                                         <a itemprop="url" class="dropdown-item" href="{{ route('categories.index', app()->getLocale()) }}">
                                             {{ __('All') }}
                                         </a>

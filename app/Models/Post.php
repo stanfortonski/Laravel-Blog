@@ -88,8 +88,6 @@ class Post extends Model implements Searchable, Feedable
     public function toFeedItem()
     {
         $content = $this->content->first();
-        if (empty($content))
-            return null;
         return FeedItem::create()
             ->id($this->id)
             ->title($content->title)
@@ -101,7 +99,7 @@ class Post extends Model implements Searchable, Feedable
 
     public static function getFeedItems()
     {
-        return static::all();
+        return static::with(['author', 'content'])->has('content')->visible()->orderBy('id', 'desc')->get();
     }
 
     static public function findOrFailByUrl($url)
