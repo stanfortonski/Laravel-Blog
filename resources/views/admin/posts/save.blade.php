@@ -76,13 +76,6 @@
                     @endempty
 
                     <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="is_visible" name="is_visible" @if(!empty($post->is_visible) && $post->is_visible) checked @endif>
-                            <label class="custom-control-label" for="is_visible">{{ __('visible') }}</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         @empty($post)
                             <x-select-categories />
                         @else
@@ -121,6 +114,13 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="is_visible" name="is_visible" @if(!empty($post->is_visible) && $post->is_visible) checked @endif>
+                            <label class="custom-control-label" for="is_visible">{{ __('visible') }}</label>
+                        </div>
                     </div>
 
                     <div class="form-group">
