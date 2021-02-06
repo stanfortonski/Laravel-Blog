@@ -14388,19 +14388,14 @@ button.bg-primary:focus {
   background-color: #2819ae !important;
 }
 
-.bg-secondary,
-.article .article-header {
+.bg-secondary {
   background-color: #ced2d8 !important;
 }
 
 a.bg-secondary:hover,
-.article a.article-header:hover,
 a.bg-secondary:focus,
-.article a.article-header:focus,
 button.bg-secondary:hover,
-.article button.article-header:hover,
-button.bg-secondary:focus,
-.article button.article-header:focus {
+button.bg-secondary:focus {
   background-color: #b2b8c1 !important;
 }
 
@@ -14518,8 +14513,7 @@ button.bg-dark:focus {
   border-color: #212333 !important;
 }
 
-.bg-white,
-.article .article-body {
+.bg-white {
   background-color: #fff !important;
 }
 
@@ -14909,9 +14903,7 @@ button.bg-gray-900:focus {
   border-color: #fff !important;
 }
 
-.rounded-sm,
-.article .article-body,
-.article .article-header {
+.rounded-sm {
   border-radius: 0.2rem !important;
 }
 
@@ -21321,26 +21313,6 @@ body {
   }
 }
 
-.no-image {
-  font-size: 4.3rem;
-}
-
-.bd-placeholder-img {
-  text-anchor: middle;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-th[scope=col]::first-letter {
-  text-transform: uppercase;
-}
-
-label::first-letter {
-  text-transform: uppercase;
-}
-
 .card {
   border: none !important;
 }
@@ -21355,20 +21327,24 @@ label::first-letter {
   background: #f6f7f8;
 }
 
-.article .article-header {
-  display: flex;
-  justify-items: start;
-}
-
 .pagination {
   justify-content: center;
 }
 
-.figure-author figcaption {
-  display: inline-block;
+.no-image {
+  font-size: 4.3rem;
 }
 
-.figure-author img {
-  vertical-align: top;
+.bd-placeholder-img {
+  text-anchor: middle;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+label::first-letter,
+th[scope=col]::first-letter {
+  text-transform: uppercase;
 }
 

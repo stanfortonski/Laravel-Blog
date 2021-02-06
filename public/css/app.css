@@ -4684,10 +4684,6 @@ html:not([dir=rtl]) .custom-select-lg {
   content: "Browse";
 }
 
-.custom-file-input:lang(pl) ~ .custom-file-label::after {
-  content: "Przegl\105  daj";
-}
-
 .custom-file-input ~ .custom-file-label[data-browse]::after {
   content: attr(data-browse);
 }
@@ -21316,26 +21312,6 @@ body {
   }
 }
 
-.no-image {
-  font-size: 4.3rem;
-}
-
-.bd-placeholder-img {
-  text-anchor: middle;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-th[scope=col]::first-letter {
-  text-transform: uppercase;
-}
-
-label::first-letter {
-  text-transform: uppercase;
-}
-
 .card {
   border: none !important;
 }
@@ -21365,5 +21341,22 @@ label::first-letter {
 
 .figure-author img {
   vertical-align: top;
+}
+
+.no-image {
+  font-size: 4.3rem;
+}
+
+.bd-placeholder-img {
+  text-anchor: middle;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+label::first-letter,
+th[scope=col]::first-letter {
+  text-transform: uppercase;
 }
 

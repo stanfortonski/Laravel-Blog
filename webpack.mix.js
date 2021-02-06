@@ -14,9 +14,9 @@ const theme = process.env.BLOG_THEME;
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
-    .sass(`resources/sass/${theme}/admin.scss`, 'public/css')
+    .sass(`resources/sass/admin/admin.scss`, 'public/css')
     .sass(`resources/sass/${theme}/app.scss`, 'public/css');
 
 if (mix.inProduction()){
-    mix.sass(`resources/sass/${theme}/fontawesome.scss`, 'public/css');
+    mix.sass(`resources/sass/fontawesome.scss`, 'public/css');
 }

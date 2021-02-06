@@ -2,16 +2,6 @@
     justify-content: center;
 }
 
-.figure-author{
-    figcaption{
-        display: inline-block;
-    }
-
-    img{
-        vertical-align: top;
-    }
-}
-
 .no-image{
     font-size: 4.3rem;
 }
@@ -21,3 +11,6 @@
     user-select: none;
 }
 
+.db-empty{
+    @extend .pl-4, .p-2, .mb-0, .text-center, .pb-4;
+}
