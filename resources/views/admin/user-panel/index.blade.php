@@ -12,5 +12,6 @@
     @include('admin.user-panel.forms.data')
     @include('admin.user-panel.forms.password')
     @include('admin.user-panel.forms.avatar')
+    @include('admin.user-panel.forms.twofactor')
 </div>
 @endsection
