@@ -17,7 +17,7 @@ class PostsController extends Controller
     public function index(Request $request, $lang)
     {
         $posts = Post::with(['author', 'content'])->has('content')->visible()->search($request->q)->orderBy('id', 'desc')->paginate(config('blog.pagination'));
-        return view('app.posts.index')->with([
+        return view('app.'.config('blog.theme').'.posts.index')->with([
             'posts' => $posts,
             'q' => $request->q,
             'searchData' => $request->only('q')
@@ -35,7 +35,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFailByUrl($url);
         if ($post->isVisible() || (auth()->check() && (auth()->user()->id == $post->user_id || auth()->user()->hasRole('admin'))))
-            return view('app.posts.show')->with([
+            return view('app.'.config('blog.theme').'.posts.show')->with([
                 'post' => $post,
                 'content' => $post->content()->firstOrFail()
             ]);

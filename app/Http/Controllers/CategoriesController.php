@@ -17,7 +17,7 @@ class CategoriesController extends Controller
     public function index(Request $request, $lang)
     {
         $categories = Category::with('content')->has('content')->search($request->q)->paginate(config('blog.pagination'));
-        return view('app.categories.index')->with([
+        return view('app.'.config('blog.theme').'.categories.index')->with([
             'categories' => $categories,
             'q' => $request->q,
             'searchData' => $request->only('q')
@@ -35,7 +35,7 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFailByUrl($url);
 
-        return view('app.categories.show')->with([
+        return view('app.'.config('blog.theme').'.categories.show')->with([
             'category' => $category,
             'content' => $category->content()->first(),
             'posts' => $category->posts()->has('content')->visible()->paginate(config('blog.pagination'))

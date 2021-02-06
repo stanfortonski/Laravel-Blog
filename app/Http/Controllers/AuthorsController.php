@@ -16,7 +16,7 @@ class AuthorsController extends Controller
     public function __invoke($lang, $url)
     {
         $user = User::findOrFailByUrl($url);
-        return view('app.author')->with([
+        return view('app.'.config('blog.theme').'.author')->with([
             'user' => $user,
             'content' => $user->content()->first()
         ]);
