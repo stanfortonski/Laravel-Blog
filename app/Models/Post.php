@@ -27,6 +27,15 @@ class Post extends Model implements Searchable, Feedable
         'publish_at' => 'datetime'
     ];
 
+    public function relativePosts()
+    {
+        $content = $this->content()->first();
+        if (!empty($content)){
+            return static::with(['author', 'content'])->has('content')->visible()->search($content->title)->limit(config('blog.relative_posts_limit'))->get()->shuffle();
+        }
+        return collect([]);
+    }
+
     public function getThumbnailAttribute()
     {
         return asset('storage/thumbnails/'.$this->thumbnail_path);

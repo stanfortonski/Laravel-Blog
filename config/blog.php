@@ -7,4 +7,5 @@ return [
     'main_page_max_random_count' => 5,
     'timestamp_format' => 'Y-m-d',
     'theme' => env('BLOG_THEME', 'default'),
+    'relative_posts_limit' => 5
 ];
