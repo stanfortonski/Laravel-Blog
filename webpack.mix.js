@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const theme = process.env.BLOG_THEME;
 
 /*
  |--------------------------------------------------------------------------
@@ -13,9 +14,9 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
-    .sass('resources/sass/admin.scss', 'public/css')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass(`resources/sass/${theme}/admin.scss`, 'public/css')
+    .sass(`resources/sass/${theme}/app.scss`, 'public/css');
 
 if (mix.inProduction()){
-    mix.sass('resources/sass/fontawesome.scss', 'public/css');
+    mix.sass(`resources/sass/${theme}/fontawesome.scss`, 'public/css');
 }
