@@ -53,6 +53,16 @@
         <x-author-note :author="$post->author" />
     </div>
 
+    @php $relativePosts = $post->relativePosts(); @endphp
+    @if($relativePosts->count() > 0)
+        <div class="col-12 mt-4" itemscope itemtype="http://schema.org/Blog">
+            <h5>{{ __('Other posts that may interest you') }}:</h5>
+            @foreach($relativePosts as $post)
+                <x-post-list-item :post="$post" />
+            @endforeach
+        </div>
+    @endif
+
     <div class="col-12 mt-5">
         <div id="disqus_thread"></div>
     </div>
