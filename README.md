@@ -10,7 +10,7 @@ This is Laravel 8.x Multi-language Blog System. Your template for blogging.
     - setup your blog in .env file.
 3. Run artisan `php artisan storage:link` (necessary for store images).
 2. Fill correctly `APP_DISQUS` - your embed.js provided by Disqus and `SESSION_DOMAIN` - your domain.
-3. Add some users in database/seeders/UserSeeder.php for example:
+3. Add some users in `/database/seeders/UserSeeder.php` for example:
 ```php
 DB::table('users')->insert([
     'name' => 'your_user_name',
@@ -30,10 +30,10 @@ Have fun :)
 
 ## Languages
 - Two languages are available by default English and Polish.
-- If you want to add new language you will make new folder for example de in resources/lang and copy everything from `resources/lang/en` to this folder and create de.json in `resources/lang` folder. And then translate and add your lang to 'available_locales' array in config/app.php.
+- If you want to add new language you will make new folder for example de in resources/lang and copy everything from `resources/lang/en` to this folder and create de.json in `/resources/lang` folder. And then translate and add your lang to `available_locales` array in `/config/app.php`.
 
 ## Themes
-You can use default theme or just add new themes to your blog. Default theme is located in `/resources/sass/default` and `/resources/views/default`. You can add your own theme by set `BLOG_THEME` in .env file and creating folder in sass and views with the same name with your custom data. In views one restriction is to have files with the same names as in default" views folder.
+You can use default theme or just add new themes to your blog. Default theme is located in `/resources/sass/default` and `/resources/views/default`. You can add your own theme by set `BLOG_THEME` in .env file and creating folder in sass and views with the same name with your custom data. In views one restriction is to have files with the same names as in "default" views folder.
 
 ## Libraries
 - [Laravel 8.x](https://laravel.com/docs/8.x)
