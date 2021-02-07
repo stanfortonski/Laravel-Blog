@@ -61,7 +61,7 @@
 
                     <div class="form-group">
                         <label for="content">{{ __('content') }}*</label>
-                        <textarea id="content" name="content[content]" class="textarea-ckeditor form-control  @error('content.content') is-invalid @enderror">{{ $content->content ?? old('content.content') }}</textarea>
+                        <textarea id="content" name="content[content]" class="form-control  @error('content.content') is-invalid @enderror">{{ $content->content ?? old('content.content') }}</textarea>
                         @error('content.content')
                             <span class="form-text text-danger" role="alert">
                                 <strong>{{ $message }}</strong>

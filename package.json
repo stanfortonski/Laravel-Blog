@@ -13,7 +13,6 @@
         "@babel/core": "^7.12.13",
         "@babel/plugin-proposal-class-properties": "^7.12.13",
         "@babel/preset-env": "^7.12.13",
-        "@ckeditor/ckeditor5-build-classic": "^23.1.0",
         "@coreui/coreui": "^3.4.0",
         "@fortawesome/fontawesome-free": "^5.15.2",
         "@popperjs/core": "^2.6.0",
@@ -30,5 +29,8 @@
         "sass": "^1.32.6",
         "sass-loader": "^10.1.1",
         "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "tinymce": "^5.6.2"
     }
 }

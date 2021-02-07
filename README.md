@@ -41,7 +41,7 @@ You can use default theme or just add new themes to your blog. Default theme is 
 - [Laravel-Roles](https://github.com/stanfortonski/Laravel-Roles)
 - [Laravel-Feed](https://github.com/spatie/laravel-feed)
 - [CoreUI 3.x](https://coreui.io)
-- [CKEditor5](https://ckeditor.com/ckeditor-5/)
+- [TinyMCE](https://tiny.cloud/)
 - [Disqus](https://disqus.com)
 - [Sass](https://sass-lang.com)
 - [Laravel-Debugbar](https://github.com/barryvdh/laravel-debugbar)
