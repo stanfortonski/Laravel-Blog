@@ -51,7 +51,7 @@ class PostStoreRequest extends FormRequest
             'content.content' => ['required', 'string', 'max:65535'],
             'publish_at_date' => ['nullable', 'date'],
             'publish_at_time' => ['nullable', 'date_format:H:i'],
-            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
             'categories' => ['nullable', 'array'],
             'categories.*' => ['nullable', 'integer', 'exists:categories,id'],
             'tags' => ['nullable', 'string', 'max:255']

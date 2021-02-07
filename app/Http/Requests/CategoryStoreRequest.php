@@ -34,7 +34,7 @@ class CategoryStoreRequest extends FormRequest
             'content.title' => ['required', 'string', 'max:255', new Title],
             'content.url' => ['required', 'string', 'max:255', new PartOfUrl],
             'content.content' => ['required', 'string', 'max:65535'],
-            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
+            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048']
         ];
     }
 }

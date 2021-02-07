@@ -47,7 +47,7 @@ class UserStoreRequest extends FormRequest
             'email' => ['required', 'email'],
             'content' => ['nullable', 'string', 'max:255'],
             'website' => ['nullable', 'url', 'max:255'],
-            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
             'roles' => ['nullable', 'array'],
             'roles.*' => ['nullable', 'integer', 'exists:roles,id'],
             'password' => ['sometimes', 'string', new Password]
