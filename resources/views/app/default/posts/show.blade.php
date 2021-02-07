@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $content->title)
-@section('description', strip_tags($content->description))
+@section('description', $content->description)
 @section('keywords', $post->tags)
 
 @section('content')
@@ -32,8 +32,8 @@
                     <span class="mr-1">{{ __('Created At') }}: <time itemprop="datePublished">{{ $content->created_at->format(config('blog.timestamp_format')) }}</time></span>
                     <span>{{ __('Updated At') }}: <time itemprop="dateModified">{{ $content->updated_at->format(config('blog.timestamp_format')) }}</time></span>
                 </p>
-                <p itemprop="about">{{ strip_tags($content->description) }}</p>
-                <meta itemprop="description" content="{{ strip_tags($content->description) }}">
+                <p itemprop="about">{{ $content->description }}</p>
+                <meta itemprop="description" content="{{ $content->description }}">
             </div>
         </div>
         <div class="article-body mt-4 p-4" itemprop="articleBody">

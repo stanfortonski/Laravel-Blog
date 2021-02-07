@@ -43,7 +43,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $content->title ?? '' }}</td>
-                                    <td>{!! strip_tags($content->description ?? '') !!}</td>
+                                    <td>{!! $content->description ?? '' !!}</td>
                                     <td>
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{ $loop->iteration }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

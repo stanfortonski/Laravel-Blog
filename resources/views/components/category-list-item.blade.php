@@ -12,6 +12,6 @@
                 <span itemprop="name">{{ $content->title }}</span>
             </a>
         </h5>
-        <span itemprop="description">{!! Helper::stripTags($content->description) !!}</span>
+        <span itemprop="description">{{ $content->description }}</span>
     </div>
 </div>

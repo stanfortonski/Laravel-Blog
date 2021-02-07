@@ -7,7 +7,7 @@
                 @endif
                 <figcaption class="ml-3">
                     <h5 itemprop="name">{{ $author->full_name }}</h5>
-                    <span itemprop="description">{{ $content->description ?? 'dassssssssssssssssssssssssssssss' }}</span>
+                    <span itemprop="description">{{ $content->description ?? '' }}</span>
                 </figcaption>
             </figure>
             <p><a href="{{ route('author', [app()->getLocale(), $author->url]) }}">{{ __('Read More about author') }}</a></p>

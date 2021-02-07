@@ -18,7 +18,7 @@
             </span><br>
             {{ __('Author') }}: <span itemprop="author">{{ $post->author->full_name }}</span>
         </p>
-        <span itemprop="articleBody">{{ strip_tags($content->description) }}</span>
+        <span itemprop="articleBody">{{ $content->description }}</span>
         <p><a href="{{ route('posts.show', [app()->getLocale(), $content->url]) }}">{{ __('Read More') }}</a></p>
     </div>
 </article>

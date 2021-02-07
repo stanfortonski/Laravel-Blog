@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $content->title)
-@section('description', strip_tags($content->description))
+@section('description', $content->description)
 
 @section('content')
 <div class="row">
@@ -12,7 +12,7 @@
                 <meta itemprop="url" content="{{ $category->thumbnail }}">
             </div>
         @endif
-        <span itemprop="description">{!! Helper::stripTags($content->description) !!}</span>
+        <span itemprop="description">{!! Helper::stripTags($content->content) !!}</span>
     </div>
     <div class="col-12" itemscope itemtype="http://schema.org/Blog">
         @foreach($posts as $post)

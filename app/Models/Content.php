@@ -19,8 +19,9 @@ class Content extends Model
     public function getDescriptionAttribute()
     {
         $maxLength = config('blog.description_length');
-        if (strlen($this->content) > $maxLength);
-            return substr($this->content, 0, $maxLength);
-        return $this->content;
+        if (strlen($this->content) > $maxLength)
+            $result = substr($this->content, 0, $maxLength);
+        else $result = $this->content;
+        return strip_tags(html_entity_decode($result));
     }
 }

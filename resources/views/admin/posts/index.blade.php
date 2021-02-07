@@ -57,7 +57,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $content->title ?? '' }}</td>
-                                    <td>{!! strip_tags($content->description ?? '') !!}</td>
+                                    <td>{!! $content->description ?? '' !!}</td>
                                     <td>{{ $post->author->full_name }}</td>
                                     <td>
                                         <div class="dropdown">
