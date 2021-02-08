@@ -1,13 +1,14 @@
 .card{
     border: none !important;
+    background: $bg-card;
 
     .card-header{
         border-bottom: none !important;
-        background: $bgCardHeader;
+        background: $bg-card-header;
     }
 
     .card-footer{
         border-top: none !important;
-        background: $bgCardFooter;
+        background: $bg-card-footer;
     }
 }

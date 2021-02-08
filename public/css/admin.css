@@ -21315,6 +21315,7 @@ body {
 
 .card {
   border: none !important;
+  background: #fff;
 }
 
 .card .card-header {

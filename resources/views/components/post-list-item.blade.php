@@ -1,4 +1,4 @@
-<article class="media my-3 p-3 bg-white" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+<article class="media my-3 p-3" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
     @if(!empty($post->thumbnail_path))
         <div itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
             <img itemprop="url" src="{{ $post->thumbnail }}" class="img-fluid mr-3" alt="{{ $content->title }} - {{ config('app.name') }}" width="144" height="144">

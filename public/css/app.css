@@ -21314,6 +21314,7 @@ body {
 
 .card {
   border: none !important;
+  background: #fff;
 }
 
 .card .card-header {
@@ -21329,6 +21330,10 @@ body {
 .article .article-header {
   display: flex;
   justify-items: start;
+}
+
+.media {
+  background: #fff;
 }
 
 .pagination {

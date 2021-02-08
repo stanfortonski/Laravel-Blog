@@ -7,5 +7,9 @@ return [
     'main_page_max_random_count' => 5,
     'timestamp_format' => 'Y-m-d',
     'theme' => env('BLOG_THEME', 'default'),
-    'relative_posts_limit' => 3
+    'relative_posts_limit' => 3,
+    'no-image' => [
+        'background' => '#868e96',
+        'color' => '#dee2e6'
+    ]
 ];

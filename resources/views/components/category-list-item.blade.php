@@ -1,4 +1,4 @@
-<div class="media my-3 p-3 bg-white" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+<div class="media my-3 p-3" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
     <meta itemprop="position" content="{{ $index }}">
     <meta itemprop="url" content="{{ route('categories.show', [app()->getLocale(), $content->url]) }}">
     @if(!empty($category->thumbnail_path))
