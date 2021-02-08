@@ -30,11 +30,11 @@
                         <a class="navbar-brand" href="{{ url('/') }}" itemprop="name">
                             {{ config('app.name') }}
                         </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                             <span class="navbar-toggler-icon"></span>
                         </button>
 
-                        <div class="collapse navbar-collapse">
+                        <div class="collapse navbar-collapse" id="navbarMain">
                             <ul class="navbar-nav mr-auto navbar-main" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
                                 <li class="nav-item" itemprop="hasPart">
                                     <a class="nav-link" itemprop="url" href="{{ route('index', app()->getLocale()) }}">Start</a>
