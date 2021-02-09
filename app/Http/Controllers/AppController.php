@@ -11,10 +11,10 @@ class AppController extends Controller
     public function start(Request $request)
     {
         $max = config('blog.main_page_max_random_count');
-        $postsCount = Post::count();
+        $postsCount = Post::has('content')->visible()->count();
         $posts = Post::with(['author', 'content'])->has('content')->visible()->get()->random($postsCount > $max ? $max : $postsCount);
 
-        $categoriesCount = Category::count();
+        $categoriesCount = Category::has('content')->count();
         $categories = Category::with('content')->has('content')->get()->random($categoriesCount > $max ? $max : $categoriesCount);
 
         return view('app.index')->with([
