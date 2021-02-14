@@ -100,7 +100,7 @@
             </div>
 
             @include('components.noscript')
-            @include('layouts.parts.footer')
+            @include('layouts.parts.footer-admin')
         </div>
     </div>
 </body>

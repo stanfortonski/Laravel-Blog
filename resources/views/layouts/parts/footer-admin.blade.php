@@ -11,6 +11,6 @@
         </ul>
     </div>
     <div class="ml-auto">
-        {{ config('app.name') }} &copy; <span itemprop="copyrightYear">{{ now()->year }}</span>
+        <a href="https://github.com/stanfortonski/Laravel-Blog">Stan Fortoński/{{ config('app.name') }}</a> &copy; <span itemprop="copyrightYear">{{ now()->year }}</span>
     </div>
 </footer>
