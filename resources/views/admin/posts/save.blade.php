@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="title">{{ __('Tags') }}</label>
+                        <label for="tags">{{ __('Tags') }}</label>
                         <input type="text" id="tags" name="tags" class="form-control @error('tags') is-invalid @enderror" value="{{ $post->tags ?? old('tags') }}">
                         @error('tags')
                             <span class="invalid-feedback" role="alert">
