@@ -14,7 +14,7 @@
         <meta itemprop="numberOfItems" content="{{$categories->total()}}">
         <meta itemprop="itemListOrder" content="Unordered">
         @foreach($categories as $category)
-            <x-category-list-item :category="$category" :index="$loop->index" />
+            <x-category-item :category="$category" :index="$loop->index" />
         @endforeach
     </div>
     <div class="col-12">

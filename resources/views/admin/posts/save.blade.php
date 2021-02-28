@@ -12,7 +12,7 @@
 <div class="row justify-content-center">
     @if(!empty($content->url))
         <div class="col-lg-10 mb-3 text-right">
-            <a href="{{ route('posts.show', [app()->getLocale(), $content->url]) }} " class="btn btn-secondary" target="_blank">{{ __('Show') }}</a>
+            <a href="{{ route('posts.show', [app()->getLocale(), $content->url]) }}" class="btn btn-secondary" target="_blank">{{ __('Show') }}</a>
         </div>
     @endif
 

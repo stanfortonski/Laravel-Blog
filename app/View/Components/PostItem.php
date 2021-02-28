@@ -4,22 +4,20 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CategoryListItem extends Component
+class PostItem extends Component
 {
-    public $category;
+    public $post;
     public $content;
-    public $index;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($category, $index)
+    public function __construct($post)
     {
-        $this->category = $category;
-        $this->content = $category->content()->first();
-        $this->index = $index;
+        $this->post = $post;
+        $this->content = $post->content->first();
     }
 
     /**
@@ -29,6 +27,6 @@ class CategoryListItem extends Component
      */
     public function render()
     {
-        return view('components.category-list-item');
+        return view('components.post-item');
     }
 }

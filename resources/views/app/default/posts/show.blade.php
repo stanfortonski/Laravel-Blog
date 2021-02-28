@@ -58,7 +58,7 @@
         <div class="col-12 mt-4" itemscope itemtype="http://schema.org/Blog">
             <h5>{{ __('Other posts that may interest you') }}:</h5>
             @foreach($relativePosts as $post)
-                <x-post-list-item :post="$post" />
+                <x-post-item :post="$post" />
             @endforeach
         </div>
     @endif

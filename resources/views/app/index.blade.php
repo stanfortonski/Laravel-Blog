@@ -19,7 +19,7 @@
         <div class="col" itemscope itemtype="http://schema.org/Blog">
             <h3 class="text-center">{{ __('Random') }} {{ __('Posts') }}</h3>
             @foreach($posts as $post)
-                <x-post-list-item :post="$post" />
+                <x-post-item :post="$post" />
             @endforeach
         </div>
     </div>
@@ -31,7 +31,7 @@
             @foreach($categories as $category)
                 <meta itemprop="numberOfItems" content="{{$categories->count()}}">
                 <meta itemprop="itemListOrder" content="Unordered">
-                <x-category-list-item :category="$category" :index="$loop->index" />
+                <x-category-item :category="$category" :index="$loop->index" />
             @endforeach
         </div>
     </div>

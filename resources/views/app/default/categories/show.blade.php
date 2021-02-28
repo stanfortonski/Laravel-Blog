@@ -16,7 +16,7 @@
     </div>
     <div class="col-12" itemscope itemtype="http://schema.org/Blog">
         @foreach($posts as $post)
-            <x-post-list-item :post="$post" />
+            <x-post-item :post="$post" />
         @endforeach
     </div>
     <div class="col-12">

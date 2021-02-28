@@ -13,8 +13,8 @@ class BladeServiceProvider extends ServiceProvider
         'select-roles' => \App\View\Components\Inputs\SelectRoles::class,
         'input-thumbnail' => \App\View\Components\Inputs\InputThumbnail::class,
         'no-image' => \App\View\Components\NoImage::class,
-        'post-list-item' => \App\View\Components\PostListItem::class,
-        'category-list-item' => \App\View\Components\CategoryListItem::class,
+        'post-item' => \App\View\Components\PostItem::class,
+        'category-item' => \App\View\Components\CategoryItem::class,
         'author-note' => \App\View\Components\AuthorNote::class,
         'two-factor-manage' => \App\View\Components\TwoFactorManage::class,
         'choose-lang-admin' => \App\View\Components\ChooseLangAdmin::class
