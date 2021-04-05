@@ -31,7 +31,7 @@ class Post extends Model implements Searchable, Feedable
     {
         $content = $this->content()->first();
         if (!empty($content)){
-            return static::with(['author', 'content'])->has('content')->visible()->search($content->title)->limit(config('blog.relative_posts_limit'))->get()->shuffle();
+            return static::with(['author', 'content'])->has('content')->visible()->where('posts.id', '!=', $this->id)->search($content->title)->limit(config('blog.relative_posts_limit'))->get()->shuffle();
         }
         return collect([]);
     }
