@@ -81,49 +81,51 @@
                 </form>
             </div>
         </div>
-    </div>
 
-    @if(!empty($category))
-        <div class="col-lg-10">
-            <div class="card">
+        @if(!empty($category))
+            <div class="card mt-4">
                 <div class="card-header">
                     <span class="card-title h5">{{ __('Thumbnail') }} {{ __('Category') }}</span>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.categories.image.update', $category->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form action="{{ route('admin.categories.image.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
 
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-8">
+                                <div class="form-group">
                                     <x-input-thumbnail label="Thumbnail"></x-input-thumbnail>
                                 </div>
-                                @if(!empty($category->thumbnail_path))
-                                    <div class="col-4">
-                                        <span>{{ __('Current') }}</span>
-                                        <img class="img-fluid my-1" src="{{ $category->thumbnail }}" alt="{{ $content->title }}">
-                                        <button type="button" class="d-block btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-thumbnail-form').submit();">{{ __('Delete exists thumbnail') }}</button>
-                                    </div>
-                                @endif
-                            </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">{{ __('Upload new thumbnail') }}</button>
+                                </div>
+                            </form>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">{{ __('Upload new thumbnail') }}</button>
-                    </form>
+                        @if(!empty($category->thumbnail_path))
+                            <div class="col-md-4">
+                                <form action="{{ route('admin.categories.image.destroy', $category->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
 
-                    @if(!empty($category->thumbnail_path))
-                        <form action="{{ route('admin.categories.image.destroy', $category->id) }}" method="POST" id="delete-thumbnail-form">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-                    @endif
+                                    <div class="form-group">
+                                        <span>{{ __('Current') }}</span>
+                                        <img class="img-fluid my-1" src="{{ $category->thumbnail }}" alt="{{ $content->title }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-danger">{{ __('Delete exists thumbnail') }}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-10">
-            <div class="card">
+            <div class="card mt-4">
                 <div class="card-header">
                     <span class="card-title h5">{{ __('Delete') }} {{ __('Category') }}</span>
                 </div>
@@ -136,7 +138,7 @@
                     </form>
                 </div>
             </div>
-        </div>
-    @endif
+        @endif
+    </div>
 </div>
 @endsection

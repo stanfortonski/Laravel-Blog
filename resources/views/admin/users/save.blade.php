@@ -124,11 +124,9 @@
                 </form>
             </div>
         </div>
-    </div>
 
-    @if(!empty($user))
-        <div class="col-lg-10">
-            <div class="card">
+        @if(!empty($user))
+            <div class="card mt-4">
                 <div class="card-header">
                     <span class="card-title h5">{{ __('Change Password') }}</span>
                 </div>
@@ -158,48 +156,50 @@
                     </form>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-10">
-            <div class="card">
+            <div class="card mt-4">
                 <div class="card-header">
                     <span class="card-title h5">{{ __('Avatar') }} {{ __('User') }}</span>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.users.image.update', $user->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form action="{{ route('admin.users.image.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
 
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-8">
+                                <div class="form-group">
                                     <x-input-thumbnail label="Avatar"></x-input-thumbnail>
                                 </div>
-                                @if(!empty($user->thumbnail_path))
-                                    <div class="col-4">
-                                        <span>{{ __('Current') }}</span>
-                                        <img class="img-fluid my-1" src="{{ $user->avatar }}" alt="{{ __('Avatar') }}">
-                                        <button type="button" class="d-block btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-thumbnail-form').submit();">{{ __('Delete exists thumbnail') }}</button>
-                                    </div>
-                                @endif
-                            </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">{{ __('Upload new thumbnail') }}</button>
+                                </div>
+                            </form>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">{{ __('Upload new thumbnail') }}</button>
-                    </form>
+                        @if(!empty($user->thumbnail_path))
+                            <div class="col-md-4">
+                                <form action="{{ route('admin.users.image.destroy', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
 
-                    @if(!empty($user->thumbnail_path))
-                        <form action="{{ route('admin.users.image.destroy', $user->id) }}" method="POST" id="delete-thumbnail-form">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-                    @endif
+                                    <div class="form-group">
+                                        <span>{{ __('Current') }}</span>
+                                        <img class="img-fluid my-1" src="{{ $user->avatar }}" alt="{{ __('Avatar') }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-danger">{{ __('Delete exists thumbnail') }}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-10">
-            <div class="card">
+            <div class="card mt-4">
                 <div class="card-header">
                     <span class="card-title h5">{{ __('Delete') }} {{ __('User') }}</span>
                 </div>
@@ -212,8 +212,8 @@
                     </form>
                 </div>
             </div>
-        </div>
-    @endif
+        @endif
+    </div>
 </div>
 @endsection
 

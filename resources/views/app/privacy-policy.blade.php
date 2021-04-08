@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('Privacy Policy'))
-@section('description', __('Privacy Policy').' '.__('in').' Laravel-Blog')
+@section('description', __('Privacy Policy').' '.__('in').' '.config('app.name'))
 
 @section('content')
 <div class="row">

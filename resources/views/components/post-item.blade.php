@@ -8,7 +8,11 @@
         <x-no-image :content="$content" />
     @endif
     <div class="media-body">
-        <h5 class="mt-0" itemprop="name">{{ $content->title }}</h5>
+        <h5 class="mt-0">
+            <a href="{{ route('posts.show', [app()->getLocale(), $content->url]) }}">
+                <span itemprop="name">{{ $content->title }}</span>
+            </a>
+        </h5>
         <meta itemprop="headline" content="{{ $content->title }}">
         <p>
             {{ __('Published At') }}: <span itemprop="sdDatePublished" itemscope="Date">
