@@ -45,7 +45,7 @@
                                     <td>{{ $content->title ?? '' }}</td>
                                     <td>{!! $content->description ?? '' !!}</td>
                                     <td>
-                                        <div class="dropdown">
+                                        <div class="dropdown text-right">
                                             <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink-{{ $loop->iteration }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 {{ __('Action') }}
                                             </a>
