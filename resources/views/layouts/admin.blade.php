@@ -65,9 +65,9 @@
                 <ul class="c-header-nav ml-auto text-right justify-content-end mr-3">
                     @foreach (config('app.available_locales') as $locale)
                         <li class="nav-item">
-                            <a class="nav-link p-1 @if (app()->getLocale() == $locale) font-weight-bold disabled @endif" href="{{ route('admin.set-lang', $locale) }}">{{ strtoupper($locale) }}</a>
+                            <a class="nav-link p-1 @if (app()->getLocale() == $locale) disabled @endif" href="{{ route('admin.set-lang', $locale) }}">{{ strtoupper($locale) }}</a>
                         </li>
-                    @endforeach
+                    @endforeach |
 
                     <li class="c-header-nav-item dropdown">
                         <a id="navbarDropdown" class="c-header-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
