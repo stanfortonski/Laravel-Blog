@@ -18,7 +18,7 @@ class CreateContentsTable extends Migration
             $table->string('lang', 2);
             $table->string('title');
             $table->text('content');
-            $table->string('url')->unique();
+            $table->string('url');
             $table->timestamps();
         });
     }

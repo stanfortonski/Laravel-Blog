@@ -53,7 +53,8 @@ class PostsController extends Controller
      */
     public function store(PostStoreRequest $request)
     {
-        $this->validateContentUrl($request);
+        if (!$this->validateContentUrl($request))
+            return redirect()->back()->withError(__('This url already exists.'));
 
         DB::beginTransaction();
         try {
@@ -106,10 +107,12 @@ class PostsController extends Controller
     {
         $content = $post->content()->first();
         if (!empty($content)){
-            $this->validateContentUrlWithoutOne($request, $content);
+            if (!$this->validateContentUrlWithoutOne($request, $content))
+                return redirect()->back()->withError(__('This url already exists.'));
         }
         else {
-            $this->validateContentUrl($request);
+            if (!$this->validateContentUrl($request))
+                return redirect()->back()->withError(__('This url already exists.'));
         }
 
         if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){

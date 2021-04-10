@@ -52,7 +52,8 @@ class CategoriesController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
-        $this->validateContentUrl($request);
+        if (!$this->validateContentUrl($request))
+            return redirect()->back()->withError(__('This url already exists.'));
 
         DB::beginTransaction();
         try {
@@ -100,10 +101,12 @@ class CategoriesController extends Controller
     {
         $content = $category->content()->first();
         if (!empty($content)){
-            $this->validateContentUrlWithoutOne($request, $content);
+            if (!$this->validateContentUrlWithoutOne($request, $content))
+                return redirect()->back()->withError(__('This url already exists.'));
         }
         else {
-            $this->validateContentUrl($request);
+            if (!$this->validateContentUrl($request))
+                return redirect()->back()->withError(__('This url already exists.'));
         }
 
         DB::beginTransaction();
