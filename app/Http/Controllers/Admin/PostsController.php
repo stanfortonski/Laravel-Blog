@@ -119,6 +119,7 @@ class PostsController extends Controller
             DB::beginTransaction();
             try {
                 $data = $this->getValidatedData($request);
+                unset($data['author_id']);
                 $post->update($data);
                 $this->saveCategories($request, $post);
 
