@@ -197,7 +197,7 @@ class UsersController extends Controller
      */
     private function saveRoles(UserStoreRequest $request, User $user)
     {
-        DB::table('users_roles')->where('user_id', '=', $user->id)->delete();
+        $user->clearRoles();
         if (!empty($request->roles)){
             $roles = [];
             foreach ($request->roles as $id){

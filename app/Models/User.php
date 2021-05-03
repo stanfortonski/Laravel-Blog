@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Stanfortonski\Laravelroles\Traits\HasRole;
+use Stanfortonski\Laravelroles\Traits\HasRoles;
 
 class User extends Authenticatable implements Searchable
 {
-    use HasFactory, Notifiable, HasRole, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable, HasRoles, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
