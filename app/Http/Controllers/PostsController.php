@@ -34,11 +34,12 @@ class PostsController extends Controller
     public function show($lang, $url)
     {
         $post = Post::findOrFailByUrl($url);
-        if ($post->isVisible() || (auth()->check() && (auth()->user()->id == $post->user_id || auth()->user()->hasRole('admin'))))
+        if ($post->isVisible() || (auth()->check() && (auth()->user()->id == $post->user_id || auth()->user()->hasRole('admin')))){
             return view('app.'.config('blog.theme').'.posts.show')->with([
                 'post' => $post,
                 'content' => $post->content()->firstOrFail()
             ]);
+        }
         else abort(404);
     }
 }
