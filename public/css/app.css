@@ -14282,7 +14282,6 @@ html:not([dir=rtl]) .list-inline {
 }
 
 .c-wrapper:not(.c-wrapper-fluid) .c-header-fixed {
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
@@ -14299,7 +14298,6 @@ html:not([dir=rtl]) .list-inline {
 }
 
 .c-wrapper:not(.c-wrapper-fluid) .c-footer-fixed {
-  position: -webkit-sticky;
   position: sticky;
   bottom: 0;
 }
@@ -16389,7 +16387,6 @@ html:not([dir=rtl]) .float-right {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -16409,9 +16406,8 @@ html:not([dir=rtl]) .float-right {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: sticky) {
   .sticky-top {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;
