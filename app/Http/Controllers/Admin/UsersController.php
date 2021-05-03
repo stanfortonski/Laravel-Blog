@@ -29,11 +29,10 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::with('roles')->search($request->q)->paginate(config('blog.pagination'));
+        $users = User::with('roles')->search($request->q)->paginate(config('blog.pagination'))->withQueryString();
         return view('admin.users.index')->with([
             'users' => $users,
-            'q' => $request->q,
-            'searchData' => $request->only('q')
+            'q' => $request->q
         ]);
     }
 

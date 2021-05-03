@@ -66,7 +66,7 @@
                 @endif
             </div>
             <div class="card-footer">
-                {{ $users->appends($searchData)->links() }}
+                {{ $users->links() }}
             </div>
         </div>
     </div>

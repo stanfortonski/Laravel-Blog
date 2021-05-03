@@ -27,11 +27,10 @@ class PostsController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::with(['author', 'categories', 'content'])->orderBy('id', 'desc')->search($request->q)->paginate(config('blog.pagination'));
+        $posts = Post::with(['author', 'categories', 'content'])->orderBy('id', 'desc')->search($request->q)->paginate(config('blog.pagination'))->withQueryString();
         return view('admin.posts.index')->with([
             'posts' => $posts,
-            'q' => $request->q,
-            'searchData' => $request->only('q')
+            'q' => $request->q
         ]);
     }
 

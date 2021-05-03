@@ -26,11 +26,10 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::with('content')->search($request->q)->paginate(config('blog.pagination'));
+        $categories = Category::with('content')->search($request->q)->paginate(config('blog.pagination'))->withQueryString();
         return view('admin.categories.index')->with([
             'categories' => $categories,
-            'q' => $request->q,
-            'searchData' => $request->only('q')
+            'q' => $request->q
         ]);
     }
 

@@ -82,7 +82,7 @@
                 @endif
             </div>
             <div class="card-footer">
-                {{ $posts->appends($searchData)->links() }}
+                {{ $posts->links() }}
             </div>
         </div>
     </div>

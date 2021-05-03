@@ -14,7 +14,7 @@
         @endforeach
     </div>
     <div class="col-12">
-        {{ $posts->appends($searchData)->links() }}
+        {{ $posts->links() }}
     </div>
 </div>
 @endsection
