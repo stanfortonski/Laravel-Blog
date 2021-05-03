@@ -33,15 +33,17 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        //Fortify::confirmPasswordsUsing(ResetUserPassword::class);
+
+        if (config('blog.allow_register')){
+            Fortify::createUsersUsing(CreateNewUser::class);
+            Fortify::registerView(function () {
+                return view('auth.register');
+            });
+        }
 
         Fortify::loginView(function(){
             return view('auth.login');
         });
-
-        /*Fortify::registerView(function () {
-            return view('auth.register');
-        });*/
 
         Fortify::confirmPasswordView(function(){
             return view('auth.passwords.confirm');

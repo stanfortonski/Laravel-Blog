@@ -39,6 +39,16 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('index', app()->getLocale()) }}">{{ __('Back to main page') }}</a>
                                 </li>
+
+                                @if(config('blog.allow_register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">{{ __('Login') }}</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register', app()->getLocale()) }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
                             </ul>
 
                             <ul class="navbar-nav ml-auto">
