@@ -166,11 +166,14 @@ class PostsController extends Controller
      */
     public function updateImage(ImageRequest $request, Post $post)
     {
-        $this->deleteThumbnail($post);
-        $post->thumbnail_path = $this->storeThumbnail($request);
-        $post->update();
+        if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){
+            $this->deleteThumbnail($post);
+            $post->thumbnail_path = $this->storeThumbnail($request);
+            $post->update();
 
-        return redirect()->back()->withSuccess('admin.thumbnail.update');
+            return redirect()->back()->withSuccess('admin.thumbnail.update');
+        }
+        else abort(403);
     }
 
     /**
@@ -181,11 +184,14 @@ class PostsController extends Controller
      */
     public function destroyImage(Post $post)
     {
-        $this->deleteThumbnail($post);
-        $post->thumbnail_path = null;
-        $post->update();
+        if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){
+            $this->deleteThumbnail($post);
+            $post->thumbnail_path = null;
+            $post->update();
 
-        return redirect()->back()->withSuccess('admin.thumbnail.destroy');
+            return redirect()->back()->withSuccess('admin.thumbnail.destroy');
+        }
+        else abort(403);
     }
 
     /**
