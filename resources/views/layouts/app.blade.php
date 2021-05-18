@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @auth <link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}"> @endauth
     @stack('styles')
+    @include('feed::links')
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
     <div id="app" class="c-app">

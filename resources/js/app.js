@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 window._ = { debounce };
 
-window.CoreUI = require('@coreui/coreui');
+window.CoreUI = require('@coreui/coreui/dist/js/coreui.bundle.js');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

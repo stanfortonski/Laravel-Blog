@@ -58,6 +58,10 @@
 
         <div class="c-wrapper">
             <header class="c-header c-header-light">
+                <button class="navbar-toggler sidebar-toggler" type="button">
+                    <i class="sidebar-toggler-icon"></i>
+                </button>
+
                 <a class="ml-4 c-header-brand" href="{{ url('/') }}">
                     {{ config('app.name') }}
                 </a>
