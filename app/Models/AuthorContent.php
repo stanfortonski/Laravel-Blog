@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasDescription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AuthorContent extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDescription;
 
     public $timestamps = false;
 
@@ -16,13 +17,4 @@ class AuthorContent extends Model
         'lang',
         'content'
     ];
-
-    public function getDescriptionAttribute()
-    {
-        $maxLength = config('blog.description_length');
-        if (strlen($this->content) > $maxLength)
-            $result = substr($this->content, 0, $maxLength);
-        else $result = $this->content;
-        return strip_tags(html_entity_decode($result));
-    }
 }

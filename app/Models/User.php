@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\Searchable;
+use App\Traits\HasThumbnail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,6 +13,10 @@ use Stanfortonski\Laravelroles\Traits\HasRoles;
 class User extends Authenticatable implements Searchable
 {
     use HasFactory, Notifiable, HasRoles, TwoFactorAuthenticatable;
+
+    use HasThumbnail {
+        getThumbnailAttribute as getAvatarAttribute;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -49,11 +54,6 @@ class User extends Authenticatable implements Searchable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function getAvatarAttribute()
-    {
-        return asset('storage/thumbnails/'.$this->thumbnail_path);
-    }
 
     public function getFullNameAttribute()
     {

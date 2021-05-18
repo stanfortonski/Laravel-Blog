@@ -1,11 +1,11 @@
 <div class="card" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <div class="card-body py-2 px-0">
+    <div class="card-body py-3 px-0">
         <div class="col">
             <figure class="figure-author">
                 @if(!empty($author->thumbnail_path))
-                    <img src="{{ $author->avatar }}" alt="{{ $author->full_name }} - {{ config('app.name') }}" itemprop="image" class="img-fluid" width="144" height="144">
+                    <img src="{{ $author->avatar }}" alt="{{ $author->full_name }} - {{ config('app.name') }}" itemprop="image" class="img-fluid m-1" width="144" height="144">
                 @endif
-                <figcaption class="ml-3">
+                <figcaption>
                     <h5 itemprop="name">{{ $author->full_name }}</h5>
                     <span itemprop="description">{{ $content->description ?? '' }}</span>
                 </figcaption>

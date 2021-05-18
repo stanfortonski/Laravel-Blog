@@ -3,23 +3,19 @@
 namespace App\Models;
 
 use App\Interfaces\Searchable;
+use App\Traits\HasThumbnail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model implements Searchable
 {
-    use HasFactory;
+    use HasFactory, HasThumbnail;
 
     public $timestamps = false;
 
     protected $fillable = [
         'thumbnail_path'
     ];
-
-    public function getThumbnailAttribute()
-    {
-        return asset('storage/thumbnails/'.$this->thumbnail_path);
-    }
 
     public function posts()
     {

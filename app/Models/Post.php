@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\Searchable;
+use App\Traits\HasThumbnail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Feed\Feedable;
@@ -10,7 +11,7 @@ use Spatie\Feed\FeedItem;
 
 class Post extends Model implements Searchable, Feedable
 {
-    use HasFactory;
+    use HasFactory, HasThumbnail;
 
     public $timestamps = false;
 
@@ -34,11 +35,6 @@ class Post extends Model implements Searchable, Feedable
             return static::with(['author', 'content'])->has('content')->visible()->where('posts.id', '!=', $this->id)->search($content->title)->limit(config('blog.relative_posts_limit'))->get()->shuffle();
         }
         return collect([]);
-    }
-
-    public function getThumbnailAttribute()
-    {
-        return asset('storage/thumbnails/'.$this->thumbnail_path);
     }
 
     public function isVisible()
