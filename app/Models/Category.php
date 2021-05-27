@@ -22,11 +22,13 @@ class Category extends Model implements Searchable
         return $this->belongsToMany(Post::class, 'posts_of_categories', 'category_id', 'post_id');
     }
 
-    public function content(){
-        return $this->belongsToMany(Content::class, 'contents_of_categories', 'category_id', 'content_id')->where('lang', '=', app()->getLocale());
+    public function content()
+    {
+        return $this->contents()->where('lang', '=', app()->getLocale());
     }
 
-    public function contents(){
+    public function contents()
+    {
         return $this->belongsToMany(Content::class, 'contents_of_categories', 'category_id', 'content_id');
     }
 

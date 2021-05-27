@@ -54,7 +54,7 @@ class Post extends Model implements Searchable, Feedable
 
     public function content()
     {
-        return $this->belongsToMany(Content::class, 'contents_of_posts', 'post_id', 'content_id')->where('lang', '=', app()->getLocale());
+        return $this->contents()->where('lang', '=', app()->getLocale());
     }
 
     public function contents()
