@@ -30,6 +30,6 @@ class CreatePostContentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contents');
+        Schema::dropIfExists('post_contents');
     }
 }

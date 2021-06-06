@@ -79,12 +79,12 @@ class Post extends Model implements Searchable, Feedable
             $queries = explode(' ', $searchData);
             $query->distinct()->select(['posts.*', 'posts.id as id'])
             ->join('contents_of_posts', 'posts.id', '=', 'contents_of_posts.post_id')
-            ->join('contents', 'contents.id', '=', 'contents_of_posts.content_id')
-            ->where('contents.lang', '=', app()->getLocale());
+            ->join('post_contents', 'post_contents.id', '=', 'contents_of_posts.content_id')
+            ->where('post_contents.lang', '=', app()->getLocale());
 
             foreach ($queries as $q){
-                $query->where('contents.title', 'like', '%'.$q.'%')
-                ->orWhere('contents.content', 'like', '%'.$q.'%');
+                $query->where('post_contents.title', 'like', '%'.$q.'%')
+                ->orWhere('post_contents.content', 'like', '%'.$q.'%');
             }
         }
         return $query;
@@ -133,7 +133,7 @@ class Post extends Model implements Searchable, Feedable
     {
         return static::select(['posts.*', 'posts.id as id'])->distinct()
         ->join('contents_of_posts', 'posts.id', '=', 'contents_of_posts.post_id')
-        ->join('contents', 'contents.id', '=', 'contents_of_posts.content_id')
-        ->where('contents.url', '=', $url);
+        ->join('post_contents', 'post_contents.id', '=', 'contents_of_posts.content_id')
+        ->where('post_contents.url', '=', $url);
     }
 }

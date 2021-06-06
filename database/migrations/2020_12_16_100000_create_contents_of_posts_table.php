@@ -19,7 +19,7 @@ class CreateContentsOfPostsTable extends Migration
 
             $table->primary(['content_id', 'post_id']);
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->foreign('content_id')->references('id')->on('contents')->onDelete('cascade');
+            $table->foreign('content_id')->references('id')->on('post_contents')->onDelete('cascade');
         });
     }
 
