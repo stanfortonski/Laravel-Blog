@@ -84,29 +84,6 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-md-8">
-                                <label for="publish_at_date">{{ __('Publish At Date') }}</label>
-                                <input type="date" id="publish_at_date" name="publish_at_date" class="form-control">{{ !empty($post->publish_at) ? $post->publish_at->format('Y-m-d') : '' }}
-                                @error('publish_at_date')
-                                    <span class="form-text text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label for="publish_at_time">{{ __('Publish At Time') }}</label>
-                                <input type="time" id="publish_at_time" name="publish_at_time" class="form-control">{{ !empty($post->publish_at) ? $post->publish_at->format('H:i') : '' }}
-                                @error('publish_at_time')
-                                    <span class="form-text text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label for="tags">{{ __('Tags') }}</label>
                         <input type="text" id="tags" name="tags" class="form-control @error('tags') is-invalid @enderror" value="{{ $post->tags ?? old('tags') }}">
                         @error('tags')
@@ -120,6 +97,31 @@
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="is_visible" name="is_visible" @if(!empty($post->is_visible) && $post->is_visible) checked @endif>
                             <label class="custom-control-label" for="is_visible">{{ __('visible') }}</label>
+                        </div>
+                    </div>
+
+                    <div id="release-inputs">
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-8">
+                                    <label for="publish_at_date">{{ __('Publish At Date') }}</label>
+                                    <input type="date" id="publish_at_date" name="publish_at_date" class="form-control">{{ !empty($post->publish_at) ? $post->publish_at->format('Y-m-d') : '' }}
+                                    @error('publish_at_date')
+                                        <span class="form-text text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="publish_at_time">{{ __('Publish At Time') }}</label>
+                                    <input type="time" id="publish_at_time" name="publish_at_time" class="form-control">{{ !empty($post->publish_at) ? $post->publish_at->format('H:i') : '' }}
+                                    @error('publish_at_time')
+                                        <span class="form-text text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
 

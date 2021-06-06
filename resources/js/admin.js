@@ -4,3 +4,4 @@ bsCustomFileInput.init();
 require('./scripts/tinymce');
 require('./scripts/sidebar');
 require('./scripts/proper-url');
+require('./scripts/post-date');

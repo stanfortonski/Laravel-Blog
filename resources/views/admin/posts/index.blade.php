@@ -24,10 +24,10 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">{{ __('ID') }}</th>
-                                <th scope="col">{{ __('Categories') }}</th>
                                 <th scope="col">{{ __('thumbnail') }}</th>
                                 <th scope="col">{{ __('title') }}</th>
                                 <th scope="col">{{ __('description') }}</th>
+                                <th scope="col">{{ __('Categories') }}</th>
                                 <th scope="col">{{ __('Author') }}</th>
                                 <th scope="col"></th>
                             </tr>
@@ -37,6 +37,15 @@
                                 @php $content = $post->content()->first(); @endphp
                                 <tr>
                                     <th scope="row">{{ $post->id }}</th>
+                                    <td>
+                                        @if(!empty($post->thumbnail_path))
+                                            <img class="img-fluid" src="{{ $post->thumbnail }}" alt="{{ $content->title ?? '' }}" width="144" height="144">
+                                        @else
+                                            {{ __('No image') }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $content->title ?? '' }}</td>
+                                    <td>{!! $content->description ?? '' !!}</td>
                                     <td>
                                         <ul class="list-unstyled">
                                             @foreach($post->categories as $category)
@@ -49,15 +58,6 @@
                                             @endforeach
                                         <ul>
                                     </td>
-                                    <td>
-                                        @if(!empty($post->thumbnail_path))
-                                            <img class="img-fluid" src="{{ $post->thumbnail }}" alt="{{ $content->title ?? '' }}" width="144" height="144">
-                                        @else
-                                            {{ __('No image') }}
-                                        @endif
-                                    </td>
-                                    <td>{{ $content->title ?? '' }}</td>
-                                    <td>{!! $content->description ?? '' !!}</td>
                                     <td>{{ $post->author->full_name }}</td>
                                     <td>
                                         <div class="dropdown text-right">
