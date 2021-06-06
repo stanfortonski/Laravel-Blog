@@ -3,17 +3,17 @@
 namespace Database\Factories;
 
 use App\Helpers\Helper;
-use App\Models\Content;
+use App\Models\PostContent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ContentFactory extends Factory
+class PostContentFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Content::class;
+    protected $model = PostContent::class;
 
     /**
      * Define the model's default state.

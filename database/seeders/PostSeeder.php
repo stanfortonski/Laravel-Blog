@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use App\Models\Content;
 use App\Models\Post;
+use App\Models\PostContent;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -24,13 +24,13 @@ class PostSeeder extends Seeder
             ]);
 
             $locales = config('app.available_locales');
-            $contentDefault = Content::factory()->create(['lang' => $locales[0]]);
+            $contentDefault = PostContent::factory()->create(['lang' => $locales[0]]);
             DB::table('contents_of_posts')->insert([
                 'post_id' => $post->id,
                 'content_id' => $contentDefault->id,
             ]);
 
-            $contentSecond = Content::factory()->create(['lang' => $locales[1]]);
+            $contentSecond = PostContent::factory()->create(['lang' => $locales[1]]);
             DB::table('contents_of_posts')->insert([
                 'post_id' => $post->id,
                 'content_id' => $contentSecond->id,

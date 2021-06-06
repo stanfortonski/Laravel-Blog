@@ -7,6 +7,7 @@ use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\ImageRequest;
 use App\Models\Category;
 use App\Models\Content;
+use App\Services\CategoryContentUrlValidator;
 use App\Services\ContentUrlValidator;
 use App\Services\ThumbnailManager;
 use Exception;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
 {
-    use ThumbnailManager, ContentUrlValidator;
+    use ThumbnailManager, CategoryContentUrlValidator;
 
     /**
      * Display a listing of the resource.

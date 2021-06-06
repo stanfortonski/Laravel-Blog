@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ImageRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Models\Category;
-use App\Models\Content;
+use App\Models\PostContent;
 use App\Models\Post;
-use App\Services\ContentUrlValidator;
+use App\Services\PostContentUrlValidator;
 use App\Services\ThumbnailManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 
 class PostsController extends Controller
 {
-    use ThumbnailManager, ContentUrlValidator;
+    use ThumbnailManager, PostContentUrlValidator;
 
     /**
      * Display a listing of the resource.
@@ -65,7 +65,7 @@ class PostsController extends Controller
 
             $contentData = $request->content;
             $contentData['lang'] = app()->getLocale();
-            $content = Content::create($contentData);
+            $content = PostContent::create($contentData);
             $post->contents()->saveMany([$content]);
             DB::commit();
 
@@ -125,7 +125,7 @@ class PostsController extends Controller
                 $contentData = $request->content;
                 $contentData['lang'] = app()->getLocale();
                 if (empty($content)){
-                    $content = Content::create($contentData);
+                    $content = PostContent::create($contentData);
                     $post->contents()->saveMany([$content]);
                 }
                 else $content->update($contentData);

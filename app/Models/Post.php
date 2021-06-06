@@ -59,7 +59,7 @@ class Post extends Model implements Searchable, Feedable
 
     public function contents()
     {
-        return $this->belongsToMany(Content::class, 'contents_of_posts', 'post_id', 'content_id');
+        return $this->belongsToMany(PostContent::class, 'contents_of_posts', 'post_id', 'content_id');
     }
 
     public function scopeVisible($query)

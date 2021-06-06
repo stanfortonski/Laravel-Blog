@@ -3,7 +3,7 @@
 namespace Tests\Feature\Admin;
 
 use App\Models\Category;
-use App\Models\Content;
+use App\Models\PostContent;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Arr;
@@ -97,7 +97,7 @@ class PostsTest extends TestCase
     {
         $data = Post::factory()->make()->toArray();
         $data['_token'] = csrf_token();
-        $data['content'] = Content::factory()->make()->toArray();
+        $data['content'] = PostContent::factory()->make()->toArray();
         $data['categories'] = [Category::all()->random()->id];
 
         if ($data['is_visible'] == 0)
@@ -125,7 +125,7 @@ class PostsTest extends TestCase
     {
         $data = Post::factory()->make()->toArray();
         $data['_token'] = csrf_token();
-        $data['content'] = Content::factory()->make()->toArray();
+        $data['content'] = PostContent::factory()->make()->toArray();
         $data['categories'] = [Category::all()->random()->id];
 
         if ($data['is_visible'] == 0)
