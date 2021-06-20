@@ -12,9 +12,10 @@
 
         (function(){ // DON'T EDIT BELOW THIS LINE
             var d = document, s = d.createElement('script');
-            s.src = '{{env("app_disqus")}}';
+            s.src = '{{env("APP_DISQUS")}}';
             s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
         })();
     </script>
+    <script id="dsq-count-scr" src="//codeiter.disqus.com/count.js" async></script>
 @endpush
