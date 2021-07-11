@@ -94,7 +94,7 @@
         @if(!empty($category))
             <div class="card mt-4">
                 <div class="card-header">
-                    <span class="card-title h5">{{ __('Thumbnail') }} {{ __('Category') }}</span>
+                    <span class="card-title h5">{{ __('Thumbnail') }}</span>
                 </div>
                 <div class="card-body">
                     <div class="row">

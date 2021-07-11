@@ -144,7 +144,7 @@
         @if(!empty($post))
             <div class="card mt-4">
                 <div class="card-header">
-                    <span class="card-title h5">{{ __('Thumbnail') }} {{ __('Post') }}</span>
+                    <span class="card-title h5">{{ __('Thumbnail') }}</span>
                 </div>
                 <div class="card-body">
                     <div class="row">
