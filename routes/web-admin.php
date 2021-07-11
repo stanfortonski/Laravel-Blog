@@ -29,7 +29,11 @@ Route::group([
         Route::delete('/posts/{post}/image', 'PostsController@destroyImage')->name('posts.image.destroy');
         Route::resource('posts', 'PostsController')->except('show');
 
+        Route::delete('/post-content/{postContent}', 'ContentController@deletePostContent')->name('post-content.destroy');
+
         Route::middleware('role:admin')->group(function(){
+            Route::delete('/content/{content}', 'ContentController@deleteCategoryContent')->name('content.destroy');
+
             Route::put('/users/{user}/image', 'UsersController@updateImage')->name('users.image.update');
             Route::delete('/users/{user}/image', 'UsersController@destroyImage')->name('users.image.destroy');
             Route::put('/users/{user}/password', 'UsersPasswordController')->name('users.password');

@@ -127,5 +127,9 @@
     "Other posts that may interest you": "Inne posty ktore mogą cię zainteresować",
     "Toggle navigation": "Przełącz nawigację",
     "This url already exists.": "Taki link już istnieje.",
-    "This value is not language.": "Ta wartość nie jest językiem."
+    "This value is not language.": "Ta wartość nie jest językiem.",
+    "Delete only data for this langauge": "Usuń dane tylko dla tego języka",
+    "There is no data defined for this language.": "Nie ma zdefiniowanych danych dla tego języka.",
+    "Add data for this language": "Dodaj dane dla tego języka",
+    "This language data has been deleted.": "Dane tego języka zostały usuniętę."
 }

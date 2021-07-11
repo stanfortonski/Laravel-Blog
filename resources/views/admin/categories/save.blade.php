@@ -29,7 +29,14 @@
                 @empty($category)
                     <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
                 @else
-                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+                    @empty($content)
+                        <div class="text-center hidden-form-info">
+                            <p>{{ __('There is no data defined for this language.') }}</p>
+                            <button type="button" class="btn btn-lg btn-primary fas fa-2x fa-plus" data-toggle="tooltip" title="{{ __('Add data for this language') }}"></button>
+                        </div>
+                    @endempty
+
+                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" class="{{ empty($content) ? 'd-none hidden-form' : '' }}">
                     @method('PUT')
                 @endempty
                     @csrf
@@ -133,11 +140,19 @@
                 </div>
                 <div class="card-body">
                     <p class="text-muted">{{ __('Be careful when using this operation.') }}</p>
-                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
+                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" class="d-inline pr-2">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
                     </form>
+
+                    @if(!empty($content))
+                        <form action="{{ route('admin.content.destroy', $content->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">{{ __('Delete only data for this langauge') }}</button>
+                        </form>
+                    @endif
                 </div>
             </div>
         @endif
