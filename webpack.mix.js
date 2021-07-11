@@ -14,6 +14,7 @@ const theme = process.env.BLOG_THEME;
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
+    .js('resources/js/close.js', 'public/js')
     .sass(`resources/sass/admin/admin.scss`, 'public/css')
     .sass(`resources/sass/${theme}/app.scss`, 'public/css');
 
