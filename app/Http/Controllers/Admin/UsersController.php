@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\SetLangInAdminPanel;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\AuthorContent;
 use App\Models\User;
@@ -56,6 +57,8 @@ class UsersController extends Controller
     {
         $this->validate($request, ['email' => Rule::unique('users')]);
 
+        SetLangInAdminPanel::setLang($request->lang);
+
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
@@ -65,7 +68,7 @@ class UsersController extends Controller
             $this->saveRoles($request, $user);
             $content = new AuthorContent;
             $content->content = $request->content;
-            $content->lang = app()->getLocale();
+            $content->lang = $request->lang;
             $user->contents()->saveMany([$content]);
             DB::commit();
 
@@ -103,6 +106,8 @@ class UsersController extends Controller
     {
         $this->validate($request, ['email' => Rule::unique('users')->ignore($user->id)]);
 
+        SetLangInAdminPanel::setLang($request->lang);
+
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
@@ -113,7 +118,7 @@ class UsersController extends Controller
             if (empty($content)){
                 $content = new AuthorContent;
                 $content->content = $request->content;
-                $content->lang = app()->getLocale();
+                $content->lang = $request->lang;
                 $user->contents()->saveMany([$content]);
             }
             else $content->update(['content' => $request->content]);

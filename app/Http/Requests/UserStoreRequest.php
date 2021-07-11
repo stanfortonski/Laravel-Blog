@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\IsLang;
 use App\Rules\Name;
 use App\Rules\RealName;
 use Illuminate\Foundation\Http\FormRequest;
@@ -22,6 +23,7 @@ class UserStoreRequest extends FormRequest
     public function attributes()
     {
         return [
+            'lang' => __('lang'),
             'name' => __('Name'),
             'first_name' => __('First Name'),
             'last_name' => __('Last Name'),
@@ -41,6 +43,7 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'lang' => ['required', 'string', new IsLang],
             'name' => ['required', 'string', 'max:255', new Name],
             'first_name' => ['required', 'string', 'max:255', new RealName],
             'last_name' => ['required', 'string', 'max:255', new RealName],

@@ -4,13 +4,15 @@
             <span class="card-title h5">{{ __('Change Account Data') }}</span>
         </div>
         <div class="card-body">
+            <div class="mb-2 text-right">
+                <x-choose-lang-admin />
+            </div>
+
             <form method="POST" action="{{ route('admin.user-panel.update') }}">
                 @csrf
                 @method('PUT')
 
-                <div class="mb-2 text-right">
-                    <x-choose-lang-admin />
-                </div>
+                <input type="hidden" name="lang" value="{{ app()->getLocale() }}">
 
                 <div class="form-group">
                     <label for="name">{{ __('Name') }}*</label>

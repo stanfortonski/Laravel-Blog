@@ -70,7 +70,7 @@
                             </ul>
 
                             <ul class="navbar-nav ml-auto">
-                                @foreach (config('app.available_locales') as $locale)
+                                @foreach (config('blog.available_locales') as $locale)
                                     <li class="nav-item">
                                         <a class="nav-link mr-1 @if(app()->getLocale() == $locale) font-weight-bold disabled @endif" href="{{ route('index', $locale) }}">{{ strtoupper($locale) }}</a>
                                     </li>

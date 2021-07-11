@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\IsLang;
 use App\Rules\PartOfUrl;
 use App\Rules\Title;
 use Illuminate\Foundation\Http\FormRequest;
@@ -27,6 +28,7 @@ class PostStoreRequest extends FormRequest
     {
         return [
             'content' => __('content'),
+            'content.lang' => __('lang'),
             'content.title' => __('title'),
             'content.content' => __('content'),
             'content.url' => __('url'),
@@ -46,6 +48,7 @@ class PostStoreRequest extends FormRequest
     {
         return [
             'content' => ['required', 'array'],
+            'content.lang' => ['required', 'string', new IsLang],
             'content.title' => ['required', 'string', 'max:255', new Title],
             'content.url' => ['required', 'string', 'max:255', new PartOfUrl],
             'content.content' => ['required', 'string', 'max:65535'],

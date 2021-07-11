@@ -75,13 +75,17 @@ class UsersTest extends TestCase
         $this->assertTrue(Hash::check($password, $user->password));
     }
 
-    public function testStore()
+    /**
+     * @dataProvider langProvider
+     */
+    public function testStore($lang)
     {
         $data = User::factory()->make()->toArray();
         $data['_token'] = csrf_token();
         $data['roles'] = [Role::all()->random()->id];
         $data['content'] = Str::random(128);
         $data['password'] = Str::random(8);
+        $data['lang'] = $lang;
 
         $response = $this->actingAs($this->admin)->post(route('admin.users.store'), $data);
 
@@ -95,18 +99,23 @@ class UsersTest extends TestCase
         $this->assertEquals($data['email'], $user->email, 'Email');
         $this->assertEquals($data['website'], $user->website, 'Website');
         $this->assertEquals($data['content'], $user->content()->first()->content, 'Content');
+        $this->assertEquals($data['lang'], $user->content()->first()->lang, 'Lang');
         $this->assertEquals($data['roles'], Arr::flatten($user->roles()->pluck('id')->values()->toArray()), 'Roles');
         $this->assertEquals($data['url'], Helper::properUrl($user->first_name.' '.$user->last_name), 'Url');
         $this->assertTrue(Hash::check($data['password'], $user->password), 'Password');
     }
 
-    public function testUpdate()
+    /**
+     * @dataProvider langProvider
+     */
+    public function testUpdate($lang)
     {
         $user = User::all()->random();
         $data = User::factory()->make()->toArray();
         $data['_token'] = csrf_token();
         $data['roles'] = [Role::all()->random()->id];
         $data['content'] = Str::random(128);
+        $data['lang'] = $lang;
 
         $response = $this->actingAs($this->admin)->put(route('admin.users.update', $user->id), $data);
 
@@ -120,6 +129,7 @@ class UsersTest extends TestCase
         $this->assertEquals($data['email'], $user->email, 'Email');
         $this->assertEquals($data['website'], $user->website, 'Website');
         $this->assertEquals($data['content'], $user->content()->first()->content, 'Content');
+        $this->assertEquals($data['lang'], $user->content()->first()->lang, 'Lang');
         $this->assertEquals($data['roles'], Arr::flatten($user->roles()->pluck('id')->values()->toArray()), 'Roles');
         $this->assertEquals($data['url'], Helper::properUrl($user->first_name.' '.$user->last_name), 'Url');
     }

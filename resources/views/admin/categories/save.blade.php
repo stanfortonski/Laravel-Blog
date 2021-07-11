@@ -34,6 +34,8 @@
                 @endempty
                     @csrf
 
+                    <input type="hidden" name="content[lang]" value="{{ app()->getLocale() }}">
+
                     <div class="form-group">
                         <label for="title">{{ __('title') }}*</label>
                         <input type="text" id="title" name="content[title]" class="form-control @error('content.title') is-invalid @enderror" value="{{ $content->title ?? old('content.title') }}" required>

@@ -44,11 +44,15 @@ class UserPanelTest extends TestCase
         $this->assertTrue(Hash::check($password, $this->user->password));
     }
 
-    public function testUpdate()
+    /**
+     * @dataProvider langProvider
+     */
+    public function testUpdate($lang)
     {
         $data = User::factory()->make()->toArray();
         $data['_token'] = csrf_token();
         $data['content'] = Str::random(128);
+        $data['lang'] = $lang;
 
         $response = $this->actingAs($this->user)->put(route('admin.user-panel.update'), $data);
 
@@ -62,6 +66,7 @@ class UserPanelTest extends TestCase
         $this->assertEquals($data['email'], $this->user->email, 'Email');
         $this->assertEquals($data['website'], $this->user->website, 'Website');
         $this->assertEquals($data['content'], $this->user->content()->first()->content, 'Content');
+        $this->assertEquals($data['lang'], $this->user->content()->first()->lang, 'Lang');
         $this->assertEquals($data['url'], Helper::properUrl($this->user->first_name.' '.$this->user->last_name), 'Url');
     }
 }

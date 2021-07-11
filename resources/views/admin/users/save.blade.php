@@ -28,6 +28,8 @@
                 @endempty
                     @csrf
 
+                    <input type="hidden" name="lang" value="{{ app()->getLocale() }}">
+
                     <div class="form-group">
                         <label for="name">{{ __('Name') }}*</label>
                         <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name ?? old('name') }}" required>

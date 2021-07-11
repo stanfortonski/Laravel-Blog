@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::factory()->count(5)->create()->each(function($category){
-            $locales = config('app.available_locales');
+            $locales = config('blog.available_locales');
             $contentDefault = Content::factory()->create(['lang' => $locales[0]]);
             DB::table('contents_of_categories')->insert([
                 'category_id' => $category->id,

@@ -25,4 +25,11 @@ trait TestUtils
             $query->where('name', '=', $roleName);
         })->get()->random();
     }
+
+    public function langProvider(){
+        return [
+            ['en'],
+            ['pl']
+        ];
+    }
 }

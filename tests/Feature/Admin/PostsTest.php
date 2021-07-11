@@ -93,11 +93,15 @@ class PostsTest extends TestCase
         $this->assertNotEmpty($notEmptyPost);
     }
 
-    public function testStore()
+    /**
+     * @dataProvider langProvider
+     */
+    public function testStore($lang)
     {
         $data = Post::factory()->make()->toArray();
         $data['_token'] = csrf_token();
         $data['content'] = PostContent::factory()->make()->toArray();
+        $data['content']['lang'] = $lang;
         $data['categories'] = [Category::all()->random()->id];
 
         if ($data['is_visible'] == 0)
@@ -118,14 +122,19 @@ class PostsTest extends TestCase
         $this->assertEquals($data['content']['title'], $post->content()->first()->title, 'Title');
         $this->assertEquals($data['content']['content'], $post->content()->first()->content, 'Content');
         $this->assertEquals($data['content']['url'], $post->content()->first()->url, 'Url');
+        $this->assertEquals($data['content']['lang'], $post->content()->first()->lang, 'Lang');
         $this->assertEquals($data['categories'], Arr::flatten($post->categories()->pluck('id')->values()->toArray()), 'Categories');
     }
 
-    public function testUpdate()
+    /**
+     * @dataProvider langProvider
+     */
+    public function testUpdate($lang)
     {
         $data = Post::factory()->make()->toArray();
         $data['_token'] = csrf_token();
         $data['content'] = PostContent::factory()->make()->toArray();
+        $data['content']['lang'] = $lang;
         $data['categories'] = [Category::all()->random()->id];
 
         if ($data['is_visible'] == 0)
@@ -145,6 +154,7 @@ class PostsTest extends TestCase
         $this->assertEquals($data['content']['title'], $this->post->content()->first()->title, 'Title');
         $this->assertEquals($data['content']['content'], $this->post->content()->first()->content, 'Content');
         $this->assertEquals($data['content']['url'], $this->post->content()->first()->url, 'Url');
+        $this->assertEquals($data['content']['lang'], $this->post->content()->first()->lang, 'Lang');
         $this->assertEquals($data['categories'], Arr::flatten($this->post->categories()->pluck('id')->values()->toArray()), 'Categories');
     }
 }

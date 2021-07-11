@@ -18,11 +18,17 @@ class SetLangInAdminPanel
     {
         if ($request->hasCookie('lang')){
             $lang = Cookie::get('lang');
-            foreach (config('app.available_locales') as $locale){
+            foreach (config('blog.available_locales') as $locale){
                 if ($locale == $lang)
                     app()->setLocale(Cookie::get('lang'));
             }
         }
         return $next($request);
+    }
+
+    static public function setLang($lang)
+    {
+        Cookie::queue('lang', $lang);
+        app()->setLocale($lang);
     }
 }

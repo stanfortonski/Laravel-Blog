@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\IsLang;
 use App\Rules\PartOfUrl;
 use App\Rules\Title;
 use Illuminate\Foundation\Http\FormRequest;
@@ -16,7 +17,9 @@ class CategoryStoreRequest extends FormRequest
     public function attributes()
     {
         return [
+            'content' => __('content'),
             'content.title' => __('title'),
+            'content.lang' => __('lang'),
             'content.content' => __('content'),
             'content.url' => __('url'),
             'thumbnail' => __('thumbnail')
@@ -31,7 +34,9 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'content' => ['required', 'array'],
             'content.title' => ['required', 'string', 'max:255', new Title],
+            'content.lang' => ['required', 'string', new IsLang],
             'content.url' => ['required', 'string', 'max:255', new PartOfUrl],
             'content.content' => ['required', 'string', 'max:65535'],
             'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048']

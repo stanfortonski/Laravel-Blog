@@ -30,7 +30,7 @@ Have fun :)
 
 ## Languages
 - Two languages are available by default English and Polish.
-- If you want to add new language you will make new folder for example de in resources/lang and copy everything from `resources/lang/en` to this folder and create de.json in `/resources/lang` folder. And then translate and add your lang to `available_locales` array in `/config/app.php`.
+- If you want to add new language you will make new folder for example de in resources/lang and copy everything from `resources/lang/en` to this folder and create de.json in `/resources/lang` folder. And then translate and add your lang to `available_locales` array in `/config/blog.php`.
 
 ## Themes
 You can use default theme or just add new themes to your blog. Default theme is located in `/resources/sass/default` and `/resources/views/default`. You can add your own theme by set `BLOG_THEME` in .env file and creating folder in sass and views with the same name with your custom data. In views one restriction is to have files with the same names as in "default" views folder.

@@ -23,7 +23,7 @@ class PostSeeder extends Seeder
                 'category_id' => Category::all()->random()->id,
             ]);
 
-            $locales = config('app.available_locales');
+            $locales = config('blog.available_locales');
             $contentDefault = PostContent::factory()->create(['lang' => $locales[0]]);
             DB::table('contents_of_posts')->insert([
                 'post_id' => $post->id,

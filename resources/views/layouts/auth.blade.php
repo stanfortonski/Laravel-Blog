@@ -52,7 +52,7 @@
                             </ul>
 
                             <ul class="navbar-nav ml-auto">
-                                @foreach (config('app.available_locales') as $locale)
+                                @foreach (config('blog.available_locales') as $locale)
                                     <li class="nav-item">
                                         <a class="nav-link p-1 @if (app()->getLocale() == $locale) font-weight-bold @endif" href="{{ route('admin.set-lang', $locale) }}">{{ strtoupper($locale) }}</a>
                                     </li>

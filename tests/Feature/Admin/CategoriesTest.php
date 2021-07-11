@@ -51,11 +51,15 @@ class CategoriesTest extends TestCase
         $this->assertEmpty($emptyCategory);
     }
 
-    public function testStore()
+    /**
+     * @dataProvider langProvider
+     */
+    public function testStore($lang)
     {
         $data = Category::factory()->make()->toArray();
         $data['_token'] = csrf_token();
         $data['content'] = Content::factory()->make()->toArray();
+        $data['content']['lang'] = $lang;
 
         $response = $this->actingAs($this->admin)->post(route('admin.categories.store'), $data);
 
@@ -66,13 +70,18 @@ class CategoriesTest extends TestCase
         $this->assertEquals($data['content']['title'], $category->content()->first()->title, 'Title');
         $this->assertEquals($data['content']['content'], $category->content()->first()->content, 'Content');
         $this->assertEquals($data['content']['url'], $category->content()->first()->url, 'Url');
+        $this->assertEquals($data['content']['lang'], $category->content()->first()->lang, 'Lang');
     }
 
-    public function testUpdate()
+    /**
+     * @dataProvider langProvider
+     */
+    public function testUpdate($lang)
     {
         $data = Category::factory()->make()->toArray();
         $data['_token'] = csrf_token();
         $data['content'] = Content::factory()->make()->toArray();
+        $data['content']['lang'] = $lang;
 
         $response = $this->actingAs($this->admin)->put(route('admin.categories.update', $this->category->id), $data);
 
@@ -83,5 +92,6 @@ class CategoriesTest extends TestCase
         $this->assertEquals($data['content']['title'], $this->category->content()->first()->title, 'Title');
         $this->assertEquals($data['content']['content'], $this->category->content()->first()->content, 'Content');
         $this->assertEquals($data['content']['url'], $this->category->content()->first()->url, 'Url');
+        $this->assertEquals($data['content']['lang'], $this->category->content()->first()->lang, 'Lang');
     }
 }

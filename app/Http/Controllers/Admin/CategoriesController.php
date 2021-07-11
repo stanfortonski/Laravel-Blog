@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\SetLangInAdminPanel;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\ImageRequest;
 use App\Models\Category;
@@ -52,6 +53,8 @@ class CategoriesController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
+        SetLangInAdminPanel::setLang($request->content['lang']);
+
         if (!$this->validateContentUrl($request))
             return redirect()->back()->withError(__('This url already exists.'));
 
@@ -61,9 +64,7 @@ class CategoriesController extends Controller
             $data['thumbnail_path'] = $this->storeThumbnail($request);
             $category = Category::create($data);
 
-            $contentData = $request->content;
-            $contentData['lang'] = app()->getLocale();
-            $content = Content::create($contentData);
+            $content = Content::create($request->content);
             $category->contents()->saveMany([$content]);
             DB::commit();
 
@@ -99,6 +100,8 @@ class CategoriesController extends Controller
      */
     public function update(CategoryStoreRequest $request, Category $category)
     {
+        SetLangInAdminPanel::setLang($request->content['lang']);
+
         $content = $category->content()->first();
         if (!empty($content)){
             if (!$this->validateContentUrlWithoutOne($request, $content))
@@ -115,8 +118,6 @@ class CategoriesController extends Controller
             $category->update($data);
 
             $contentData = $request->content;
-            $contentData['lang'] = app()->getLocale();
-
             if (empty($content)){
                 $content = Content::create($contentData);
                 $category->contents()->saveMany([$content]);

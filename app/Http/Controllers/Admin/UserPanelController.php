@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\SetLangInAdminPanel;
 use App\Http\Requests\UserPasswordRequest;
 use App\Models\AuthorContent;
 use App\Rules\Name;
 use App\Http\Requests\ImageRequest;
+use App\Rules\IsLang;
 use App\Rules\RealName;
 use App\Services\ThumbnailManager;
 use Exception;
@@ -37,6 +39,7 @@ class UserPanelController extends Controller
         $user = auth()->user();
 
         $this->validate($request, [
+            'lang' => ['required', 'string', new IsLang],
             'name' => ['required', 'string', 'max:255', new Name, Rule::unique('users', 'name')->ignore($user->id)],
             'first_name' => ['required', 'string', 'max:255', new RealName],
             'last_name' => ['required', 'string', 'max:255', new RealName],
@@ -44,6 +47,7 @@ class UserPanelController extends Controller
             'content' => ['nullable', 'string', 'max:255'],
             'website' => ['nullable', 'url', 'max:255'],
         ], [], [
+            'lang' => __('lang'),
             'first_name' => __('First Name'),
             'last_name' => __('Last Name'),
             'name' => __('Name'),
@@ -51,6 +55,8 @@ class UserPanelController extends Controller
             'content' => __('content'),
             'website' => __('website')
         ]);
+
+        SetLangInAdminPanel::setLang($request->lang);
 
         DB::beginTransaction();
         try {
@@ -68,7 +74,7 @@ class UserPanelController extends Controller
             if (empty($content)){
                 $content = new AuthorContent();
                 $content->content = $request->content;
-                $content->lang = app()->getLocale();
+                $content->lang = $request->lang;
                 $user->contents()->saveMany([$content]);
             }
             else $content->update(['content' => $request->content]);

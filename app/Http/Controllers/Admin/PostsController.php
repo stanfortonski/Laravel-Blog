@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\SetLangInAdminPanel;
 use App\Http\Requests\ImageRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Models\Category;
@@ -52,6 +53,8 @@ class PostsController extends Controller
      */
     public function store(PostStoreRequest $request)
     {
+        SetLangInAdminPanel::setLang($request->content['lang']);
+
         if (!$this->validateContentUrl($request))
             return redirect()->back()->withError(__('This url already exists.'));
 
@@ -63,9 +66,7 @@ class PostsController extends Controller
 
             $this->saveCategories($request, $post);
 
-            $contentData = $request->content;
-            $contentData['lang'] = app()->getLocale();
-            $content = PostContent::create($contentData);
+            $content = PostContent::create($request->content);
             $post->contents()->saveMany([$content]);
             DB::commit();
 
@@ -104,6 +105,8 @@ class PostsController extends Controller
      */
     public function update(PostStoreRequest $request, Post $post)
     {
+        SetLangInAdminPanel::setLang($request->content['lang']);
+
         $content = $post->content()->first();
         if (!empty($content)){
             if (!$this->validateContentUrlWithoutOne($request, $content))
@@ -123,7 +126,6 @@ class PostsController extends Controller
                 $this->saveCategories($request, $post);
 
                 $contentData = $request->content;
-                $contentData['lang'] = app()->getLocale();
                 if (empty($content)){
                     $content = PostContent::create($contentData);
                     $post->contents()->saveMany([$content]);

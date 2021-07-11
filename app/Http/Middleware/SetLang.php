@@ -16,7 +16,7 @@ class SetLang
      */
     public function handle($request, Closure $next)
     {
-        foreach (config('app.available_locales') as $locale){
+        foreach (config('blog.available_locales') as $locale){
             if ($locale == $request->segment(1)){
                 Cookie::queue('lang', $request->segment(1));
                 app()->setLocale($request->segment(1));
