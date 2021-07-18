@@ -22,7 +22,7 @@ class CategoryStoreRequest extends FormRequest
             'content.lang' => __('lang'),
             'content.content' => __('content'),
             'content.url' => __('url'),
-            'thumbnail' => __('thumbnail')
+            'thumbnail_path' => __('thumbnail')
         ];
     }
 
@@ -39,7 +39,7 @@ class CategoryStoreRequest extends FormRequest
             'content.lang' => ['required', 'string', new IsLang],
             'content.url' => ['required', 'string', 'max:255', new PartOfUrl],
             'content.content' => ['required', 'string', 'max:65535'],
-            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048']
+            'thumbnail_path' => ['nullable', 'string', 'max:255']
         ];
     }
 }

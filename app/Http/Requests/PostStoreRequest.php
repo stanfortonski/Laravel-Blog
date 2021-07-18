@@ -33,7 +33,7 @@ class PostStoreRequest extends FormRequest
             'content.content' => __('content'),
             'content.url' => __('url'),
             'publish_at' => __('publish at'),
-            'thumbnail' => __('thumbnail'),
+            'thumbnail_path' => __('thumbnail'),
             'categories' => __('Categories'),
             'tags' => __('Tags')
         ];
@@ -54,7 +54,7 @@ class PostStoreRequest extends FormRequest
             'content.content' => ['required', 'string', 'max:65535'],
             'publish_at_date' => ['nullable', 'date'],
             'publish_at_time' => ['nullable', 'date_format:H:i'],
-            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'thumbnail_path' => ['nullable', 'string', 'max:255'],
             'categories' => ['nullable', 'array'],
             'categories.*' => ['nullable', 'integer', 'exists:categories,id'],
             'tags' => ['nullable', 'string', 'max:255']

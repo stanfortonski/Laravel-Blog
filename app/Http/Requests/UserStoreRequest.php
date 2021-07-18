@@ -29,7 +29,7 @@ class UserStoreRequest extends FormRequest
             'last_name' => __('Last Name'),
             'content' => __('content'),
             'website' => __('website'),
-            'thumbnail' => __('thumbnail'),
+            'thumbnail_path' => __('thumbnail'),
             'roles' => __('Roles'),
             'password' => __('Password')
         ];
@@ -50,7 +50,7 @@ class UserStoreRequest extends FormRequest
             'email' => ['required', 'email'],
             'content' => ['nullable', 'string', 'max:255'],
             'website' => ['nullable', 'url', 'max:255'],
-            'thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'thumbnail_path' => ['nullable', 'string', 'max:255'],
             'roles' => ['nullable', 'array'],
             'roles.*' => ['nullable', 'integer', 'exists:roles,id'],
             'password' => ['sometimes', 'string', new Password]

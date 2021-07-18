@@ -14,3 +14,8 @@
 .db-empty{
     @extend .pl-4, .p-2, .mb-0, .text-center, .pb-4;
 }
+
+#holder img{
+    @extend .img-fluid, .my-1;
+    height: auto !important;
+}

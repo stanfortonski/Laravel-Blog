@@ -9,7 +9,6 @@ use App\Http\Requests\UserStoreRequest;
 use App\Models\AuthorContent;
 use App\Models\User;
 use App\Http\Requests\ImageRequest;
-use App\Services\ThumbnailManager;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,8 +19,6 @@ use Stanfortonski\Laravelroles\Models\Role;
 
 class UsersController extends Controller
 {
-    use ThumbnailManager;
-
     /**
      * Display a listing of the resource.
      *
@@ -62,7 +59,6 @@ class UsersController extends Controller
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
-            $data['thumbnail_path'] = $this->storeThumbnail($request);
 
             $user = User::create($data);
             $this->saveRoles($request, $user);
@@ -154,8 +150,7 @@ class UsersController extends Controller
      */
     public function updateImage(ImageRequest $request, User $user)
     {
-        $this->deleteThumbnail($user);
-        $user->thumbnail_path = $this->storeThumbnail($request);
+        $user->thumbnail_path = $request->thumbnail_path;
         $user->update();
 
         return redirect()->back()->withSuccess('admin.thumbnail.update');
@@ -170,7 +165,6 @@ class UsersController extends Controller
      */
     public function destroyImage(User $user)
     {
-        $this->deleteThumbnail($user);
         $user->thumbnail_path = null;
         $user->update();
 

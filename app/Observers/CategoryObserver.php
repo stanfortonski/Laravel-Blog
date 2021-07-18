@@ -3,12 +3,9 @@
 namespace App\Observers;
 
 use App\Models\Category;
-use App\Services\ThumbnailManager;
 
 class CategoryObserver
 {
-    use ThumbnailManager;
-
     /**
      * Handle the Category "created" event.
      *
@@ -40,7 +37,6 @@ class CategoryObserver
     public function deleting(Category $category)
     {
         $category->contents()->delete();
-        $this->deleteThumbnail($category);
     }
 
     /**

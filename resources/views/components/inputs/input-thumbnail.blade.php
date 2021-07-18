@@ -1,8 +1,11 @@
-<label for="thumbnail">{{ __($label) }}</label>
-<div class="custom-file">
-    <input type="file" id="thumbnail" name="thumbnail" class="custom-file-input form-control @error('thumbnail') is-invalid @enderror" lang="{{ app()->getLocale() }}" accept="image/x-png,image/gif,image/jpeg,image/webp">
-    <label for="thumbnail" class="custom-file-label">{{ __('Choose file') }}</label>
+<label for="thumbnail">{{ __($label) }}</label><div class="input-group">
+    <span class="input-group-btn">
+      <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-secondary">
+        <i class="fas fa-image mr-2"></i> {{ __('Choose') }}
+      </a>
+    </span>
+    <input id="thumbnail" class="form-control" type="text" name="thumbnail_path">
 </div>
-@error('thumbnail')
+@error('thumbnail_path')
     <small class="text-danger">{{ $message }}</small>
 @enderror

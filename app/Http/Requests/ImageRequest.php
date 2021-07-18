@@ -24,7 +24,7 @@ class ImageRequest extends FormRequest
     public function attributes()
     {
         return [
-            'thumbnail' => __('thumbnail')
+            'thumbnail_path' => __('thumbnail')
         ];
     }
 
@@ -36,7 +36,7 @@ class ImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'thumbnail_path' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

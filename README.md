@@ -42,6 +42,7 @@ In config/fortify.php uncomment Features::registration() and then in config/blog
 - [Laravel 8.x](https://laravel.com/docs/8.x)
 - [Laravel Fortify](https://github.com/laravel/fortify)
 - [Laravel-Roles](https://github.com/stanfortonski/Laravel-Roles)
+- [Laravel Filemanager](https://github.com/UniSharp/laravel-filemanager)
 - [Laravel-Feed](https://github.com/spatie/laravel-feed)
 - [CoreUI 3.x](https://coreui.io)
 - [TinyMCE](https://tiny.cloud/)

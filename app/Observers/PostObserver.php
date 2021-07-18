@@ -3,12 +3,9 @@
 namespace App\Observers;
 
 use App\Models\Post;
-use App\Services\ThumbnailManager;
 
 class PostObserver
 {
-    use ThumbnailManager;
-
     /**
      * Handle the Post "created" event.
      *
@@ -40,7 +37,6 @@ class PostObserver
     public function deleting(Post $post)
     {
         $post->contents()->delete();
-        $this->deleteThumbnail($post);
     }
 
     /**

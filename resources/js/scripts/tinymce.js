@@ -2,45 +2,52 @@ import tinymce from 'tinymce/tinymce.min.js';
 
 tinymce.baseURL = '/js/tinymce';
 
-tinymce.init({
+const editorConfig = {
+    path_absolute: 'http://admin.laravel-blog.test/',
     selector: 'textarea',
-    plugins: 'link lists table image wordcount fullscreen visualblocks searchreplace charmap help',
-    toolbar: ['undo redo | formatselect | bold italic frontcolor forecolor backcolor removeformat | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist table link image | fullscreen visualblocks'],
-    codesample_global_prismjs: true,
+
+    plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table directionality",
+        "emoticons template paste textpattern"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
     fullscreen_native: true,
-    visualblocks_default_state: true,
+    visualblocks_default_state: false,
     end_container_on_empty_block: true,
-    images_upload_url: '/upload',
-    file_picker_types: 'image',
-    images_file_types: 'jpeg,jpg,png,gif,webp',
     block_unsupported_drop: true,
-    height : "450",
+    relative_urls: false,
+    height: "450",
 
-    file_picker_callback: function(cb, value, meta) {
-        var input = document.createElement('input');
-        input.setAttribute('type', 'file');
-        input.setAttribute('accept', 'image/*');
-        input.onchange = function() {
-            var file = this.files[0];
+    file_picker_callback: function(callback, value, meta){
+        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
 
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function () {
-                var id = 'blobid' + (new Date()).getTime();
-                var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
-                var base64 = reader.result.split(',')[1];
-                var blobInfo = blobCache.create(id, file, base64);
-                blobCache.add(blobInfo);
-                cb(blobInfo.blobUri(), { title: file.name });
-            };
-        };
-        input.click();
+        var cmsURL = editorConfig.path_absolute + 'laravel-filemanager?editor=' + meta.fieldname;
+        if (meta.filetype == 'image') {
+            cmsURL = cmsURL + "&type=Images";
+        }
+        else {
+            cmsURL = cmsURL + "&type=Files";
+        }
+
+        tinymce.activeEditor.windowManager.openUrl({
+            url: cmsURL,
+            title: 'Filemanager',
+            width: x * 0.8,
+            height: y * 0.8,
+            resizable: "yes",
+            close_previous: "no",
+            onMessage: (api, message) => {
+                callback(message.content);
+            }
+        });
     },
 
     style_formats: [
         { title: 'Headers', items: [
           { title: 'h1', block: 'h1' },
-          { title: 'h2', block: 'h2' },
           { title: 'h3', block: 'h3' },
           { title: 'h4', block: 'h4' },
           { title: 'h5', block: 'h5' },
@@ -60,4 +67,6 @@ tinymce.init({
           { title: 'figure', block: 'figure', wrapper: true }
         ] }
     ]
-});
+};
+
+tinymce.init(editorConfig);

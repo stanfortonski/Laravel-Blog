@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::feeds();
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +12,8 @@ Route::feeds();
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::feeds();
 
 Route::get('/', 'AppController@start');
 

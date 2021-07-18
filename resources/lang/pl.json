@@ -67,7 +67,7 @@
     "thumbnail": "miniatura",
     "Thumbnail": "Miniatura",
     "Delete exists thumbnail": "Usuń istniejącą miniaturę",
-    "Upload new thumbnail": "Wgraj nową miniaturę",
+    "Set thumbnail": "Ustaw miniaturę",
     "publish at": "opublikuj o",
     "content": "treść",
     "title": "tytuł",
@@ -131,5 +131,6 @@
     "Delete only data for this langauge": "Usuń dane tylko dla tego języka",
     "There is no data defined for this language.": "Nie ma zdefiniowanych danych dla tego języka.",
     "Add data for this language": "Dodaj dane dla tego języka",
-    "This language data has been deleted.": "Dane tego języka zostały usuniętę."
+    "This language data has been deleted.": "Dane tego języka zostały usuniętę.",
+    "Open in new card": "Otwórz w nowej karcie"
 }

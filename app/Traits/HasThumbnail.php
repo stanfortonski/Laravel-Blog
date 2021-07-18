@@ -6,6 +6,6 @@ trait HasThumbnail
 {
     public function getThumbnailAttribute()
     {
-        return asset('storage/thumbnails/'.$this->thumbnail_path);
+        return $this->thumbnail_path;
     }
 }

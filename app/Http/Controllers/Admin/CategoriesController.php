@@ -9,8 +9,6 @@ use App\Http\Requests\ImageRequest;
 use App\Models\Category;
 use App\Models\Content;
 use App\Services\CategoryContentUrlValidator;
-use App\Services\ContentUrlValidator;
-use App\Services\ThumbnailManager;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +16,7 @@ use Illuminate\Support\Facades\Log;
 
 class CategoriesController extends Controller
 {
-    use ThumbnailManager, CategoryContentUrlValidator;
+    use CategoryContentUrlValidator;
 
     /**
      * Display a listing of the resource.
@@ -61,7 +59,6 @@ class CategoriesController extends Controller
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
-            $data['thumbnail_path'] = $this->storeThumbnail($request);
             $category = Category::create($data);
 
             $content = Content::create($request->content);
@@ -155,8 +152,7 @@ class CategoriesController extends Controller
      */
     public function updateImage(ImageRequest $request, Category $category)
     {
-        $this->deleteThumbnail($category);
-        $category->thumbnail_path = $this->storeThumbnail($request);
+        $category->thumbnail_path = $request->thumbnail_path;
         $category->update();
 
         return redirect()->back()->withSuccess('admin.thumbnail.update');
@@ -170,7 +166,6 @@ class CategoriesController extends Controller
      */
     public function destroyImage(Category $category)
     {
-        $this->deleteThumbnail($category);
         $category->thumbnail_path = null;
         $category->update();
 

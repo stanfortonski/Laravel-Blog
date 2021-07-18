@@ -3,12 +3,9 @@
 namespace App\Observers;
 
 use App\Models\User;
-use App\Services\ThumbnailManager;
 
 class UserObserver
 {
-    use ThumbnailManager;
-
     /**
      * Handle the User "created" event.
      *
@@ -45,8 +42,6 @@ class UserObserver
         $user->posts()->each(function($post){
             $post->delete();
         });
-
-        $this->deleteThumbnail($user);
     }
 
     /**

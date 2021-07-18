@@ -10,7 +10,6 @@ use App\Models\Category;
 use App\Models\PostContent;
 use App\Models\Post;
 use App\Services\PostContentUrlValidator;
-use App\Services\ThumbnailManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -18,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 
 class PostsController extends Controller
 {
-    use ThumbnailManager, PostContentUrlValidator;
+    use PostContentUrlValidator;
 
     /**
      * Display a listing of the resource.
@@ -61,7 +60,6 @@ class PostsController extends Controller
         DB::beginTransaction();
         try {
             $data = $this->getValidatedData($request);
-            $data['thumbnail_path'] = $this->storeThumbnail($request);
             $post = Post::create($data);
 
             $this->saveCategories($request, $post);
@@ -169,8 +167,7 @@ class PostsController extends Controller
     public function updateImage(ImageRequest $request, Post $post)
     {
         if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){
-            $this->deleteThumbnail($post);
-            $post->thumbnail_path = $this->storeThumbnail($request);
+            $post->thumbnail_path = $request->thumbnail_path;
             $post->update();
 
             return redirect()->back()->withSuccess('admin.thumbnail.update');
@@ -187,7 +184,6 @@ class PostsController extends Controller
     public function destroyImage(Post $post)
     {
         if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){
-            $this->deleteThumbnail($post);
             $post->thumbnail_path = null;
             $post->update();
 
@@ -212,7 +208,7 @@ class PostsController extends Controller
             unset($data['publish_at_date']);
             unset($data['publish_at_time']);
         }
-        unset($data['content'], $data['thumbnail'], $data['categories']);
+        unset($data['content'], $data['categories']);
         return $data;
     }
 

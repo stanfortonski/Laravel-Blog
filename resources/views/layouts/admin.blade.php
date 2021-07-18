@@ -13,7 +13,6 @@
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/admin.js') }}" defer></script>
-    @stack('scripts')
 
     <link rel="icon shortcut" href="{{ asset('favicon.ico') }}">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -50,6 +49,12 @@
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link" href="{{ route('admin.categories.index') }}">
                         <i class="mr-3 fas fa-book"></i> {{ __('Categories') }}
+                    </a>
+                </li>
+
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" href="{{ route('admin.files-manager') }}">
+                        <i class="mr-3 fas fa-folder-open"></i> {{ __('Files Manager') }}
                     </a>
                 </li>
             </ul>
@@ -105,6 +110,7 @@
 
             @include('components.noscript')
             @include('layouts.parts.footer-admin')
+            @stack('scripts')
         </div>
     </div>
 </body>

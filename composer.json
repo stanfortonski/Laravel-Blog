@@ -19,11 +19,13 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.6",
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "spatie/laravel-feed": "^2.7",
-        "stanfortonski/laravel-roles": "^3.1"
+        "stanfortonski/laravel-roles": "^3.1",
+        "unisharp/laravel-filemanager": "^2.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

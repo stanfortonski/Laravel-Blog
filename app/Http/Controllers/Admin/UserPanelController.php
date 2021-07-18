@@ -11,7 +11,6 @@ use App\Rules\Name;
 use App\Http\Requests\ImageRequest;
 use App\Rules\IsLang;
 use App\Rules\RealName;
-use App\Services\ThumbnailManager;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +20,6 @@ use Illuminate\Validation\Rule;
 
 class UserPanelController extends Controller
 {
-    use ThumbnailManager;
-
     public function index()
     {
         return view('admin.user-panel.index')->with('user', auth()->user());
@@ -113,8 +110,7 @@ class UserPanelController extends Controller
     public function updateImage(ImageRequest $request)
     {
         $user = auth()->user();
-        $this->deleteThumbnail($user);
-        $user->thumbnail_path = $this->storeThumbnail($request);
+        $user->thumbnail_path = $request->thumbnail_path;
         $user->update();
 
         return redirect()->back()->withSuccess('admin.thumbnail.update');
@@ -128,7 +124,6 @@ class UserPanelController extends Controller
     public function destroyImage()
     {
         $user = auth()->user();
-        $this->deleteThumbnail($user);
         $user->thumbnail_path = null;
         $user->update();
 

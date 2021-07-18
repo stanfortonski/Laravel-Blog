@@ -23,7 +23,11 @@ Route::group([
     Route::middleware('auth')->group(function(){
         Route::get('/', 'AdminController@index')->name('index');
 
-        Route::post('/upload', 'TinymceImageController@store')->name('upload');
+        Route::get('/files-manager', 'AdminController@filesManager')->name('files-manager');
+
+        Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function(){
+            \UniSharp\LaravelFilemanager\Lfm::routes();
+        });
 
         Route::put('/posts/{post}/image', 'PostsController@updateImage')->name('posts.image.update');
         Route::delete('/posts/{post}/image', 'PostsController@destroyImage')->name('posts.image.destroy');

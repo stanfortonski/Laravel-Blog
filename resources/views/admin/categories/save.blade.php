@@ -108,28 +108,29 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">{{ __('Upload new thumbnail') }}</button>
+                                    <button type="submit" class="btn btn-danger">{{ __('Delete exists thumbnail') }}</button>
                                 </div>
                             </form>
                         </div>
 
-                        @if(!empty($category->thumbnail_path))
-                            <div class="col-md-4">
-                                <form action="{{ route('admin.categories.image.destroy', $category->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
+                        <div class="col-md-4">
+                            <div id="holder">
+                                @if(!empty($category->thumbnail_path))
+                                    <form action="{{ route('admin.categories.image.destroy', $category->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
 
-                                    <div class="form-group">
-                                        <span>{{ __('Current') }}</span>
-                                        <img class="img-fluid my-1" src="{{ $category->thumbnail }}" alt="{{ $content->title }}">
-                                    </div>
+                                        <div class="form-group">
+                                            <img class="img-fluid my-1" src="{{ $category->thumbnail }}" alt="{{ $content->title }}">
+                                        </div>
 
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-danger">{{ __('Delete exists thumbnail') }}</button>
-                                    </div>
-                                </form>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">{{ __('Set thumbnail') }}</button>
+                                        </div>
+                                    </form>
+                                @endif
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -161,5 +162,8 @@
 @endsection
 
 @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="{{ asset('js/close.js') }}"></script>
+    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
+    <script>$('#lfm').filemanager('image');</script>
 @endpush

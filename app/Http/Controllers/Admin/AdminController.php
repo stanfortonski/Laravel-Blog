@@ -19,6 +19,11 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    public function filesManager()
+    {
+        return view('admin.files-manager');
+    }
+
     public function setLang($lang)
     {
         Cookie::queue('lang', $lang);
