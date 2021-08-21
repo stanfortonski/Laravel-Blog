@@ -6,7 +6,7 @@ class Helper
 {
     static public function stripTags(string $str): string
     {
-        return strip_tags($str, '<h1><h2><h3><h4><h5><h6><p><br><b><i><strong><mark><a><span><div><li><ul><ol><table><thead><td><tr><th><tbody><tfoot><blockquote><section><code><pre><aside><figure><img>');
+        return strip_tags($str, '<h1><h2><h3><h4><h5><h6><p><br><b><i><strong><mark><a><span><div><li><ul><ol><table><thead><td><tr><th><tbody><tfoot><blockquote><section><code><pre><aside><figure><img><iframe>');
     }
 
     static public function properUrl(string $str){
