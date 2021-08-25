@@ -22,7 +22,10 @@ class UserPanelController extends Controller
 {
     public function index()
     {
-        return view('admin.user-panel.index')->with('user', auth()->user());
+        return view('admin.user-panel.index')->with([
+            'user' => auth()->user(),
+            'content' => auth()->user()->content()->first()
+        ]);
     }
 
     /**

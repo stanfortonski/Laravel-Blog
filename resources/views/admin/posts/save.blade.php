@@ -57,7 +57,7 @@
                         <label for="url">{{ __('url') }}*</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">{{ route('index', app()->getLocale()) }}/{{app()->getLocale()}}/posts/</span>
+                                <span class="input-group-text">{{ route('index', app()->getLocale()) }}/posts/</span>
                             </div>
                             <input type="text" id="url" name="content[url]" class="form-control @error('content.url') is-invalid @enderror" value="{{ $content->url ?? old('content.url') }}" required>
                             @error('content.url')
