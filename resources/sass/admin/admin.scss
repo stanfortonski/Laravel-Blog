@@ -2,6 +2,11 @@
 @import 'custom-coreui';
 @import 'components';
 
+//hotfix
+.c-wrapper:not(.c-wrapper-fluid) .c-body{
+    display: block !important;
+}
+
 label::first-letter, th[scope="col"]::first-letter{
     text-transform: uppercase;
 }
