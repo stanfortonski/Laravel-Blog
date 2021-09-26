@@ -7,23 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 class Title implements Rule
 {
     /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Determine if the validation rule passes.
      *
      * @param  string  $attribute
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         return preg_match('/^([^\\`\"\'\^\/\[\]\{\}\(\)]*)$/', $value);
     }
@@ -33,7 +23,7 @@ class Title implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return __('validation.custom.preg');
     }

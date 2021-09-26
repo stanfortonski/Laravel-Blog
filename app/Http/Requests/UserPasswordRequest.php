@@ -12,12 +12,12 @@ class UserPasswordRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'password' => __('Password')
@@ -29,7 +29,7 @@ class UserPasswordRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'password' => ['required', 'string', new Password, 'confirmed']

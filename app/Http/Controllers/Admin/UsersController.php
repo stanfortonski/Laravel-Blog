@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 use Stanfortonski\Laravelroles\Models\Role;
 
 class UsersController extends Controller
@@ -23,9 +24,9 @@ class UsersController extends Controller
      * Display a listing of the resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $users = User::with('roles')->search($request->q)->paginate(config('blog.pagination'))->withQueryString();
         return view('admin.users.index')->with([
@@ -37,9 +38,9 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.users.save');
     }
@@ -48,7 +49,7 @@ class UsersController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Requests\UserStoreRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserStoreRequest $request)
     {
@@ -81,9 +82,9 @@ class UsersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         return view('admin.users.save')->with([
             'user' =>  $user,
@@ -96,7 +97,7 @@ class UsersController extends Controller
      *
      * @param  \App\Requests\UserStoreRequest  $request
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UserStoreRequest $request, User $user)
     {
@@ -133,7 +134,7 @@ class UsersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(User $user)
     {
@@ -146,7 +147,7 @@ class UsersController extends Controller
      *
      * @param  \App\Http\Requests\ImageRequest   $request
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateImage(ImageRequest $request, User $user)
     {
@@ -161,7 +162,7 @@ class UsersController extends Controller
      *
      * @param  \App\Http\Requests\ImageRequest   $request
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroyImage(User $user)
     {
@@ -194,7 +195,7 @@ class UsersController extends Controller
      * @param  \App\Models\User  $user
      * @return void
      */
-    private function saveRoles(UserStoreRequest $request, User $user)
+    private function saveRoles(UserStoreRequest $request, User $user): void
     {
         $user->clearRoles();
         if (!empty($request->roles)){

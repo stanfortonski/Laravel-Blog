@@ -13,7 +13,6 @@ class PostsController extends Controller
      * Display a listing of the resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
@@ -25,9 +24,9 @@ class PostsController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\PostResource
      */
-    public function show(Post $post)
+    public function show(Post $post): PostResource
     {
         if ($post->isVisible() && !empty($post->contents))
             return new PostResource($post);

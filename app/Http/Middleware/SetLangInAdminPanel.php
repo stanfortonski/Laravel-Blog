@@ -26,7 +26,7 @@ class SetLangInAdminPanel
         return $next($request);
     }
 
-    static public function setLang($lang)
+    static public function setLang(string $lang)
     {
         Cookie::queue('lang', $lang);
         app()->setLocale($lang);

@@ -11,7 +11,7 @@ class ImageRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class ImageRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'thumbnail_path' => __('thumbnail')
@@ -33,7 +33,7 @@ class ImageRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'thumbnail_path' => ['nullable', 'string', 'max:255'],

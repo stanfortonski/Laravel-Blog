@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 
 class PostsController extends Controller
 {
@@ -23,9 +24,9 @@ class PostsController extends Controller
      * Display a listing of the resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $posts = Post::with(['author', 'categories', 'content'])->orderBy('id', 'desc')->search($request->q)->paginate(config('blog.pagination'))->withQueryString();
         return view('admin.posts.index')->with([
@@ -37,9 +38,9 @@ class PostsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.posts.save');
     }
@@ -48,7 +49,7 @@ class PostsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Requests\PostStoreRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(PostStoreRequest $request)
     {
@@ -81,9 +82,9 @@ class PostsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function edit(Post $post)
+    public function edit(Post $post): View
     {
         if ($post->user_id == auth()->user()->id || auth()->user()->hasOneOfRoles(['admin', 'mod'])){
             return view('admin.posts.save')->with([
@@ -99,7 +100,7 @@ class PostsController extends Controller
      *
      * @param  \App\Requests\PostStoreRequest  $request
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(PostStoreRequest $request, Post $post)
     {
@@ -146,7 +147,7 @@ class PostsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Post $post)
     {
@@ -162,7 +163,7 @@ class PostsController extends Controller
      *
      * @param  \App\Http\Requests\ImageRequest   $request
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateImage(ImageRequest $request, Post $post)
     {
@@ -179,7 +180,7 @@ class PostsController extends Controller
      * Remove the thumbnail from storage.
      *
      * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroyImage(Post $post)
     {
@@ -219,7 +220,7 @@ class PostsController extends Controller
      * @param  \App\Models\Post  $post
      * @return void
      */
-    private function saveCategories(PostStoreRequest $request, Post $post)
+    private function saveCategories(PostStoreRequest $request, Post $post): void
     {
         DB::table('posts_of_categories')->where('post_id', '=', $post->id)->delete();
         if (!empty($request->categories)){

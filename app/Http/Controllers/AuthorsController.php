@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\View\View;
 
 class AuthorsController extends Controller
 {
@@ -11,9 +12,9 @@ class AuthorsController extends Controller
      *
      * @param  string  $lang
      * @param  string  $url
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function __invoke($lang, $url)
+    public function __invoke(string $lang, string $url): View
     {
         $user = User::findOrFailByUrl($url);
         return view('app.'.config('blog.theme').'.author')->with([

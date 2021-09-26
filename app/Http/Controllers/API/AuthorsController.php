@@ -12,9 +12,9 @@ class AuthorsController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\User $user
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\UserResource
      */
-    public function __invoke(User $user)
+    public function __invoke(User $user): UserResource
     {
         return new UserResource($user);
     }

@@ -13,7 +13,6 @@ class CategoriesController extends Controller
      * Display a listing of the resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
@@ -25,9 +24,9 @@ class CategoriesController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\CategoryResource
      */
-    public function show(Category $category)
+    public function show(Category $category): CategoryResource
     {
         if (!empty($category->contents))
             return new CategoryResource($category);

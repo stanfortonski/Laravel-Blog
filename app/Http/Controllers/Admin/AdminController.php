@@ -3,28 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * Handle the admin index page.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(): View
     {
         return view('admin.index');
     }
 
-    public function filesManager()
+    /**
+     * Handle the file manager page.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function filesManager(): View
     {
         return view('admin.files-manager');
     }
 
-    public function setLang($lang)
+    /**
+     * Handle the change lang method
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function setLang(string $lang)
     {
         Cookie::queue('lang', $lang);
         return redirect()->back();

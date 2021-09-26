@@ -7,16 +7,27 @@ use App\Models\Content;
 use App\Models\Post;
 use App\Models\PostContent;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 class ContentController extends Controller
 {
+    /**
+     * Delete content of category
+     *
+     * @param  \App\Models\Content  $content
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteCategoryContent(Content $content)
     {
         $content->delete();
         return redirect()->back()->withSuccess(__('This language data has been deleted.'));
     }
 
+    /**
+     * Delete content of post
+     *
+     * @param  \App\Models\PostContent  $content
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deletePostContent(PostContent $postContent)
     {
         $result = DB::select('select post_id from contents_of_posts where content_id = ?', [$postContent->id]);

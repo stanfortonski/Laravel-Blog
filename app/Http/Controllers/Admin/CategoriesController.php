@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 
 class CategoriesController extends Controller
 {
@@ -22,9 +23,9 @@ class CategoriesController extends Controller
      * Display a listing of the resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $categories = Category::with('content')->search($request->q)->paginate(config('blog.pagination'))->withQueryString();
         return view('admin.categories.index')->with([
@@ -36,9 +37,9 @@ class CategoriesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.categories.save');
     }
@@ -47,7 +48,7 @@ class CategoriesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Requests\CategoryStoreRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CategoryStoreRequest $request)
     {
@@ -78,9 +79,9 @@ class CategoriesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function edit(Category $category)
+    public function edit(Category $category): View
     {
         return view('admin.categories.save')->with([
             'category' => $category,
@@ -93,7 +94,7 @@ class CategoriesController extends Controller
      *
      * @param  \App\Requests\CategoryStoreRequest  $request
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(CategoryStoreRequest $request, Category $category)
     {
@@ -135,7 +136,7 @@ class CategoriesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Category $category)
     {
@@ -148,7 +149,7 @@ class CategoriesController extends Controller
      *
      * @param  \App\Http\Requests\ImageRequest   $request
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateImage(ImageRequest $request, Category $category)
     {
@@ -162,7 +163,7 @@ class CategoriesController extends Controller
      * Remove the thumbnail from storage.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroyImage(Category $category)
     {

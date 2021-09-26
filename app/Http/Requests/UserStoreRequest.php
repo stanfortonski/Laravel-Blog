@@ -15,12 +15,12 @@ class UserStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'lang' => __('lang'),
@@ -40,7 +40,7 @@ class UserStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'lang' => ['required', 'string', new IsLang],

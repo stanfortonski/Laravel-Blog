@@ -8,11 +8,13 @@ trait CategoryContentUrlValidator
 {
     use ContentUrlValidator;
 
-    public function validateContentUrlWithoutOne($request, $content){
+    public function validateContentUrlWithoutOne($request, $content)
+    {
         return $this->baseValidateContentUrlWithoutOne(Content::class, $request, $content);
     }
 
-    public function validateContentUrl($request){
+    public function validateContentUrl($request)
+    {
         return $this->baseValidateContentUrl(Content::class, $request);
     }
 }

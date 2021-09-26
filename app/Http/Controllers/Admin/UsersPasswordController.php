@@ -13,7 +13,7 @@ class UsersPasswordController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Requests\UserPasswordRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function __invoke(UserPasswordRequest $request, User $user)
     {

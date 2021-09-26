@@ -17,10 +17,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class UserPanelController extends Controller
 {
-    public function index()
+    /**
+     * Handle the user panel view
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
+    public function index(): View
     {
         return view('admin.user-panel.index')->with([
             'user' => auth()->user(),
@@ -32,7 +39,7 @@ class UserPanelController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
     {
@@ -60,7 +67,6 @@ class UserPanelController extends Controller
 
         DB::beginTransaction();
         try {
-
             $user->update([
                 'email' => $request->email,
                 'name' => $request->name,
@@ -93,7 +99,7 @@ class UserPanelController extends Controller
      * Update the password resource in storage.
      *
      * @param  \App\Http\Requests\UserPasswordRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updatePassword(UserPasswordRequest $request)
     {
@@ -108,7 +114,7 @@ class UserPanelController extends Controller
      * Changes the thumbnail in storage.
      *
      * @param  \App\Http\Requests\ImageRequest   $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateImage(ImageRequest $request)
     {
@@ -122,7 +128,7 @@ class UserPanelController extends Controller
     /**
      * Remove the thumbnail from storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroyImage()
     {

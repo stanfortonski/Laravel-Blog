@@ -12,7 +12,7 @@ class CategoryObserver
      * @param  \App\Models\Category  $category
      * @return void
      */
-    public function created(Category $category)
+    public function created(Category $category): void
     {
         //
     }
@@ -23,7 +23,7 @@ class CategoryObserver
      * @param  \App\Models\Category  $category
      * @return void
      */
-    public function updated(Category $category)
+    public function updated(Category $category): void
     {
         //
     }
@@ -34,7 +34,7 @@ class CategoryObserver
      * @param  \App\Models\Category  $category
      * @return void
      */
-    public function deleting(Category $category)
+    public function deleting(Category $category): void
     {
         $category->contents()->delete();
     }
@@ -45,7 +45,7 @@ class CategoryObserver
      * @param  \App\Models\Category  $category
      * @return void
      */
-    public function deleted(Category $category)
+    public function deleted(Category $category): void
     {
        //
     }
@@ -56,7 +56,7 @@ class CategoryObserver
      * @param  \App\Models\Category  $category
      * @return void
      */
-    public function restored(Category $category)
+    public function restored(Category $category): void
     {
         //
     }
@@ -67,7 +67,7 @@ class CategoryObserver
      * @param  \App\Models\Category  $category
      * @return void
      */
-    public function forceDeleted(Category $category)
+    public function forceDeleted(Category $category): void
     {
         //
     }
